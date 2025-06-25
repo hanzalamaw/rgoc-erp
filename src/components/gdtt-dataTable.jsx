@@ -6,7 +6,7 @@ function dataTable(props){
 
     useEffect(() => {
         async function fetchData() {
-        const res = await fetch(`http://localhost:5000/api/bookings/${props.status}`);
+        const res = await fetch(`https://pure-adventure-production.up.railway.app/api/bookings/${props.status}`);
         let data = await res.json();
 
         // Filtering logic
@@ -122,7 +122,7 @@ function dataTable(props){
             // Bind delete logic
             row.querySelector('.delete-btn').addEventListener('click', () => {
                 if (window.confirm("Are you sure you want to delete this order?")) {
-                    fetch('/api/bookings/delete', {
+                    fetch('https://pure-adventure-production.up.railway.app/api/bookings/delete', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -147,7 +147,7 @@ function dataTable(props){
                     if (el) payload[field] = el.value;
             });
 
-            fetch('/api/bookings/edit', {
+            fetch('https://pure-adventure-production.up.railway.app/api/bookings/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: new URLSearchParams(payload).toString()

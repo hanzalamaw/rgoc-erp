@@ -10,10 +10,10 @@ function leadsStats(props){
 
     useEffect(() => {
     async function fetchData() {
-        const resConfirmed = await fetch('http://localhost:5000/api/bookings/confirmed');
+        const resConfirmed = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed');
         let confirmedData = await resConfirmed.json();
 
-        const resLeads = await fetch('http://localhost:5000/api/bookings/leads');
+        const resLeads = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads');
         let leadsData = await resLeads.json();
 
         if (props.filter === "current") {

@@ -17,7 +17,7 @@ function generalStats(props){
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch('http://localhost:5000/api/bookings/confirmed');
+            const res = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed');
             let data = await res.json();
 
             setConfirmedBookings(data); // Optional if you still want to store raw data

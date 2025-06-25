@@ -23,8 +23,8 @@ function teamPerformance(props){
     useEffect(() => {
         async function getTeamPerformanceData() {
             const [bookedRes, leadsRes] = await Promise.all([
-                fetch('http://localhost:5000/api/bookings/confirmed'),
-                fetch('http://localhost:5000/api/bookings/leads')
+                fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed'),
+                fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads')
             ]);
 
             let bookedData = await bookedRes.json();
