@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://rgoc-erp-production.up.railway.app',
+        target: 'https://pure-adventure-production.up.railway.app',
         changeOrigin: true,
         secure: false,
         // If your backend expects "/login" instead of "/api/login", uncomment below:
