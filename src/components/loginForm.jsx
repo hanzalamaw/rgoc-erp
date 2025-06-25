@@ -38,7 +38,7 @@ function LoginForm() {
 
     updateGuestPassword(password);
 
-    fetch('http://localhost:5000/api/login', {
+    fetch('https://rgoc-erp-production.up.railway.app/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -98,7 +98,7 @@ function LoginForm() {
   }
   
   async function updateGuestPassword(password) {
-    const res = await fetch('http://localhost:5000/api/guest-password', {
+    const res = await fetch('https://rgoc-erp-production.up.railway.app/api/guest-password', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
