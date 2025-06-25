@@ -30,8 +30,9 @@ const db = await mysql.createConnection({
   password: '',
   database: 'rgoc-erp'*/ 
   host: 'mysql.railway.internal',
+  port: 3306,
   user: 'root',
-  password: 'BpnYKkUcGMXKivIEyqxUQaiDNIJKAudt',
+  password: 'PZzRVAccLfqSMvMsYmKNcQqynbblzUhi',
   database: 'railway'
 });
 
