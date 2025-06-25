@@ -17,6 +17,11 @@ console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
 const app = express();
 app.use(express.urlencoded({ extended: true })); // ✅ required for form data
 app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 const db = await mysql.createConnection({
