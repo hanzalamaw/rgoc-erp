@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // now load .env properly
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config();
 
 console.log("🧪 TEST_KEY:", process.env.TEST_KEY);
 console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
@@ -29,8 +29,8 @@ const db = await mysql.createConnection({
   user: 'root',
   password: '',
   database: 'rgoc-erp'*/ 
-  host: 'mysql.railway.internal',
-  port: 3306,
+  host: 'shuttle.proxy.rlwy.net',
+  port: 28987,
   user: 'root',
   password: 'PZzRVAccLfqSMvMsYmKNcQqynbblzUhi',
   database: 'railway'
