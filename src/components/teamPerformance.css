@@ -1,0 +1,47 @@
+.teamPerformance{
+    width: 51.3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#performanceTable tr{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    width: 100%;
+}
+
+table{
+    width: 100%;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 1rem;
+    border-collapse: collapse;
+}
+
+#performanceTable thead tr, #performanceTable thead tr th{
+    background: #323232;
+    text-align: left;
+    font-weight: 500;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+}
+
+#performanceTable tbody tr, #performanceTable tbody tr td{
+    background: #454545;
+    text-align: left;
+}
+
+#performanceTable th,
+#performanceTable td {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 14px;
+    text-align: left;
+}
+
+#performanceTable tr {
+    border-bottom: 1px solid #eeeeeeaf;
+}

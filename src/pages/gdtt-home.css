@@ -1,0 +1,51 @@
+.wholePage{
+    color: white !important;
+    display: grid;
+    grid-template-columns: 17% 85%;
+    overflow-x: hidden;
+}
+
+.filtersSection{
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #2C2C2C;
+}
+
+.filtersSection p{
+    background-color: #2C2C2C;
+    padding: 1rem 20.1%; /* Add some space inside the button/tab */
+    border-radius: 6px;      /* Optional: make it look like a button/tab */
+    color: white;
+    cursor: pointer;
+}
+
+.selected{
+    background-color: #1A3C54 !important;
+    border-bottom: 0.3rem solid #0D99FF;
+}
+
+.generalStats{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 768px){
+    .wholePage {
+        display: block;               /* ✅ Use block on smaller screens */
+        width: 100vw;                 /* ✅ Full viewport width */
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+    }
+    
+    .filtersSection{
+        display: none;
+    }
+}

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+ 
+#orderForm {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 90%;
+}
+
+#inputSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.checkbox-section {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0.5rem 0.8rem;
+    padding-left: 0rem;
+}
+
+#inputSection label {
+    font-size: 0.8rem;
+}
+
+#inputSection input, #inputSection select {
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+    border: 0.1rem solid rgba(255, 255, 255, 0.356);
+}
+
+#inputSection option {
+    border-radius: 0px;
+}
+
+#inputSection input:focus, #inputSection select:focus {
+    outline: none;
+    border: 0.1rem solid #166ba8;
+    box-shadow: 0 0 6px 2px #1a3c548f;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#submit {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+#submit button{
+    background-color: #5a3cf7;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.5rem;
+    width: 50%;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        margin: 1rem 2rem;
+    }
+
+    #orderForm {
+        grid-template-columns: 1fr;
+    }
+
+    .checkbox-section {
+        font-size: 0.8rem;
+    }
+
+    #submit button {
+        width: 100%;
+    }
+}

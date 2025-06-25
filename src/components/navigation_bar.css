@@ -1,0 +1,96 @@
+.navBar{
+  color: white !important;
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
+  height: 100vh;
+  width: 18%;
+  overflow: hidden;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  font-size: 0.8rem;
+  border-right: 0.15rem solid rgba(255, 255, 255, 0.151);
+}
+
+.navBar, .navContent, .navSection, .navSection a, .navSection p, .navBar p, .navBar h3{
+  background-color: #242424;
+}
+
+a{
+  text-decoration: none;
+}
+
+.navContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 1.5rem;               
+}
+
+.navSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+  width: 80%;
+  padding: 0.76863rem 1.08144rem 0.80975rem 0.80975rem;
+  border-radius: 0.41594rem;
+  background: #282828;
+}
+
+.navSection a {
+  text-decoration: none;
+  color: white; 
+  background: #282828;
+}
+
+.navSection p {
+  margin: 0;
+  background: #282828;
+}
+
+.active{
+  padding: 0.76863rem 1.08144rem 0.80975rem 0.80975rem;
+  border-radius: 0.41594rem;
+  background: #1A3C54;
+}
+
+.active a, .active p{
+  background-color: #1A3C54; 
+}
+
+.profile{
+  background-color: #242424;
+  margin-bottom: 20%;
+}
+
+.profile-content h3{
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.profile-content p{
+  font-size: 0.7rem;
+}
+
+.logoutBtn{
+  margin-top: 0.5rem;
+  padding: 0.2rem 4.5rem;
+  background: rgba(195, 7, 48, 0.418);
+  border: none;
+  border: 0.1rem solid #C30730;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+@media (max-width: 768px){
+  .navBar{
+    display: none;
+  }
+}

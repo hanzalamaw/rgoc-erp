@@ -1,0 +1,18 @@
+.splitter-text{
+    display: flex;
+    flex: 1 1 48px;
+    width: 85%;
+    height: 3.3125rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.9375rem;
+    border: 1px solid rgba(201, 201, 201, 0.72);
+    background: rgba(68, 68, 68, 0.37);
+    font-size: 1.4rem;
+}
+
+@media (max-width: 768px){
+    .splitter-text{
+        max-width: 25rem;
+    }
+}

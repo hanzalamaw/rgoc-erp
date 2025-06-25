@@ -1,0 +1,113 @@
+/* @vite-ignore */
+#userLogin{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+    gap: 1.5rem;
+}
+
+.inputSection{
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.inputSection input{
+    background-color: #444;
+    width: 35.49375rem;
+}
+
+.loginBtn{
+    background: #5932EA;
+}
+
+.guestBtn{
+    background: #14A351;
+}
+
+.inputButtonSection{
+    display: flex;
+    gap: 1rem;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  background-color: #1E1E1E;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.loginBtn, .guestBtn{
+  padding: 0.6875rem 7.125rem;
+  border-radius: 0.5625rem;
+  width: 18.4375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+input{
+  padding: 0.6875rem 1.1875rem;
+  border-radius: 0.5625rem;
+  outline: none;
+  border: none;
+}
+
+input:focus{
+  border: 0.1rem solid rgba(255, 255, 255, 0.486);
+}
+
+#companySelect {
+  margin-top: 2rem;
+  display: none;
+  flex-direction: column;
+  align-items: center; 
+  gap: 1rem;
+}
+
+.upperLogo {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.lowerLogo {
+  display: flex;
+  justify-content: center;
+}
+.upperLogo img,
+.lowerLogo img {
+  width: 21rem;
+  height: 5.25rem;
+  object-fit: contain;
+}
+
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.statusMsg {
+  width: 100%;
+  display: none;
+  justify-content: center;
+}
+
+.statusMsg p {
+  color: #a7c912;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+}
