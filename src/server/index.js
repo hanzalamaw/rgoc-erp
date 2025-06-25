@@ -24,10 +24,10 @@ const db = await mysql.createConnection({
   user: 'root',
   password: '',
   database: 'rgoc-erp'*/ 
-  host: 'webhouseinc.co',
-  user: 'webhngff_hanzalamaw',
-  password: 'Hanzala1234!',
-  database: 'webhngff_rgoc-erp'
+  host: 'mysql.railway.internal',
+  user: 'root',
+  password: 'BpnYKkUcGMXKivIEyqxUQaiDNIJKAudt',
+  database: 'railway'
 });
 
 // 🔐 Login route
