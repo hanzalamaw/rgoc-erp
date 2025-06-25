@@ -1,12 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'https://rgoc-erp-production.up.railway.app/'
+      '/api': {
+        target: 'https://rgoc-erp-production.up.railway.app',
+        changeOrigin: true,
+        secure: false,
+        // If your backend expects "/login" instead of "/api/login", uncomment below:
+        // rewrite: path => path.replace(/^\/api/, '')
+      }
     }
   }
 })
