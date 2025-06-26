@@ -152,7 +152,7 @@ function inputForm(){
     };
 
     useEffect(() => {
-        const infant = 0;
+        const infants = 0;
         const infant_price = 0;
         const type = `Umrah`;
         const group = `JULY 2025`;
@@ -168,7 +168,7 @@ function inputForm(){
 
         setForm(prev => ({
             ...prev,
-            infant,
+            infants,
             infant_price,
             type,
             group,
