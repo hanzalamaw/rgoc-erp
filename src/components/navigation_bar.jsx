@@ -38,7 +38,6 @@ function navigation_bar(props) {
         if (dash) expenses.style.display = "none";
         if (dash) transactions.style.display = "none";
         if (dash) newBooking.style.display = "none";
-        if (dash) newQuerry.style.display = "none";
         navigate('/gdtt-bookingManage');
         break;
     }

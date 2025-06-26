@@ -2,10 +2,14 @@ import './loginForm.css';
 import webhouse from '../assets/webhouse-logo.png';
 import gdtt from '../assets/gdtt-logo.png';
 import twf from '../assets/twf-logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { getUser } from '../utils/auth';
 
 function LoginForm() {
+  
+  const navigate = useNavigate();
+  
   useEffect(() => {
     // Fade-in logic
     const sections = document.querySelectorAll(".fade-in-section");
@@ -111,6 +115,15 @@ function LoginForm() {
     console.log(data.message || data.error);
   }
 
+  const checkAccess = () => {
+    if(!(getUser()?.gdtt == "none")){
+      navigate('/gdtt-home');  
+    } 
+    else {
+      window.alert("You Don't Have Access to GDTT's CRM!");
+    }
+  }
+
   return (
     <>
       <form id='userLogin' onSubmit={handleLogin} className='fade-in-section'>
@@ -149,7 +162,7 @@ function LoginForm() {
       <div id='companySelect' style={{ display: 'none' }} className='fade-in-section'>
         <div className='upperLogo'>
           <img src={webhouse} alt="Webhouse Logo" id='webhouse' />
-          <Link to="/gdtt-home"><img src={gdtt} alt="GDTT Logo" id='gdtt' /></Link>
+          <img onClick={() => {checkAccess();}} src={gdtt} alt="GDTT Logo" id='gdtt' />
         </div>
 
         <div className='lowerLogo'>
