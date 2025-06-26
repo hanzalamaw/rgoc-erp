@@ -53,7 +53,7 @@ function inputForm(){
 
 
     async function generateIDs() {
-        const res = await fetch("/api/bookings/all");
+        const res = await fetch("https://pure-adventure-production.up.railway.app/api/bookings/all");
         const data = await res.json();
 
          const contact = document.getElementById("contact").value.trim();
@@ -123,7 +123,7 @@ function inputForm(){
 
         try {
         console.log("Form data before sending:", form);
-        const res = await fetch("http://localhost:5000/api/bookings/addGDTTBookings", {
+        const res = await fetch("https://pure-adventure-production.up.railway.app/api/bookings/addGDTTBookings", {
             method: "POST",
             headers: {
             "Content-Type": "application/json"
