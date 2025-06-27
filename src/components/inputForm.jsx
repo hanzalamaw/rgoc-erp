@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 function inputForm(){
 
     const [form, setForm] = useState({
+        id: "",
         customer_id: "",
         booking_id: "",
         booking_date: "",
@@ -43,8 +44,11 @@ function inputForm(){
         document.getElementById("received").value = received;
         document.getElementById("pending").value = total_price - received;
 
+        let id = 2;
+
         setForm(prev => ({
             ...prev,
+            id,
             total_price,
             received,
             pending

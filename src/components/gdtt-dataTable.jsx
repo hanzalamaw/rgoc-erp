@@ -6,7 +6,7 @@ function dataTable(props){
 
     useEffect(() => {
         async function fetchData() {
-        const res = await fetch(`https://pure-adventure-production.up.railway.app/api/bookings/${props.status}`);
+        const res = await fetch(`https://pure-adventure-production.up.railway.app/api/bookings/confirmed`);
         let data = await res.json();
 
         // Filtering logic
