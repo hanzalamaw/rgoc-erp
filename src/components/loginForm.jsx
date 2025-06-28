@@ -55,7 +55,12 @@ function LoginForm() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user)); // store user
         document.getElementById("userLogin").style.display = 'none';
-        document.getElementById("companySelect").style.display = 'flex';
+        if(getUser()?.access_level == 'none'){
+          document.getElementById("Guidelines").style.display = 'flex';
+        } else {
+          document.getElementById("Guidelines").style.display = 'none';
+          document.getElementById("companySelect").style.display = 'flex';
+        }
       })
       .catch(err => {
         console.error(err);
@@ -64,6 +69,11 @@ function LoginForm() {
         document.getElementById("message").style.color = "#e20636";
         document.getElementById("message").textContent=`Invalid Credentials!`;
       });
+  }
+
+  function proceed() {
+    document.getElementById("Guidelines").style.display = 'none';
+    document.getElementById("companySelect").style.display = 'flex';
   }
 
   const guestLogin = () => {
@@ -168,6 +178,19 @@ function LoginForm() {
         <div className='lowerLogo'>
           <img src={twf} alt="TWF Logo" id='twf' />
         </div>
+      </div>
+
+      <div id='Guidelines' className='fade-in-section'>
+        <h2>ERP Access & Usage Policy Overview</h2>
+        <ul>
+          <li>This ERP system supports multiple companies under RGOC; please ensure you're operating under the correct company context.</li>
+          <li>Your access is role-based and limited to only the modules and data you are authorized to view or manage.</li>
+          <li>All changes are saved in real-time and may impact workflows, reports, and other users.</li>
+          <li>You are responsible for any action taken under your account.</li>
+          <li>Unauthorized access, misuse of data, or intentional data manipulation will result in disciplinary action.</li>
+          <li>By proceeding, you acknowledge and agree to follow RGOC's ERP usage policies and data confidentiality standards.</li>
+        </ul>
+        <button onClick={proceed}>I Accept!</button>
       </div>
     </>
   );

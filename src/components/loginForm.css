@@ -111,3 +111,31 @@ input:focus{
   font-size: 1rem;
   font-weight: 500;
 }
+
+#Guidelines{
+  width: 60%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+ul{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#Guidelines button{
+  background-color: #5932EA;
+  color: white !important;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+  width: 100%;
+  cursor: pointer;
+  font-size: 01rem;
+}
