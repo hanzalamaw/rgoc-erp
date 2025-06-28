@@ -1,48 +1,54 @@
 import './navigation_bar.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 import { getToken, getUser } from '../utils/auth'
 
 function navigation_bar(props) {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  let hasRun = useRef(false);
 
-  useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      navigate('/');
-      return;
-    }
+useEffect(() => {
 
-    const dash = document.getElementById("dashboard");
-    const expenses = document.getElementById("expenses");
-    const transactions = document.getElementById("transactions");
-    const newBooking = document.getElementById("gdtt-newBooking");
-    const newQuerry = document.getElementById("gdtt-newQuerry");
+  const token = getToken();
+  if (!token) {
+    navigate('/');
+    return;
+  }
 
-    switch(getUser()?.gdtt){
-      case "staff+":
-        if (dash) dash.style.display = "none";
+  const dash = document.getElementById("dashboard");
+  const expenses = document.getElementById("expenses");
+  const transactions = document.getElementById("transactions");
+  const newBooking = document.getElementById("gdtt-newBooking");
+  const newQuerry = document.getElementById("gdtt-newQuerry");
+
+  const role = getUser()?.gdtt;
+
+  switch (role) {
+    case "staff+":
+      if (dash) dash.style.display = "none";
+      if(!(hasRun)){
         navigate('/gdtt-newBooking');
-        break;
+      }
+      break;
 
-      case "staff":
-        if (dash) dash.style.display = "none";
-        if (dash) expenses.style.display = "none";
-        if (dash) transactions.style.display = "none";
-        navigate('/gdtt-newBooking');
-        break;
+    case "staff":
+      if (dash) dash.style.display = "none";
+      if (expenses) expenses.style.display = "none";
+      if (transactions) transactions.style.display = "none";
+      navigate('/gdtt-newBooking');
+      break;
 
-      case "guest":
-        if (dash) dash.style.display = "none";
-        if (dash) expenses.style.display = "none";
-        if (dash) transactions.style.display = "none";
-        if (dash) newBooking.style.display = "none";
-        navigate('/gdtt-bookingManage');
-        break;
-    }
+    case "guest":
+      if (dash) dash.style.display = "none";
+      if (expenses) expenses.style.display = "none";
+      if (transactions) transactions.style.display = "none";
+      if (newBooking) newBooking.style.display = "none";
+      navigate('/gdtt-bookingManage');
+      break;
+  }
+}, []);
 
-  }, []);
 
   const logout = () => {
     localStorage.clear();
