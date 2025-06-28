@@ -16,7 +16,7 @@ function leadsStats(props){
         const resLeads = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads');
         let leadsData = await resLeads.json();
 
-        if (props.filter === "current") {
+        if (props.filter != "all") {
             leadsData = leadsData.filter(row => row.group === props.currentCampaign);
             confirmedData = confirmedData.filter(row => row.group === props.currentCampaign);
         }

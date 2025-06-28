@@ -31,7 +31,7 @@ function teamPerformance(props){
             let leadsData = await leadsRes.json();
 
             // 🔄 Filter by campaign if needed
-            if (props.filter === "current") {
+            if (props.filter != "all") {
                 bookedData = bookedData.filter(row => row.group === props.currentCampaign);
                 leadsData = leadsData.filter(row => row.group === props.currentCampaign);
             }

@@ -5,7 +5,7 @@
   padding-right: 0.5rem;
   height: 100vh;
   width: 18%;
-  overflow: hidden;
+  overflow-x: hidden;
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -13,6 +13,24 @@
   gap: 2rem;
   font-size: 0.8rem;
   border-right: 0.15rem solid rgba(255, 255, 255, 0.151);
+}
+
+/* The full scrollbar area */
+.navBar::-webkit-scrollbar {
+  height: 8px; 
+  width: 2px;
+  background-color: #575757; 
+}
+
+/* The draggable part of the scrollbar */
+.navBar::-webkit-scrollbar-thumb {
+  background-color: #e0e0e09a; 
+  border-radius: 20px;
+}
+
+/* On hover */
+.navBar::-webkit-scrollbar-thumb:hover {
+  background-color: #9e9e9e;
 }
 
 .navBar, .navContent, .navSection, .navSection a, .navSection p, .navBar p, .navBar h3{

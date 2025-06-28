@@ -1,6 +1,6 @@
 .wholePage{
     color: white !important;
-    display: grid;
+    display: grid; 
     grid-template-columns: 17% 85%;
     overflow-x: hidden;
 }
@@ -35,6 +35,7 @@
     gap: 1rem;
     margin-top: 2.5rem;
 }
+
 
 @media (max-width: 768px){
     .wholePage {

@@ -31,7 +31,7 @@ function generalStats(props){
             let amountPending = 0;
 
             // 🔄 Filter logic based on props
-            if(props.filter == "current"){
+            if(props.filter != "all"){
                 data = data.filter(row => row.group === props.currentCampaign);
             }
 
