@@ -93,6 +93,24 @@ app.post('/api/guest-password', async (req, res) => {
   }
 });
 
+// 🔐 Update terms access route
+app.post('/api/update-terms', async (req, res) => {
+  const { newPassword } = req.body;
+  const { username } = req.body;
+
+  if (!newPassword) {
+    return res.status(400).json({ error: 'Password is required' });
+  }
+
+  try {
+    await db.execute('UPDATE users SET access_level = ? WHERE username = ?', [newPassword, username]);
+    res.json({ message: 'Access Level updated ✅' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update guest password' });
+  }
+});
+
 // ✅ Route to fetch confirmed bookings only
 app.get('/api/bookings/confirmed', async (req, res) => {
   try {

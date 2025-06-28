@@ -74,6 +74,9 @@ function LoginForm() {
   function proceed() {
     document.getElementById("Guidelines").style.display = 'none';
     document.getElementById("companySelect").style.display = 'flex';
+    let access = "Yes";
+
+    updateAccess(access, getUser()?.username);
   }
 
   const guestLogin = () => {
@@ -119,6 +122,20 @@ function LoginForm() {
       Authorization: `Bearer ${localStorage.getItem('token')}` // 🔐 Include JWT
       },
       body: JSON.stringify({ newPassword: password })
+    });
+
+    const data = await res.json();
+    console.log(data.message || data.error);
+  }
+
+  async function updateAccess(password, newUsername) {
+    const res = await fetch('https://pure-adventure-production.up.railway.app/api/update-terms', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}` // 🔐 Include JWT
+      },
+      body: JSON.stringify({ newPassword: password, username: newUsername })
     });
 
     const data = await res.json();
