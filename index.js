@@ -24,16 +24,15 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const db = await mysql.createConnection({
-  /*host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'rgoc-erp'*/ 
+const db = mysql.createPool({
   host: 'shuttle.proxy.rlwy.net',
   port: 28987,
   user: 'root',
   password: 'PZzRVAccLfqSMvMsYmKNcQqynbblzUhi',
-  database: 'railway'
+  database: 'railway',
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
 // 🔐 Login route
