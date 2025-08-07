@@ -1,4 +1,5 @@
 import './generalStats.css'
+import './hider.css'
 import BlueUp from '../assets/blueUp.png'
 import BlueDown from '../assets/blueDown.png'
 import BlueLine from '../assets/blueLine.png'
@@ -14,10 +15,11 @@ import { useEffect, useState } from 'react'
 function generalStats(props){
 
     const [confirmedBookings, setConfirmedBookings] = useState([]);
+    const apiURL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed');
+            const res = await fetch(`${apiURL}/bookings/confirmed`);
             let data = await res.json();
 
             setConfirmedBookings(data); // Optional if you still want to store raw data
@@ -56,10 +58,26 @@ function generalStats(props){
             document.getElementById("sales").textContent = `Rs. ${totalSales}`;
             document.getElementById("receivedAmount").textContent = `Rs. ${amountReceived}`;
             document.getElementById("pendingAmount").textContent = `Rs. ${amountPending}`;
+
+            if(props.hidden == "yes"){
+                document.getElementById("bookings").classList.add("blur");
+                document.getElementById("received").classList.add("blur");
+                document.getElementById("pending").classList.add("blur");
+                document.getElementById("sales").classList.add("blur");
+                document.getElementById("receivedAmount").classList.add("blur");
+                document.getElementById("pendingAmount").classList.add("blur");
+            } else{
+                document.getElementById("bookings").classList.remove("blur");
+                document.getElementById("received").classList.remove("blur");
+                document.getElementById("pending").classList.remove("blur");
+                document.getElementById("sales").classList.remove("blur");
+                document.getElementById("receivedAmount").classList.remove("blur");
+                document.getElementById("pendingAmount").classList.remove("blur");
+            }
         }
 
         fetchData();
-    }, [props.filter]); // ✅ react to filter changes
+    }, [props.filter, props.hidden]); // ✅ react to filter changes
 
 
 
@@ -72,7 +90,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Total Bookings</p>
-                            <h3 id='bookings'>Loading...</h3>
+                            <h3><span id='bookings'>Loading...</span></h3>
                         </div>
                         <img src={BlueUp} />
                     </div>
@@ -83,7 +101,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Payments Received</p>
-                            <h3 id='received'>Loading...</h3>
+                            <h3><span id='received'>Loading...</span></h3>
                         </div>
                         <img src={GreenUp} />
                     </div>
@@ -94,7 +112,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Pending Payments</p>
-                            <h3 id='pending'>Loading...</h3>
+                            <h3><span id='pending'>Loading...</span></h3>
                         </div>
                         <img src={RedUp} />
                     </div>
@@ -107,7 +125,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Total Sales</p>
-                            <h3 id='sales'>Loading...</h3>
+                            <h3><span id='sales'>Loading...</span></h3>
                         </div>
                         <img src={BlueDown} />
                     </div>
@@ -118,7 +136,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Amount Received</p>
-                            <h3 id='receivedAmount'>Loading...</h3>
+                            <h3><span id='receivedAmount'>Loading...</span></h3>
                         </div>
                         <img src={GreenDown} />
                     </div>
@@ -129,7 +147,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Amount Pending</p>
-                            <h3 id='pendingAmount'>Loading...</h3>
+                            <h3><span id='pendingAmount'>Loading...</span></h3>
                         </div>
                         <img src={RedDown} />
                     </div>

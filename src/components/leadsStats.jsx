@@ -1,4 +1,5 @@
 import './leadsStats.css'
+import './hider.css'
 import Splitter from '../components/splitter.jsx'
 import BlueUp from '../assets/blueUp.png'
 import GreenUp from '../assets/greenUp.png'
@@ -7,13 +8,14 @@ import { useEffect, useState } from 'react'
 function leadsStats(props){
 
     const [confirmedBookings, setConfirmedBookings] = useState([]);
+    const apiURL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
     async function fetchData() {
-        const resConfirmed = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed');
+        const resConfirmed = await fetch(`${apiURL}/bookings/confirmed`);
         let confirmedData = await resConfirmed.json();
 
-        const resLeads = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads');
+        const resLeads = await fetch(`${apiURL}/bookings/leads`);
         let leadsData = await resLeads.json();
 
         if (props.filter != "all") {
@@ -33,10 +35,20 @@ function leadsStats(props){
         document.getElementById("leads").textContent = `${totalLeads}`;
         document.getElementById("converted").textContent = `${leadsConverted}`;
         document.getElementById("conversion").textContent = `${conversionRate}%`;
+
+        if(props.hidden == "yes"){
+            document.getElementById("leads").classList.add("blur");
+            document.getElementById("converted").classList.add("blur");
+            document.getElementById("conversion").classList.add("blur");
+        } else{
+            document.getElementById("leads").classList.remove("blur");
+            document.getElementById("converted").classList.remove("blur");
+            document.getElementById("conversion").classList.remove("blur");
+        }
     }
 
     fetchData();
-}, [props.filter]);
+}, [props.filter, props.hidden]);
 
 
     return(
@@ -48,7 +60,7 @@ function leadsStats(props){
                     <div className='lupper-content'>
                         <div className='card-text'>
                             <p>Total leads</p>
-                            <h3 id='leads'>Loading...</h3>
+                            <h3><span id='leads'>Loading...</span></h3>
                         </div>
                         <img src={BlueUp} />
                     </div>
@@ -58,7 +70,7 @@ function leadsStats(props){
                     <div className='lupper-content'>
                         <div className='card-text'>
                             <p>Leads Converted</p>
-                            <h3 id='converted'>Loading...</h3>
+                            <h3><span id='converted'>Loading...</span></h3>
                         </div>
                         <img src={GreenUp} />
                     </div>
@@ -68,7 +80,7 @@ function leadsStats(props){
                     <div className='lupper-content'>
                         <div className='card-text'>
                             <p>Conversion Rate</p>
-                            <h3 id='conversion'>Loading...</h3>
+                            <h3><span id='conversion'>Loading...</span></h3>
                         </div>
                         <img src={GreenUp} />
                     </div>

@@ -2,6 +2,7 @@ import './inputForm.css'
 import { useEffect, useState } from 'react'
 
 function inputForm(){
+    const apiURL = process.env.REACT_APP_API_URL;
 
     const [form, setForm] = useState({
         id: "",
@@ -57,10 +58,10 @@ function inputForm(){
 
 
     async function generateIDs() {
-        const res = await fetch("https://pure-adventure-production.up.railway.app/api/bookings/all");
+        const res = await fetch(`${apiURL}/bookings/all`);
         const data = await res.json();
 
-         const contact = document.getElementById("contact").value.trim();
+        const contact = document.getElementById("contact").value.trim();
         const typeInput = document.getElementById("type").value.trim();
         const groupInput = document.getElementById("group").value.trim();
 
@@ -127,7 +128,7 @@ function inputForm(){
 
         try {
         console.log("Form data before sending:", form);
-        const res = await fetch("https://pure-adventure-production.up.railway.app/api/bookings/addGDTTBookings", {
+        const res = await fetch(`${apiURL}/bookings/addGDTTBookings`, {
             method: "POST",
             headers: {
             "Content-Type": "application/json"

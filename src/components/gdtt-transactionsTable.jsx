@@ -4,15 +4,15 @@ import edit from '../assets/edit.png'
 import deleteImg from '../assets/delete.png'
 import invoice from '../assets/invoice.png'
 import React, { useRef } from 'react';
- 
-function dataTable(props){
-    const apiURL = process.env.REACT_APP_API_URL;
 
+function transactionsTable(props){
     const [allData, setAllData] = useState([]);
+    const [displayedData, setDisplayedData] = useState([]);
+    const apiURL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch(`${apiURL}/bookings/${props.status}`);
+            const res = await fetch(`${apiURL}/bookings/confirmed`);
             let data = await res.json();
             setAllData(data);
             renderData(data);
@@ -56,40 +56,25 @@ function dataTable(props){
 
             const row = document.createElement('tr');
             row.innerHTML = `
-            <td>
-                <select class="status-select">
-                <option value="no" ${order.status === 'no' ? 'selected' : ''}>Lead</option>
-                <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                </select>
-            </td>
-            <td>${order.customer_id}</td>
-            <td>${order.booking_id}</td>
-            <td>${order.name}</td>
-            <td>${order.contact}</td>
-            <td>${order.type}</td>
-            <td>${order.group}</td>
-            <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td>
-            <td>${order.persons}</td>
-            <td>Rs. ${parseInt(order.package_price).toLocaleString("en-PK")}</td>
-            <td>${order.infants}</td>
-            <td>Rs. ${parseInt(order.infant_price).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td> 
-            <td>${order.refrence}</td>
-            <td>${order.source}</td>
-            <td>${order.requirement}</td>
-            <td class="status-cell">
-                <span class="badge ${isPending ? 'pending' : 'received'}">
-                ${isPending ? 'Pending' : 'Received'}
-                </span>
-            </td>
-            <td><button class="arrow-btn"><img src=${edit} style="cursor: pointer;"></button></td>
-            <td><button class="invoice-btn"><img src=${invoice} style="cursor: pointer;"></button></td>
-            <td><button class="delete-btn"><img src=${deleteImg} style="cursor: pointer;"></button></td>
+                <td>${order.customer_id}</td>
+                <td>${order.booking_id}</td>
+                <td>${order.name}</td>
+                <td>${order.contact}</td>
+                <td>Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
+                <td>Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>
+                <td>Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
+                <td>Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td>
+                <td>Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td>
+                <td class="status-cell">
+                    <span class="badge ${isPending ? 'pending' : 'received'}">
+                    ${isPending ? 'Pending' : 'Received'}
+                    </span>
+                </td>
+                <td>
+                    <button class="arrow-btn">
+                        <img src=${edit} style="cursor: pointer;">
+                    </button>
+                </td>
             `;
 
             const dropdownRow = document.createElement('tr');
@@ -98,25 +83,11 @@ function dataTable(props){
             dropdownRow.innerHTML = `
             <td colspan="25">
                 <div class="next">
-                ${generateInputField("Customer ID", "customer_id", order)}
-                ${generateInputField("Booking ID", "booking_id", order)}
-                ${generateInputField("Name", "name", order)}
-                ${generateInputField("Contact No", "contact", order)}
-                ${generateInputField("Type", "type", order)}
-                ${generateInputField("Address", "group", order)}
-                ${generateInputField("Booking Date", "booking_date", order)}
-                ${generateInputField("No. of Persons", "persons", order)}
-                ${generateInputField("Package Price", "package_price", order)}
-                ${generateInputField("No. of Infants", "infants", order)}
-                ${generateInputField("Infant Price", "infant_price", order)}
-                ${generateInputField("Total Amount", "total_price", order)}
-                ${generateInputField("Bank", "bank", order)}
-                ${generateInputField("Cash", "cash", order)}
-                ${generateInputField("Received Amount", "received", order)}
-                ${generateInputField("Pending Amount", "pending", order)}
-                ${generateInputField("Refrence", "refrence", order)}
-                ${generateInputField("Source", "source", order)}
-                ${generateInputField("Requirement", "requirement", order)}
+                    ${generateInputField("Total Amount", "total_price", order)}
+                    ${generateInputField("Bank", "bank", order)}
+                    ${generateInputField("Cash", "cash", order)}
+                    ${generateInputField("Received Amount", "received", order)}
+                    ${generateInputField("Pending Amount", "pending", order)}
                 <div class="align">
                     <p>‎</p>
                     <button class="submit-btn">Submit</button>
@@ -128,39 +99,6 @@ function dataTable(props){
             // Bind dropdown toggle
             row.querySelector('.arrow-btn').addEventListener('click', () => {
                 dropdownRow.style.display = dropdownRow.style.display === 'none' ? 'table-row' : 'none';
-            });
-
-            // Bind status update
-            row.querySelector('.status-select').addEventListener('change', (e) => {
-                const newStatus = e.target.value;
-                fetch(`${apiURL}/bookings/update-status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ booking_id: order.booking_id, status: newStatus }),
-                }).then(() => alert('Status updated'));
-            });
-
-            // Bind invoice logic
-            row.querySelector('.invoice-btn').addEventListener('click', () => {
-                
-            });
-
-            // Bind delete logic
-            row.querySelector('.delete-btn').addEventListener('click', () => {
-                if (window.confirm("Are you sure you want to delete this order?")) {
-                    fetch(`${apiURL}/bookings/delete`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams({ booking_id: order.booking_id }).toString()
-                    })
-                    .then(res => res.text())
-                    .then(msg => {
-                        alert(msg);
-                        fetchData(); // Reload
-                    });
-                }
             });
 
             // Bind update details
@@ -176,7 +114,7 @@ function dataTable(props){
                     if (el) payload[field] = el.value;
                 });
 
-                fetch(`${apiURL}/bookings/edit`, {
+                fetch(`${apiURL}/bookings/editTransactions`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(payload).toString()
@@ -189,6 +127,7 @@ function dataTable(props){
 
             container.appendChild(row);
             container.appendChild(dropdownRow);
+            setDisplayedData(data);
         });
 
         function sanitizeId(id) {
@@ -222,13 +161,63 @@ function dataTable(props){
             filtered = filtered.filter(row => row.group === group);
         }
 
+        setDisplayedData(filtered);
         renderData(filtered);
     }
+
+    function exportToCSV() {
+
+        if (!displayedData || displayedData.length === 0) {
+            alert("No data to export.");
+            return;
+        }       
+
+        const headers = [
+            "Customer ID", "Booking ID", "Name", "Contact", "Type", "Group", "Booking Date", "No Of Persons", "Package Price",
+            "No of Infants", "Infant Price", "Total Price", "Bank", "Cash", "Received", "Pending", "Reference",
+            "Source", "Requirement", "Payment Status"
+        ];
+
+        const rows = displayedData.map(order => [
+            order.customer_id ?? '',
+            order.booking_id ?? '',
+            order.name ?? '',
+            order.contact ?? '',
+            order.type ?? '',
+            order.group ?? '',
+            new Date(order.booking_date).toISOString().split('T')[0] ?? '',
+            order.persons ?? '',
+            order.package_price ?? '',
+            order.infants ?? '',
+            order.infant_price ?? '',
+            order.total_price ?? '',
+            order.bank ?? '',
+            order.cash ?? '',
+            order.received ?? '',
+            order.pending ?? '',
+            order.refrence ?? '',
+            order.source ?? '',
+            order.requirement ?? '',
+            (order.pending > 0 ? "Pending" : "Received")
+        ]);
+
+        const csv = [headers, ...rows]
+            .map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))
+            .join('\n');
+
+        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'GDTT Transactions.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        }
 
     return(
         <>
         <div className='topBar'> 
-            <h2>{props.pageName} MANAGEMENT</h2>
+            <h2>TRANSACTIONS</h2>
 
             <div className='topFilters'>
                 <input type="text" id='search' placeholder='Search' onInput={applyFilters}/>
@@ -236,35 +225,24 @@ function dataTable(props){
                 <select name="groups" id="groups" onChange={applyFilters}>
                     <option value="all">All</option>
                 </select>
+
+                <button id='hiderr' onClick={exportToCSV}>Export to CSV</button>
             </div>
         </div>
         <div className="table-wrapper">
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Booking Status</th>
                         <th>Customer ID</th>
                         <th>Booking ID</th>
                         <th>Name</th>
                         <th>Contact</th>
-                        <th>Type</th>
-                        <th>Group</th>
-                        <th>Booking Date</th>
-                        <th>Persons</th>
-                        <th>package Price</th>
-                        <th>Infants</th>
-                        <th>Infant Price</th>
                         <th>Total Price</th>
                         <th>Bank</th>
                         <th>Cash</th>
                         <th>Received</th>
                         <th>Pending</th>
-                        <th>Refrence</th>
-                        <th>Source</th>
-                        <th>Description</th>
                         <th>Payment Status</th>
-                        <th></th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -287,7 +265,6 @@ function dataTable(props){
                         <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>
-                        
                     </tr>
                 </tbody>
             </table>
@@ -296,4 +273,4 @@ function dataTable(props){
     )
 }
 
-export default dataTable
+export default transactionsTable

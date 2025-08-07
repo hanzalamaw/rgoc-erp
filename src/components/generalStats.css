@@ -41,6 +41,10 @@
     color: rgba(255, 255, 255, 0.705);
 }
 
+span{
+    background: #242424;
+}
+
 .upper-content h3{
     background: #242424;
     font-size: 1.5rem;

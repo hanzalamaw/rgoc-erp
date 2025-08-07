@@ -60,8 +60,8 @@ useEffect(() => {
     { id: 'gdtt-newBooking', path: '/gdtt-newBooking', label: 'Add New Booking' },
     { id: 'gdtt-bookingManage', path: '/gdtt-bookingManage', label: 'Bookings Management' },
     { id: 'gdtt-querryManage', path: '/gdtt-querryManage', label: 'Querry Management' },
-    { id: 'transactions', path: '/gdtt-transactions', label: 'Transactions' },
-    { id: 'expenses', path: '/gdtt-expenses', label: 'Expenses' },
+    { id: 'gdtt-transactions', path: '/gdtt-transactions', label: 'Transactions' },
+    { id: 'gdtt-expenses', path: '/gdtt-expenses', label: 'Expenses' },
   ];
 
   return (

@@ -237,3 +237,49 @@ select:focus {
     border: 0.1rem solid #166ba8;
     box-shadow: 0 0 6px 2px #1a3c548f;
 }
+
+.topBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+}
+
+.topFilters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.topFilters input{
+    background-color: #1f1f1f;
+    padding: 0.5rem 1rem;
+    outline: none;
+    border: 0.1rem solid rgba(255, 255, 255, 0.452);
+    color: white;
+    width: 7rem;
+    border-radius: 10px;
+}
+
+.topFilters select{
+    background-color: #1f1f1f;
+    padding: 0.5rem 0.7rem;
+    outline: none;
+    border: 0.1rem solid rgba(255, 255, 255, 0.452);
+    color: white;
+    width: 9rem;
+    border-radius: 10px;
+}
+
+.topFilters select:focus{
+    outline: none;
+    border: 0.1rem solid #166ba8;
+    box-shadow: 0 0 8px 2px #1a3c548f;
+}
+
+.topFilters input:focus{
+    outline: none;
+    border: 0.1rem solid #166ba8;
+    box-shadow: 0 0 8px 2px #1a3c548f;
+}

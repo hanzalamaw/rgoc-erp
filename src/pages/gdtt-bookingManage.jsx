@@ -27,7 +27,7 @@ function bookingManage(){
             </div>
             <div className='statsSide'>
                 <div className='generalStats'>
-                    <DataTable status="confirmed"/>
+                    <DataTable status="confirmed" pageName="BOOKING"/>
                 </div>
 
                 <div className='generalStats'>

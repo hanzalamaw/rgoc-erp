@@ -36,6 +36,42 @@
     margin-top: 2.5rem;
 }
 
+.filter-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.filterStats{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 84%;
+    margin-top: 2.5rem;
+}
+
+.filters{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+#hiderr{
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    background-color: #0d9affad;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#byGroup{
+    width: 10rem;
+}
+
 
 @media (max-width: 768px){
     .wholePage {

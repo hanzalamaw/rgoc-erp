@@ -1,0 +1,6 @@
+.blur {
+  filter: blur(4.5px);
+  user-select: none;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.349) !important;
+}

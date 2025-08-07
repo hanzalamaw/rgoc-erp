@@ -26,7 +26,7 @@ app.use(express.json());
 
 const db = mysql.createPool({
   host: 'shuttle.proxy.rlwy.net',
-  port: 28987,
+  port: 28987, 
   user: 'root',
   password: 'PZzRVAccLfqSMvMsYmKNcQqynbblzUhi',
   database: 'railway',
@@ -197,6 +197,7 @@ app.post('/api/bookings/addGDTTBookings', async (req, res) => {
   }
 });
 
+// EDIT COMPLETE DETAILS
 app.post('/api/bookings/edit', async (req, res) => {
   try {
     const {
@@ -245,6 +246,35 @@ app.post('/api/bookings/edit', async (req, res) => {
   }
 });
 
+//EDIT TRANSACTIONS
+app.post('/api/bookings/editTransactions', async (req, res) => {
+  try {
+    const {
+      booking_id,
+      total_price,
+      bank,
+      cash,
+      received,
+      pending
+    } = req.body;
+
+    const query = `
+      UPDATE bookings SET
+        total_price = ?, bank = ?, cash = ?, received = ?, pending = ?
+      WHERE booking_id = ?
+    `;
+
+    const values = [
+      total_price, bank, cash, received, pending
+    ];
+
+    await db.execute(query, values);
+    res.send('Transaction updated successfully ✅');
+  } catch (err) {
+    console.error('Error updating Transaction:', err);
+    res.status(500).json({ error: 'Failed to update booking 😓' });
+  }
+});
 
 app.post('/api/bookings/delete', async (req, res) => {
   try {

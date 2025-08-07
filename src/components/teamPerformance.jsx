@@ -6,6 +6,7 @@ function teamPerformance(props){
 
     const [confirmedBookings, setConfirmedBookings] = useState([]);
     const [allLeads, setLeads] = useState([]);
+    const apiURL = process.env.REACT_APP_API_URL;
 
 
     function setTeamStats(name, leads, bookings, rate, revenue){
@@ -23,8 +24,8 @@ function teamPerformance(props){
     useEffect(() => {
         async function getTeamPerformanceData() {
             const [bookedRes, leadsRes] = await Promise.all([
-                fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed'),
-                fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads')
+                fetch(`${apiURL}/bookings/confirmed`),
+                fetch(`${apiURL}/bookings/leads`)
             ]);
 
             let bookedData = await bookedRes.json();

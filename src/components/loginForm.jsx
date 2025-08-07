@@ -9,6 +9,7 @@ import { getUser } from '../utils/auth';
 function LoginForm() {
   
   const navigate = useNavigate();
+  const apiURL = process.env.REACT_APP_API_URL;
   
   useEffect(() => {
     // Fade-in logic
@@ -42,7 +43,7 @@ function LoginForm() {
 
     updateGuestPassword(password);
 
-    fetch('https://pure-adventure-production.up.railway.app/api/login', {
+    fetch(`${apiURL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
@@ -115,7 +116,7 @@ function LoginForm() {
   }
   
   async function updateGuestPassword(password) {
-    const res = await fetch('https://pure-adventure-production.up.railway.app/api/guest-password', {
+    const res = await fetch(`${apiURL}/guest-password`, {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ function LoginForm() {
   }
 
   async function updateAccess(password, newUsername) {
-    const res = await fetch('https://pure-adventure-production.up.railway.app/api/update-terms', {
+    const res = await fetch(`${apiURL}/update-terms`, {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',

@@ -1,0 +1,115 @@
+/* RoomDistribution.css — Dark Mode */
+
+:root {
+  --bg: #121212;
+  --card: #1e1e1e;
+  --border: #333;
+  --text: #eee;
+  --muted: #888;
+  --primary: #4ade80;
+  --primary-dark: #22c55e;
+  --highlight: #2563eb;
+  --highlight-bg: #1e3a8a;
+}
+
+.room-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  background-color: var(--card);
+  color: var(--text);
+}
+
+.dropdown option {
+  background-color: var(--card);
+  color: var(--text);
+}
+
+.subheading {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.person-card {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--card);
+  transition: background-color 0.2s ease;
+}
+
+.person-card:hover {
+  background-color: #2a2a2a;
+}
+
+.person-card.selected {
+  background-color: var(--highlight);
+  color: white;
+}
+
+.create-button {
+  background-color: var(--primary);
+  color: #000;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.create-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.room-box {
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  background-color: var(--card);
+}
+
+.room-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.muted-text {
+  color: var(--muted);
+}

@@ -8,12 +8,13 @@ import LeadsStats from '../components/leadsStats.jsx'
 import TeamPerformance from '../components/teamPerformance.jsx'
 import Footer from '../components/footer.jsx'
 
-
 function home(){
 
     const [users, setUsers] = useState([]);
     const [selected, setSelected] = useState("all");
+    const [hide, setHide] = useState("yes");
     const navigate = useNavigate();
+    const apiURL = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         const token = getToken();
@@ -24,10 +25,10 @@ function home(){
         }
 
         async function fetchData() {
-            const resConfirmed = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/confirmed');
+            const resConfirmed = await fetch(`${apiURL}/bookings/confirmed`);
             const confirmedData = await resConfirmed.json();
 
-            const resLeads = await fetch('https://pure-adventure-production.up.railway.app/api/bookings/leads');
+            const resLeads = await fetch(`${apiURL}/bookings/leads`);
             const leadsData = await resLeads.json();
 
             const allBookings = [...confirmedData, ...leadsData]; // merge into one array
@@ -61,23 +62,35 @@ function home(){
                 <NavigationBar companyName="GREENDOME TRAVEL & TOURS" active="dashboard"/>
             </div>
             <div className='statsSide'>
+                <div className='filter-wrapper'>
+                    <div className='filterStats'>
 
-                <div className='filters'>
-                    <select name="byGroup" id="byGroup" onChange={setCampaign}>
-                        <option value="all">Select</option>
-                    </select>
+                        <h1>DASHBOARD</h1>
+                    
+                        <div className='filters'>
+                            <select name="byGroup" id="byGroup" onChange={setCampaign}>
+                                <option value="all">All Time</option>
+                            </select>
+                            <button id='hiderr' onClick={() => {
+                                (hide == "yes")? setHide("no") : setHide("yes"); 
+                                document.getElementById("hiderr").textContent = (hide == "yes")? "Hide Stats" : "Show Stats";
+                            }}> Show Stats </button>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+
+                <div className='generalStats'>
+                    <GeneralStats filter={selected} currentCampaign={selected} hidden={hide}/>
                 </div>
 
                 <div className='generalStats'>
-                    <GeneralStats filter={selected} currentCampaign={selected}/>
+                    <LeadsStats filter={selected} currentCampaign={selected} hidden={hide} />
                 </div>
 
                 <div className='generalStats'>
-                    <LeadsStats filter={selected} currentCampaign={selected}/>
-                </div>
-
-                <div className='generalStats'>
-                    <TeamPerformance filter={selected} currentCampaign={selected}/>
+                    <TeamPerformance filter={selected} currentCampaign={selected} hidden={hide} />
                 </div>
 
                 <div className='generalStats'>
