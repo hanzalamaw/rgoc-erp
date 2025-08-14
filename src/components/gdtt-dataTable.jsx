@@ -6,7 +6,7 @@ import invoice from '../assets/invoice.png'
 import React, { useRef } from 'react';
  
 function dataTable(props){
-    const apiURL = process.env.REACT_APP_API_URL;
+  const apiURL = import.meta.env.VITE_API_URL;
 
     const [allData, setAllData] = useState([]);
 

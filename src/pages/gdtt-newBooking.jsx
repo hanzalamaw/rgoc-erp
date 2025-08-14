@@ -21,20 +21,20 @@ function newBooking(){
 
     return(
         <>
-        <div className='wholePage'>
-            <div>
-                <NavigationBar companyName="GREENDOME TRAVEL & TOURS" active="gdtt-newBooking"/>
-            </div>
-            <div className='statsSide'>
-                <div className='generalStats'>
-                    <InputForm />
+            <div className='wholePage'>
+                <div>
+                    <NavigationBar companyName="GREENDOME TRAVEL & TOURS" active="gdtt-newBooking"/>
                 </div>
+                <div className='statsSide'>
+                    <div className='generalStats'>
+                        <InputForm />
+                    </div>
 
-                <div className='generalStats'>
-                    <Footer name="GreeenDome Travel & Tours"/>
+                    <div className='generalStats'>
+                        <Footer name="GreeenDome Travel & Tours"/> 
+                    </div>
                 </div>
-            </div>
-        </div>      
+            </div>      
         </>
     )
 }

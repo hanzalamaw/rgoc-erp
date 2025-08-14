@@ -25,15 +25,16 @@ app.use(cors({
 app.use(express.json());
 
 const db = mysql.createPool({
-  host: 'shuttle.proxy.rlwy.net',
-  port: 28987, 
-  user: 'root',
-  password: 'PZzRVAccLfqSMvMsYmKNcQqynbblzUhi',
-  database: 'railway',
+  host: 'localhost',   // or 127.0.0.1
+  port: 3306,          // default MySQL port
+  user: 'root',        // default XAMPP MySQL user
+  password: '',        // default empty password in XAMPP (change if you set one)
+  database: 'rgoc-erp',  
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
+
 
 // 🔐 Login route
 app.post('/api/login', async (req, res) => {

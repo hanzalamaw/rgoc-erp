@@ -6,7 +6,7 @@ function teamPerformance(props){
 
     const [confirmedBookings, setConfirmedBookings] = useState([]);
     const [allLeads, setLeads] = useState([]);
-    const apiURL = process.env.REACT_APP_API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
 
 
     function setTeamStats(name, leads, bookings, rate, revenue){

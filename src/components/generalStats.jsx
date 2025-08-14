@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 function generalStats(props){
 
     const [confirmedBookings, setConfirmedBookings] = useState([]);
-    const apiURL = process.env.REACT_APP_API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         async function fetchData() {

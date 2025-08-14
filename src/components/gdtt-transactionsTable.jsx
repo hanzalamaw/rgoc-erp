@@ -8,7 +8,7 @@ import React, { useRef } from 'react';
 function transactionsTable(props){
     const [allData, setAllData] = useState([]);
     const [displayedData, setDisplayedData] = useState([]);
-    const apiURL = process.env.REACT_APP_API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
         async function fetchData() {

@@ -2,7 +2,7 @@ import './inputForm.css'
 import { useEffect, useState } from 'react'
 
 function inputForm(){
-    const apiURL = process.env.REACT_APP_API_URL;
+    const apiURL = import.meta.env.VITE_API_URL;
 
     const [form, setForm] = useState({
         id: "",
@@ -140,6 +140,7 @@ function inputForm(){
 
         if (res.ok) {
             alert("Booking added successfully ✅");
+            window.location.reload();
             if(!(document.getElementById("keepInfo").checked)){
                 e.target.reset();
             }
@@ -160,12 +161,12 @@ function inputForm(){
         const infants = 0;
         const infant_price = 0;
         const type = `Umrah`;
-        const group = `JULY 2025`;
+        const group = `SEPTEMBER 2025`;
 
         document.getElementById("infants").value = 0;
         document.getElementById("infant_price").value = 0;
         document.getElementById("type").value = `Umrah`;
-        document.getElementById("group").value = `JULY 2025`;
+        document.getElementById("group").value = `SEPTEMBER 2025`;
         
         let date = new Date();
         let booking_date = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -277,6 +278,7 @@ function inputForm(){
                     <option value="Ashhal">Ashhal</option>
                     <option value="Omer">Omer</option>
                     <option value="Fayez">Fayez</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 

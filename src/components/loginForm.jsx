@@ -9,7 +9,7 @@ import { getUser } from '../utils/auth';
 function LoginForm() {
   
   const navigate = useNavigate();
-  const apiURL = process.env.REACT_APP_API_URL;
+  const apiURL = import.meta.env.VITE_API_URL;
   
   useEffect(() => {
     // Fade-in logic
@@ -17,7 +17,7 @@ function LoginForm() {
 
     const observer = new IntersectionObserver(
       (entries, observer) => {
-        entries.forEach(entry => {
+        entries.forEach(entry => { 
           if (entry.isIntersecting) {
             entry.target.classList.add("visible");
             observer.unobserve(entry.target);
