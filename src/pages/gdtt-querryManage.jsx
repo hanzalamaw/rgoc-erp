@@ -21,7 +21,7 @@ function querrymanage(){
 
     return(
         <>
-            <div className='wholePage'>
+            <div className='wholePage'> 
                 <div>
                     <NavigationBar companyName="GREENDOME TRAVEL & TOURS" active="gdtt-querryManage"/>
                 </div>

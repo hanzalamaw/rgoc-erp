@@ -74,23 +74,29 @@ function dataTable(props){
             <td>Rs. ${parseInt(order.package_price).toLocaleString("en-PK")}</td>
             <td>${order.infants}</td>
             <td>Rs. ${parseInt(order.infant_price).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td>
-            <td>Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td> 
+            <td class="querryHider">Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
+            <td class="querryHider">Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>
+            <td class="querryHider">Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
+            <td class="querryHider">Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td>
+            <td class="querryHider">Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td> 
             <td>${order.refrence}</td>
             <td>${order.source}</td>
             <td>${order.requirement}</td>
-            <td class="status-cell">
+            <td class="status-cell querryHider">
                 <span class="badge ${isPending ? 'pending' : 'received'}">
                 ${isPending ? 'Pending' : 'Received'}
                 </span>
             </td>
             <td><button class="arrow-btn"><img src=${edit} style="cursor: pointer;"></button></td>
-            <td><button class="invoice-btn"><img src=${invoice} style="cursor: pointer;"></button></td>
+            <td><button class="invoice-btn querryHider"><img src=${invoice} style="cursor: pointer;"></button></td>
             <td><button class="delete-btn"><img src=${deleteImg} style="cursor: pointer;"></button></td>
             `;
+
+            if(props.status === "leads") {
+                document.querySelectorAll(".querryHider").forEach(el => {
+                    el.style.display = "none";
+                });
+            }
 
             const dropdownRow = document.createElement('tr');
             dropdownRow.classList.add('dropdown-row');
@@ -165,7 +171,13 @@ function dataTable(props){
 
             // Bind update details
             dropdownRow.querySelector('.submit-btn').addEventListener('click', () => {
-                const fields = ['customer_id', 'name', 'contact', 'type', 'group', 'booking_date', 'persons', 'package_price', 'infants', 'infant_price', 'total_price', 'cash', 'bank', 'received', 'pending', 'refrence', 'source', 'requirement'];
+                let fields = [];
+                if(props.status === "leads") {
+                    fields = ['customer_id', 'name', 'contact', 'type', 'group', 'booking_date', 'persons', 'package_price', 'infants', 'infant_price', 'total_price', 'refrence', 'source', 'requirement'];
+                } else{
+                    fields = ['customer_id', 'name', 'contact', 'type', 'group', 'booking_date', 'persons', 'package_price', 'infants', 'infant_price', 'total_price', 'cash', 'bank', 'received', 'pending', 'refrence', 'source', 'requirement'];
+                }
+                
                 const payload = { booking_id: order.booking_id };
                 const safeBookingId = sanitizeId(order.booking_id);
 
@@ -225,6 +237,12 @@ function dataTable(props){
         renderData(filtered);
     }
 
+    if(props.status === "leads") {
+        document.querySelectorAll(".querryHider").forEach(el => {
+            el.style.display = "none";
+        });
+    }
+
     return(
         <>
         <div className='topBar'> 
@@ -251,18 +269,18 @@ function dataTable(props){
                         <th>Group</th>
                         <th>Booking Date</th>
                         <th>Persons</th>
-                        <th>package Price</th>
+                        <th>Package Price</th>
                         <th>Infants</th>
-                        <th>Infant Price</th>
-                        <th>Total Price</th>
-                        <th>Bank</th>
-                        <th>Cash</th>
-                        <th>Received</th>
-                        <th>Pending</th>
+                        <th >Infant Price</th>
+                        <th className='querryHider'>Total Price</th>
+                        <th className='querryHider'>Bank</th>
+                        <th className='querryHider'>Cash</th>
+                        <th className='querryHider'>Received</th>
+                        <th className='querryHider'>Pending</th>
                         <th>Refrence</th>
                         <th>Source</th>
                         <th>Description</th>
-                        <th>Payment Status</th>
+                        <th className='querryHider'>Payment Status</th>
                         <th></th>
                         <th></th>
                         <th></th>

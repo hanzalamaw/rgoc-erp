@@ -37,7 +37,7 @@ function teamPerformance(props){
                 leadsData = leadsData.filter(row => row.group === props.currentCampaign);
             }
 
-            const members = ["Ashhal", "Omer", "Fayez"];
+            const members = ["Ashhal", "Omer", "Fayez", "Other"];
 
             members.forEach(member => {
                 const memberLeads = leadsData.filter(lead => lead.refrence === member);
@@ -94,6 +94,13 @@ function teamPerformance(props){
                         <td id='FayezBookings'>Loading...</td>
                         <td id='FayezRate'>Loading...</td>
                         <td id='FayezRevenue'>Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Other</td>
+                        <td id='OtherLeads'>Loading...</td>
+                        <td id='OtherBookings'>Loading...</td>
+                        <td id='OtherRate'>Loading...</td>
+                        <td id='OtherRevenue'>Loading...</td>
                     </tr>
                 </tbody>
             </table>
