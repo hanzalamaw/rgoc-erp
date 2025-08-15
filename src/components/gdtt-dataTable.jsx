@@ -131,7 +131,6 @@ function dataTable(props){
             </td>
             `;
 
-            // Bind dropdown toggle
             row.querySelector('.arrow-btn').addEventListener('click', () => {
                 dropdownRow.style.display = dropdownRow.style.display === 'none' ? 'table-row' : 'none';
             });
@@ -145,6 +144,7 @@ function dataTable(props){
                 body: JSON.stringify({ booking_id: order.booking_id, status: newStatus }),
                 }).then(() => alert('Status updated'));
             });
+            
 
             // Bind invoice logic
             row.querySelector('.invoice-btn').addEventListener('click', () => {
@@ -241,7 +241,7 @@ function dataTable(props){
         document.querySelectorAll(".querryHider").forEach(el => {
             el.style.display = "none";
         });
-    }
+    } 
 
     return(
         <>
