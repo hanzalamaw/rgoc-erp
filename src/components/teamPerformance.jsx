@@ -9,15 +9,17 @@ function teamPerformance(props){
     const apiURL = import.meta.env.VITE_API_URL;
 
 
-    function setTeamStats(name, leads, bookings, rate, revenue){
+    function setTeamStats(name, leads, bookings, rate, persons, revenue){
         let leadsId = `${name}Leads`;
         let bookingsId = `${name}Bookings`;
         let rateId = `${name}Rate`;
+        let personsId = `${name}Persons`;
         let revenueId = `${name}Revenue`;
 
         document.getElementById(leadsId).textContent = leads;
         document.getElementById(bookingsId).textContent = bookings;
         document.getElementById(rateId).textContent = `${rate}%`;
+        document.getElementById(personsId).textContent = `${persons}`;
         document.getElementById(revenueId).textContent = `Rs. ${parseInt(revenue).toLocaleString("en-PK")}`;
     }
 
@@ -50,9 +52,13 @@ function teamPerformance(props){
                     return sum + parseInt(booking.total_price);
                 }, 0);
 
+                const persons = memberBookings.reduce((sum, booking) => {
+                    return sum + parseInt(booking.persons) + parseInt(booking.infants);
+                }, 0);
+
                 const rate = totalLeads > 0 ? Math.round((bookingCount * 100) / totalLeads) : 0;
 
-                setTeamStats(member, totalLeads, bookingCount, rate, revenue);
+                setTeamStats(member, totalLeads, bookingCount, rate, persons, revenue);
             });
         }
 
@@ -68,8 +74,9 @@ function teamPerformance(props){
                     <tr>
                         <th>Name</th>
                         <th>Leads</th>
-                        <th>Leads Converted</th>
+                        <th>Converted</th>
                         <th>Conversion Rate</th>
+                        <th>No. Of People</th>
                         <th>Revenue</th>
                     </tr>
                 </thead>
@@ -79,6 +86,7 @@ function teamPerformance(props){
                         <td id='AshhalLeads'>Loading...</td>
                         <td id='AshhalBookings'>Loading...</td>
                         <td id='AshhalRate'>Loading...</td>
+                        <td id='AshhalPersons'>Loading...</td>
                         <td id='AshhalRevenue'>Loading...</td>
                     </tr>
                     <tr>
@@ -86,6 +94,7 @@ function teamPerformance(props){
                         <td id='OmerLeads'>Loading...</td>
                         <td id='OmerBookings'>Loading...</td>
                         <td id='OmerRate'>Loading...</td>
+                        <td id='OmerPersons'>Loading...</td>
                         <td id='OmerRevenue'>Loading...</td>
                     </tr>
                     <tr>
@@ -93,6 +102,7 @@ function teamPerformance(props){
                         <td id='FayezLeads'>Loading...</td>
                         <td id='FayezBookings'>Loading...</td>
                         <td id='FayezRate'>Loading...</td>
+                        <td id='FayezPersons'>Loading...</td>
                         <td id='FayezRevenue'>Loading...</td>
                     </tr>
                     <tr>
@@ -100,6 +110,7 @@ function teamPerformance(props){
                         <td id='OtherLeads'>Loading...</td>
                         <td id='OtherBookings'>Loading...</td>
                         <td id='OtherRate'>Loading...</td>
+                        <td id='OtherPersons'>Loading...</td>
                         <td id='OtherRevenue'>Loading...</td>
                     </tr>
                 </tbody>

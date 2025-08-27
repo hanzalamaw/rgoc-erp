@@ -24,7 +24,7 @@ function generalStats(props){
 
             setConfirmedBookings(data); // Optional if you still want to store raw data
 
-            // 🧮 Initialize counters
+            // Initialize counters
             let totalBookings = 0;
             let totalSales = 0;
             let paymentsReceived = 0;
@@ -32,12 +32,12 @@ function generalStats(props){
             let paymentsPending = 0;
             let amountPending = 0;
 
-            // 🔄 Filter logic based on props
+            // Filter logic based on props
             if(props.filter != "all"){
                 data = data.filter(row => row.group === props.currentCampaign);
             }
 
-            // 💹 Calculate stats
+            // Calculate stats
             data.forEach(booking => {
             totalBookings++;
             totalSales += parseInt(booking.total_price || 0);
@@ -51,13 +51,13 @@ function generalStats(props){
             }
             });
 
-            // ⬇️ Update DOM
+            // Update DOM
             document.getElementById("bookings").textContent = `${totalBookings}`;
             document.getElementById("received").textContent = `${paymentsReceived}`;
             document.getElementById("pending").textContent = `${paymentsPending}`;
-            document.getElementById("sales").textContent = `Rs. ${totalSales}`;
-            document.getElementById("receivedAmount").textContent = `Rs. ${amountReceived}`;
-            document.getElementById("pendingAmount").textContent = `Rs. ${amountPending}`;
+            document.getElementById("sales").textContent = `Rs. ${totalSales.toLocaleString("en-PK")}`;
+            document.getElementById("receivedAmount").textContent = `Rs. ${amountReceived.toLocaleString("en-PK")}`;
+            document.getElementById("pendingAmount").textContent = `Rs. ${amountPending.toLocaleString("en-PK")}`;
 
             if(props.hidden == "yes"){
                 document.getElementById("bookings").classList.add("blur");
@@ -77,7 +77,7 @@ function generalStats(props){
         }
 
         fetchData();
-    }, [props.filter, props.hidden]); // ✅ react to filter changes
+    }, [props.filter, props.hidden]); // react to filter changes
 
 
 

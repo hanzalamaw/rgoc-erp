@@ -56,7 +56,6 @@ function inputForm(){
         }));
     };
 
-
     async function generateIDs() {
         const res = await fetch(`${apiURL}/bookings/all`);
         const data = await res.json();
@@ -70,10 +69,16 @@ function inputForm(){
 
         // === CUSTOMER ID ===
         let customer_id = "";
+        let name = "";
         const existingBooking = data.find(b => b.contact === contact);
 
         if (existingBooking) {
             customer_id = existingBooking.customer_id;
+            name = existingBooking.name;
+            if(existingBooking.banned === "Yes"){
+                document.querySelector('.blockedUser').classList.add('show');
+                document.querySelector('.blockedUser').style.display = "flex";
+            }
         } else {
             let num = 1;
             while (true) {
@@ -102,12 +107,14 @@ function inputForm(){
 
         document.getElementById("customer_id").value = customer_id;
         document.getElementById("booking_id").value = booking_id;
+        document.getElementById("name").value = name;
 
         // ✅ Update form state
         setForm(prev => ({
             ...prev,
             customer_id,
-            booking_id
+            booking_id,
+            name
         }));
     };
 
@@ -159,11 +166,15 @@ function inputForm(){
     useEffect(() => {
         const infants = 0;
         const infant_price = 0;
+        const cash = 0;
+        const bank = 0;
         const type = `Umrah`;
         const group = `SEPTEMBER 2025`;
 
         document.getElementById("infants").value = 0;
         document.getElementById("infant_price").value = 0;
+        document.getElementById("cash").value = 0;
+        document.getElementById("bank").value = 0;
         document.getElementById("type").value = `Umrah`;
         document.getElementById("group").value = `SEPTEMBER 2025`;
         
@@ -175,11 +186,22 @@ function inputForm(){
             ...prev,
             infants,
             infant_price,
+            cash,
+            bank,
             type,
             group,
             booking_date
         }));
     }, []);
+
+    const close = () => {
+        document.querySelector('.blockedUser').style.display = "none";
+        document.querySelector('.blockedUser').classList.remove('.show');
+        document.getElementById("name").value = "";
+        document.getElementById("contact").value = "";
+        document.getElementById("customer_id").value = "";
+        document.getElementById("booking_id").value = "";
+    }
 
 
     return(
@@ -314,6 +336,14 @@ function inputForm(){
                 <button type="submit">Add Booking</button>
             </div>
         </form>
+
+        <section className='blockedUser'>
+            <div className='content'>
+                <h2>THIS CUSTOMER HAS BEEN BANNED!</h2>
+                <p>This customer has been banned by the decision of the administration. They will no longer be provided with our services.</p>
+                <button onClick={e => close(e)}>Close</button>
+            </div>
+        </section>
         </>
     )
 }

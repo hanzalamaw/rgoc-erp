@@ -56,6 +56,7 @@ function dataTable(props){
 
             const row = document.createElement('tr');
             row.innerHTML = `
+            <td><p onclick="showProfile('${order.customer_id}')" class="packageBtn">+</p></td>
             <td>
                 <select class="status-select">
                 <option value="no" ${order.status === 'no' ? 'selected' : ''}>Lead</option>
@@ -69,15 +70,15 @@ function dataTable(props){
             <td>${order.contact}</td>
             <td>${order.type}</td>
             <td>${order.group}</td>
-            <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td>
+            <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td> 
             <td>${order.persons}</td>
             <td>Rs. ${parseInt(order.package_price).toLocaleString("en-PK")}</td>
             <td>${order.infants}</td>
             <td>Rs. ${parseInt(order.infant_price).toLocaleString("en-PK")}</td>
-            <td class="querryHider">Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
+            <td>Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
             <td class="querryHider">Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>
             <td class="querryHider">Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
-            <td class="querryHider">Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td>
+            <td class="querryHider">Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td> 
             <td class="querryHider">Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td> 
             <td>${order.refrence}</td>
             <td>${order.source}</td>
@@ -88,7 +89,7 @@ function dataTable(props){
                 </span>
             </td>
             <td><button class="arrow-btn"><img src=${edit} style="cursor: pointer;"></button></td>
-            <td><button class="invoice-btn querryHider"><img src=${invoice} style="cursor: pointer;"></button></td>
+            <td class="querryHider"><button class="invoice-btn querryHider"><img src=${invoice} style="cursor: pointer;"></button></td>
             <td><button class="delete-btn"><img src=${deleteImg} style="cursor: pointer;"></button></td>
             `;
 
@@ -144,7 +145,7 @@ function dataTable(props){
                 body: JSON.stringify({ booking_id: order.booking_id, status: newStatus }),
                 }).then(() => alert('Status updated'));
             });
-            
+
 
             // Bind invoice logic
             row.querySelector('.invoice-btn').addEventListener('click', () => {
@@ -164,7 +165,7 @@ function dataTable(props){
                     .then(res => res.text())
                     .then(msg => {
                         alert(msg);
-                        fetchData(); // Reload
+                        fetchData();
                     });
                 }
             });
@@ -222,6 +223,73 @@ function dataTable(props){
                 </div>
             `;
         }
+
+    }
+
+    window.showProfile = function (id) {
+        // Show popup
+        const popup = document.querySelector('.blockedUser');
+        popup.classList.add('show');
+        popup.style.display = "flex";
+
+        // Clear old history first
+        document.getElementById("querrySide").innerHTML = "<b>Querry History</b>";
+        document.getElementById("travelSide").innerHTML = "<b>Travel History</b>";
+        document.getElementById("loanSide").innerHTML = "<b>Loan History</b>";
+
+        // Fetch from API
+        fetch(`${apiURL}/profile?customer_id=${encodeURIComponent(id)}`)
+            .then(res => res.json())
+            .then(data => {
+                // Queries
+                if (data.Query && data.Query.length > 0) {
+                    data.Query.forEach(item => {
+                        const p = document.createElement("p");
+                        let content = `${item.group} - ${item.type} (${item.date})`
+                        p.textContent = content;
+                        document.getElementById("querrySide").appendChild(p);
+                    });
+                }else{
+                    const p = document.createElement("p");
+                    p.textContent = "none";
+                    document.getElementById("querrySide").appendChild(p);
+                }
+
+                // Bookings
+                if (data.Booking && data.Booking.length > 0) {
+                    data.Booking.forEach(item => {
+                        const p = document.createElement("p");
+                        let content = `${item.group} - ${item.type} (${item.date})`
+                        p.textContent = content;
+                        document.getElementById("travelSide").appendChild(p);
+                    });
+                }else{
+                    const p = document.createElement("p");
+                    p.textContent = "none";
+                    document.getElementById("travelSide").appendChild(p);
+                }
+
+                // Loans
+                if (data.Loan && data.Loan.length > 0) {
+                    data.Loan.forEach(item => {
+                        const p = document.createElement("p");
+                        p.textContent = `ID: ${item.id} | Group: ${item.group} | Type: ${item.type} | Total Loan: ${item.total_loan}`;
+                        document.getElementById("loanSide").appendChild(p);
+                    });
+                }else{
+                    const p = document.createElement("p");
+                    p.textContent = "none";
+                    document.getElementById("loanSide").appendChild(p);
+                }
+            })
+            .catch(err => {
+                console.error("Error fetching customer history:", err);
+            });
+    };
+
+    const close = () => {
+        document.querySelector('.blockedUser').style.display = "none";
+        document.querySelector('.blockedUser').classList.remove('.show');
     }
 
     function applyFilters(){
@@ -260,6 +328,7 @@ function dataTable(props){
             <table className="table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Booking Status</th>
                         <th>Customer ID</th>
                         <th>Booking ID</th>
@@ -268,11 +337,11 @@ function dataTable(props){
                         <th>Type</th>
                         <th>Group</th>
                         <th>Booking Date</th>
-                        <th>Persons</th>
+                        <th>Adults</th>
                         <th>Package Price</th>
                         <th>Infants</th>
                         <th >Infant Price</th>
-                        <th className='querryHider'>Total Price</th>
+                        <th>Total Price</th>
                         <th className='querryHider'>Bank</th>
                         <th className='querryHider'>Cash</th>
                         <th className='querryHider'>Received</th>
@@ -282,7 +351,7 @@ function dataTable(props){
                         <th>Description</th>
                         <th className='querryHider'>Payment Status</th>
                         <th></th>
-                        <th></th>
+                        <th className="querryHider"></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -310,6 +379,28 @@ function dataTable(props){
                 </tbody>
             </table>
         </div>
+
+        <section className='blockedUser'>
+            <div className='content'>
+                <h2>CUSTOMER HISTORY!</h2>
+
+                <div className='history'> 
+                    <div id='querrySide'>
+                        <b>Querry History</b>
+                    </div>
+
+                    <div id='travelSide'>
+                        <b>Travel History</b>
+                    </div>
+
+                    <div id='loanSide'>
+                        <b>Loan History</b>
+                    </div>
+                </div>
+
+                <button onClick={e => close(e)}>Close</button>
+            </div>
+        </section>
         </>
     )
 }

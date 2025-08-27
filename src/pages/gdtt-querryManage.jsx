@@ -9,7 +9,7 @@ import Footer from '../components/footer.jsx'
 function querrymanage(){
 
     const navigate = useNavigate();
-
+ 
     useEffect(() => {
         const token = getToken();
 

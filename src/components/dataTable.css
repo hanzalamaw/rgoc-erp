@@ -283,3 +283,109 @@ select:focus {
     border: 0.1rem solid #166ba8;
     box-shadow: 0 0 8px 2px #1a3c548f;
 }
+
+.packageBtn{
+    border: 0.1rem solid white;
+    border-radius: 100rem;
+    padding: 0.2rem 0.3rem;
+    line-height: 1;
+    cursor: pointer;
+    margin-left: 0.2rem;
+}
+
+/* Overlay + modal container */
+.blockedUser {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45); /* light black layer */
+  backdrop-filter: blur(2px);    /* slight blur behind the overlay */
+  z-index: 9999;
+  opacity: 0;    
+  pointer-events: none;   /* hidden by default */
+  transition: opacity 220ms ease;
+}
+
+/* show the popup by toggling .show on .blockedUser */
+.blockedUser.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Modal card */
+.blockedUser .content {
+  width: clamp(320px, 86%, 520px);
+  border-radius: 12px;
+  padding: 3rem 3rem 2rem 3rem;
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
+  transform: translateY(18px) scale(.995);
+  transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 200ms;
+  text-align: center;
+  will-change: transform, opacity;
+  background: #202020e5;
+}
+
+/* entrance transform when visible */
+.blockedUser.show .content {
+  transform: translateY(0) scale(1);
+}
+
+/* Title */
+.blockedUser .content h2 {
+  margin: 0 0 8px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 1.4rem;
+  letter-spacing: 0.6px;
+  line-height: 1.1;
+  margin-bottom: 0.8rem;
+  background: #22222200;
+}
+
+/* Paragraph */
+.blockedUser .content p {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin-bottom: 1.3rem;
+  background: #22222200;
+}
+
+/* Paragraph */
+.blockedUser .content b {
+  background: #22222200;
+}
+
+/* Button */
+.blockedUser .content button {
+    background: rgba(195, 7, 48, 0.418);
+    color: #fff;
+    border: 0.1rem solid #C30730;
+    font-weight: 400;
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.blockedUser .content button:active {
+  transform: translateY(0);
+  opacity: 0.96;
+}
+
+/* Make sure focus is visible for keyboard users */
+.blockedUser .content button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.466);
+  outline-offset: 3px;
+  border-radius: 9px;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .blockedUser,
+  .blockedUser .content,
+  .blockedUser .content button {
+    transition: none !important;
+  }
+}

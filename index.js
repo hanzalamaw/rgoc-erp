@@ -304,6 +304,58 @@ app.post('/api/bookings/update-status', async (req, res) => {
   }
 });
 
+app.get("/api/profile", async (req, res) => {
+  try {
+    const customerId = req.query.customer_id;
+
+    if (!customerId) {
+      return res.status(400).json({ error: "Invalid customer_id" });
+    }
+
+    const sql = `
+      SELECT id, \`group\` AS grp, \`status\`, loan, booking_date, total_loan, type
+      FROM bookings
+      WHERE customer_id = ?
+    `;
+
+    const [results] = await db.execute(sql, [customerId]);
+
+    if (!results || results.length === 0) {
+      return res.status(404).json({ error: "No bookings found for this customer_id" });
+    }
+
+    const response = { Query: [], Booking: [], Loan: [] };
+
+    results.forEach(row => {
+      const group = row.grp || "";
+      const status = String(row.status || "").trim().toLowerCase();
+      const loan = String(row.loan || "").trim().toLowerCase();
+
+      // Safe date formatting
+      let date = null;
+      if (row.booking_date) {
+        if (row.booking_date instanceof Date) date = row.booking_date.toISOString().slice(0, 10);
+        else date = String(row.booking_date);
+      }
+
+      const totalLoan = row.total_loan == null ? 0 : Number(row.total_loan);
+
+      const baseObj = { id: row.id, group, type: row.type || "", date };
+      const loanObj = { id: row.id, group, type: row.type || "", total_loan: totalLoan };
+
+      if (status === "no") response.Query.push(baseObj);
+      if (status === "confirmed") response.Booking.push(baseObj);
+      if (loan === "yes") response.Loan.push(loanObj);
+    });
+
+    res.json(response);
+  } catch (err) {
+    console.error("DB error:", err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
