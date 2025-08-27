@@ -279,14 +279,14 @@ function dataTable(props){
                 }else{
                     const p = document.createElement("p");
                     p.textContent = "none";
-                    document.getElementById("loanSide").appendChild(p);
+                    document.getElementById("loanSide").appendChild(p); 
                 }
             })
             .catch(err => {
                 console.error("Error fetching customer history:", err);
             });
     };
-
+    
     const close = () => {
         document.querySelector('.blockedUser').style.display = "none";
         document.querySelector('.blockedUser').classList.remove('.show');
