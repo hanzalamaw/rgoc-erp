@@ -68,7 +68,7 @@ function dataTable(props){
             <td>${order.booking_id}</td>
             <td>${order.name}</td>
             <td>${order.contact}</td>
-            <td>${order.type}</td>
+            <td>${order.type}</td> 
             <td>${order.group}</td>
             <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td> 
             <td>${order.persons}</td>

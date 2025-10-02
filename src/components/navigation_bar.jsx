@@ -55,19 +55,25 @@ useEffect(() => {
     window.location.reload();
   }
 
+  const changeCompany = () => {
+    navigate('/');
+  }
+
   const navItems = [
     { id: 'dashboard', path: '/gdtt-home', label: 'Dashboard' },
     { id: 'gdtt-newBooking', path: '/gdtt-newBooking', label: 'Add New Booking' },
     { id: 'gdtt-bookingManage', path: '/gdtt-bookingManage', label: 'Bookings Management' },
-    { id: 'gdtt-querryManage', path: '/gdtt-querryManage', label: 'Querry Management' },
+    { id: 'gdtt-querryManage', path: '/gdtt-querryManage', label: 'Query Management' },
+    { id: 'gdtt-loanManage', path: '/gdtt-loanManage', label: 'Loan Management' },
     { id: 'gdtt-transactions', path: '/gdtt-transactions', label: 'Transactions' },
     { id: 'gdtt-expenses', path: '/gdtt-expenses', label: 'Expenses' },
+    { id: 'gdtt-quote', path: '/gdtt-quote', label: 'Generate Quote' }
   ];
 
   return (
     <>
     <div className='navBar'>
-      <p>{props.companyName}</p>
+      {/* <p>{props.companyName}</p> */}
       <div className='navContent'>
         {navItems.map(item => (
           <div
@@ -86,7 +92,11 @@ useEffect(() => {
           <p>Logged in as</p>
           <h3>{getUser()?.name}</h3>
         </div>
-        <button className='logoutBtn' onClick={() => logout()}>Logout</button> 
+        <div className='buttonsSection'>
+          <button className='changeBtn' onClick={() => changeCompany()}>Change Company</button> 
+          <button className='logoutBtn' onClick={() => logout()}>Logout</button> 
+        </div>
+        
       </div>
     </div>
     </>

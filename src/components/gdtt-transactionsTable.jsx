@@ -1,7 +1,7 @@
 import './dataTable.css'
 import { useEffect, useState } from 'react'
 import edit from '../assets/edit.png'
-import deleteImg from '../assets/delete.png'
+import deleteImg from '../assets/delete.png' 
 import invoice from '../assets/invoice.png'
 import React, { useRef } from 'react';
 

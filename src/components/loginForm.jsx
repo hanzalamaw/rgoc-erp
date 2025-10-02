@@ -5,6 +5,7 @@ import twf from '../assets/twf-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUser } from '../utils/auth';
+import { getToken} from '../utils/auth'
 
 function LoginForm() {
   
@@ -12,6 +13,17 @@ function LoginForm() {
   const apiURL = import.meta.env.VITE_API_URL;
   
   useEffect(() => {
+
+      const token = getToken();
+      if (token) {
+        document.getElementById("userLogin").style.display = 'none';
+        if(getUser()?.access_level == 'none'){
+          document.getElementById("Guidelines").style.display = 'flex';
+        } else {
+          document.getElementById("Guidelines").style.display = 'none';
+          document.getElementById("companySelect").style.display = 'flex';
+        }
+      }
     // Fade-in logic
     const sections = document.querySelectorAll(".fade-in-section");
 
@@ -143,9 +155,13 @@ function LoginForm() {
     console.log(data.message || data.error);
   }
 
-  const checkAccess = () => {
-    if(!(getUser()?.gdtt == "none")){
-      navigate('/gdtt-home');  
+  const checkAccess = (companyName) => {
+    if(companyName == 'webhouse' || companyName == 'twf'){
+      window.alert(`This Company's CRM is Under Development!`);
+      return;
+    }
+    if(!(getUser()?.companyName == "none")){
+      navigate(`/${companyName}-home`);  
     } 
     else {
       window.alert("You Don't Have Access to GDTT's CRM!");
@@ -189,12 +205,12 @@ function LoginForm() {
 
       <div id='companySelect' style={{ display: 'none' }} className='fade-in-section'>
         <div className='upperLogo'>
-          <img src={webhouse} alt="Webhouse Logo" id='webhouse' />
-          <img onClick={() => {checkAccess();}} src={gdtt} alt="GDTT Logo" id='gdtt' />
+          <img onClick={() => {checkAccess("webhouse");}} src={webhouse} alt="Webhouse Logo" id='webhouse' />
+          <img onClick={() => {checkAccess("gdtt");}} src={gdtt} alt="GDTT Logo" id='gdtt' />
         </div>
 
         <div className='lowerLogo'>
-          <img src={twf} alt="TWF Logo" id='twf' />
+          <img onClick={() => {checkAccess("twf");}} src={twf} alt="TWF Logo" id='twf' />
         </div>
       </div>
 

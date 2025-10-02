@@ -139,3 +139,7 @@ ul{
   cursor: pointer;
   font-size: 01rem;
 }
+
+#webhouse, #gdtt, #twf{
+  cursor: pointer;
+}

@@ -20,7 +20,7 @@ function inputForm(){
         total_price: "",
         bank: "",
         cash: "",
-        received: "",
+        received: "", 
         pending: "",
         requirement: "",
         refrence: "",
@@ -206,7 +206,7 @@ function inputForm(){
 
     return(
         <>
-        <form onSubmit={handleSubmit} id='orderForm'>
+        <form onSubmit={handleSubmit} id='orderFormm'>
             <div id='inputSection'>
                 <label htmlFor="customer_id">Customer ID</label>
                 <input id="customer_id" type="text" name="customer_id" placeholder="Enter Phone Number to Generate" onChange={handleChange} required autoComplete="off"/>

@@ -95,9 +95,28 @@ a{
   font-size: 0.7rem;
 }
 
+.buttonsSection{
+  display: flex;
+  gap: 0.5rem;
+  
+  background-color: #242424;
+}
+
 .logoutBtn{
   margin-top: 0.5rem;
-  padding: 0.2rem 4.5rem;
+  padding: 0.2rem 1rem;
+  background: rgba(195, 7, 48, 0.418);
+  border: none;
+  border: 0.1rem solid #C30730;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.changeBtn{
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.5rem;
   background: rgba(195, 7, 48, 0.418);
   border: none;
   border: 0.1rem solid #C30730;
