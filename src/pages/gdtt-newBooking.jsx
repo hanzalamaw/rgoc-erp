@@ -12,7 +12,6 @@ function newBooking(){
 
     useEffect(() => {
         const token = getToken();
-
         if (!token) {
             navigate('/');
             return;
