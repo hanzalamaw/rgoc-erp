@@ -4,51 +4,53 @@ import React, { useRef } from 'react';
 
 function generateQuote(props){
 
+    let packageNo = 1;
+
     function addNewPackageSection(){
         const packageSection = document.createElement("div");
         packageSection.className = "dottedBox";
-        const packageNo = Number(document.getElementById("packageNo").innerText) + 1;
+        packageNo += 1;
         packageSection.innerHTML = `
             <p>PACKAGE NO <span id='packageNo'>${packageNo}</span></p>
-                <div className='dottedInputSections'>
-                    <div id='inputSection' className='input-box'>
+                <div class='dottedInputSections'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Group</label>
+                        <label for="customer_id" class="input-label">Group</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Full Name</label>
+                        <label for="customer_id" class="input-label">Full Name</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Booking ID</label>
+                        <label for="customer_id" class="input-label">Booking ID</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Phone Number</label>
+                        <label for="customer_id" class="input-label">Phone Number</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">No. of People</label>
+                        <label for="customer_id" class="input-label">No. of People</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">No. of Infants</label>
+                        <label for="customer_id" class="input-label">No. of Infants</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Booking Date</label>
+                        <label for="customer_id" class="input-label">Booking Date</label>
                     </div>
 
-                    <div id='inputSection' className='input-box'>
+                    <div id='inputSection' class='input-box'>
                         <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                        <label htmlFor="customer_id" class="input-label">Trip Type</label>
+                        <label for="customer_id" class="input-label">Trip Type</label>
                     </div>
                 </div>
             `;
@@ -147,7 +149,7 @@ function generateQuote(props){
                     <div className='dottedInputSections'>
                         <div id='inputSection' className='input-box'>
                             <input id="customer_id" type="text" name="customer_id" placeholder=" " required autoComplete="off" class="input-field"/>
-                            <label htmlFor="customer_id" class="input-label">Group</label>
+                            <label htmlFor="customer_id" class="input-label">No. of Days</label>
                         </div>
 
                         <div id='inputSection' className='input-box'>
@@ -204,7 +206,7 @@ function generateQuote(props){
                 </div>
                 
                 <div id='submit'>
-                    <button type="submit">Add Booking</button>
+                    <button type="submit">Generate Quote</button>
                 </div>
             </div>
         </form>
