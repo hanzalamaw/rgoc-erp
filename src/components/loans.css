@@ -1,0 +1,16 @@
+.addNewLoanBtn {
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    background-color: #0d9affad;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.loanHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 84%;
+    margin-top: 2.5rem;
+}

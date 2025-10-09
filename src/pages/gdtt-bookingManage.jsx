@@ -34,7 +34,7 @@ function bookingManage(){
                     <Footer name="GreenDome Travel & Tours"/>
                 </div>
             </div>
-        </div>      
+        </div>     
         </>
     )
 }
