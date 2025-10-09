@@ -343,7 +343,7 @@ function inputForm(){
                 <p>This customer has been banned by the decision of the administration. They will no longer be provided with our services.</p>
                 <button onClick={e => close(e)}>Close</button>
             </div>
-        </section>
+        </section> 
         </>
     )
 }
