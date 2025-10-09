@@ -9,11 +9,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// now load .env properly
 dotenv.config();
 
-console.log("🧪 TEST_KEY:", process.env.TEST_KEY);
-console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
+// console.log("🧪 TEST_KEY:", process.env.TEST_KEY);
+// console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
 const app = express();
 app.use(express.urlencoded({ extended: true })); // ✅ required for form data
 app.use(cors());
@@ -25,10 +24,10 @@ app.use(cors({
 app.use(express.json());
 
 const db = mysql.createPool({
-  host: 'localhost',   // or 127.0.0.1
-  port: 3306,          // default MySQL port
-  user: 'root',        // default XAMPP MySQL user
-  password: '',        // default empty password in XAMPP (change if you set one)
+  host: 'localhost',   
+  port: 3306,         
+  user: 'root',      
+  password: '',       
   database: 'rgoc-erp',  
   waitForConnections: true,
   connectionLimit: 10,
@@ -36,7 +35,7 @@ const db = mysql.createPool({
 });
 
 
-// 🔐 Login route
+// LOGIN ROUTE
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -45,13 +44,13 @@ app.post('/api/login', async (req, res) => {
   if (users.length > 0) {
     const user = users[0];
     const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '10h' });
-    res.json({ token, user }); // send user info too
+    res.json({ token, user });
   } else {
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });
 
-// Middleware to protect routes
+// MIDDLEWARE TO VERIFY JWT
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader?.split(' ')[1];
@@ -65,7 +64,7 @@ function verifyToken(req, res, next) {
   });
 }
 
-// 🔐 Protected users route
+// PROTECTED ROUTE TO FETCH ALL USERS
 app.get('/api/users', verifyToken, async (req, res) => {
   try {
     const [rows] = await db.execute('SELECT * FROM users');
@@ -76,7 +75,7 @@ app.get('/api/users', verifyToken, async (req, res) => {
   }
 });
 
-// 🔐 Update guest password route
+// UPDATE GUEST PASSWORD ROUTE
 app.post('/api/guest-password', async (req, res) => {
   const { newPassword } = req.body;
 
@@ -93,7 +92,7 @@ app.post('/api/guest-password', async (req, res) => {
   }
 });
 
-// 🔐 Update terms access route
+// UPDATE TERMS ACCESS ROUTE
 app.post('/api/update-terms', async (req, res) => {
   const { newPassword } = req.body;
   const { username } = req.body;
@@ -111,7 +110,7 @@ app.post('/api/update-terms', async (req, res) => {
   }
 });
 
-// ✅ Route to fetch confirmed bookings only
+// ROUTE TO FETCH CONFIRMED BOOKINGS ONLY
 app.get('/api/bookings/confirmed', async (req, res) => {
   try {
     const [rows] = await db.execute("SELECT * FROM bookings WHERE status = 'confirmed'");
@@ -122,7 +121,7 @@ app.get('/api/bookings/confirmed', async (req, res) => {
   }
 });
 
-// ✅ Route to fetch leads only
+// ROUTE TO FETCH LEADS ONLY
 app.get('/api/bookings/leads', async (req, res) => {
   try {
     const [rows] = await db.execute("SELECT * FROM bookings WHERE status = 'no'");
@@ -133,7 +132,7 @@ app.get('/api/bookings/leads', async (req, res) => {
   }
 });
 
-// ✅ Route to fetch all data
+// ROUTE TO FETCH ALL DATA
 app.get('/api/bookings/all', async (req, res) => {
   try {
     const [rows] = await db.execute("SELECT * FROM bookings");
@@ -144,7 +143,7 @@ app.get('/api/bookings/all', async (req, res) => {
   }
 });
 
-// 📝 Add new booking route
+// ADD NEW BOOKING ROUTE
 app.post('/api/bookings/addGDTTBookings', async (req, res) => {
   const {
     customer_id,
@@ -169,7 +168,6 @@ app.post('/api/bookings/addGDTTBookings', async (req, res) => {
     status
   } = req.body;
 
-  // 🛡️ Validate required fields
   if (!customer_id || !booking_id || !booking_date || !name || !contact) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
@@ -331,7 +329,6 @@ app.get("/api/profile", async (req, res) => {
       const status = String(row.status || "").trim().toLowerCase();
       const loan = String(row.loan || "").trim().toLowerCase();
 
-      // Safe date formatting
       let date = null;
       if (row.booking_date) {
         if (row.booking_date instanceof Date) date = row.booking_date.toISOString().slice(0, 10);
