@@ -227,7 +227,7 @@ app.post('/api/bookings/edit', async (req, res) => {
         \`group\` = ?, persons = ?, package_price = ?, infants = ?, infant_price = ?, 
         total_price = ?, bank = ?, cash = ?, received = ?, pending = ?, 
         requirement = ?, refrence = ?, source = ?
-      WHERE booking_id = ?
+        WHERE booking_id = ?
     `;
 
     const values = [
