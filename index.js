@@ -275,6 +275,7 @@ app.post('/api/bookings/editTransactions', async (req, res) => {
   }
 });
 
+// DELETE BOOKINGS ROUTE
 app.post('/api/bookings/delete', async (req, res) => {
   try {
     const { booking_id } = req.body;
@@ -287,6 +288,7 @@ app.post('/api/bookings/delete', async (req, res) => {
   }
 });
 
+// UPDATE BOOKING STATUS ROUTE
 app.post('/api/bookings/update-status', async (req, res) => {
   try {
     const { booking_id, status } = req.body;
@@ -302,6 +304,7 @@ app.post('/api/bookings/update-status', async (req, res) => {
   }
 });
 
+// FETCH PROFILE DATA BASED ON customer_id
 app.get("/api/profile", async (req, res) => {
   try {
     const customerId = req.query.customer_id;
@@ -349,6 +352,36 @@ app.get("/api/profile", async (req, res) => {
   } catch (err) {
     console.error("DB error:", err);
     res.status(500).json({ error: "Database error" });
+  }
+});
+
+// ADD NEW LOAN ROUTE
+app.post('/api/loans/addLoan', async (req, res) => {
+  
+});
+
+// FETCH BOOKINGS BASED ON booking_id 
+app.get('/api/loans/fetchBookings', async (req, res) => {
+  try {
+    const { booking_id } = req.query;
+
+    if (!booking_id) {
+      return res.status(400).json({ error: 'booking_id is required' });
+    }
+
+    const [rows] = await db.execute(
+      "SELECT * FROM bookings WHERE booking_id = ?",
+      [booking_id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    res.json(rows[0]); 
+  } catch (err) {
+    console.error('Error fetching booking:', err);
+    res.status(500).json({ error: 'Failed to fetch booking 😓' });
   }
 });
 

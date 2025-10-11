@@ -1,52 +1,127 @@
 import './loans.css';
+import axios from 'axios';
+import { useState } from 'react';
 
 function Loans(){
+  const apiURL = import.meta.env.VITE_API_URL;
 
-    const addNewLoan = () => {
-        document.querySelector('.newLoanModal').classList.add('show');
-        document.querySelector('.newLoanModal').style.display = "flex";
+  const [showModal, setShowModal] = useState(false);
+  const [bookingId, setBookingId] = useState('');
+  const [booking, setBooking] = useState(null);
+  // 'invalid' | 'loading' | 'success' | 'notfound' | 'error' | 'idle'
+  const [status, setStatus] = useState('idle');
+
+  const addNewLoan = () => setShowModal(true);
+
+  const close = () => {
+    setShowModal(false);
+    setBookingId('');
+    setBooking(null);
+    setStatus('idle');
+  };
+
+  const submitLoan = (e) => {
+    e.preventDefault();
+    close();
+  };
+
+  async function fetchBookingDetails(id) {
+    try {
+      setStatus('loading');
+      const response = await axios.get(`${apiURL}/loans/fetchBookings`, {
+        params: { booking_id: id }
+      });
+      console.log('✅ Booking details:', response.data);
+      setBooking(response.data);
+      setStatus('success');
+      return response.data;
+    } catch (error) {
+      console.error('❌ Error fetching booking details:', error.response?.data || error.message);
+      setBooking(null);
+      if (error.response?.status === 404) setStatus('notfound');
+      else setStatus('error');
+      return null;
     }
+  }
 
-    const close = () => {
-        document.querySelector('.newLoanModal').style.display = "none";
-        document.querySelector('.newLoanModal').classList.remove('show');
-        document.getElementById("name").value = "";
-        document.getElementById("contact").value = "";
-        document.getElementById("customer_id").value = "";
-        document.getElementById("booking_id").value = "";
+  const handleInput = async (e) => {
+    const value = e.target.value.trim();
+    setBookingId(value);
+
+    if (value.length === 11) {
+      await fetchBookingDetails(value);
+    } else {
+      setBooking(null);
+      setStatus(value.length === 0 ? 'idle' : 'invalid');
     }
+  };
 
-    const submitLoan = (e) => {
-        e.preventDefault();
-        close();
-    }
-
-    return (
-    <> 
-    <div className='loanHeader'>
+  return (
+    <>
+      <div className='loanHeader'>
         <h1>LOAN MANAGEMENT</h1>
         <button className="addNewLoanBtn" onClick={addNewLoan}>Add New Loan</button>
-    </div>
+      </div>
 
-    <section className='newLoanModal'>
+      <section
+        className={`newLoanModal ${showModal ? 'show' : ''}`}
+        style={{ display: showModal ? 'flex' : 'none' }}
+      >
         <div className='content'>
-            <div>
-                <h2>New Loan</h2>
+          <div className='loanModalHeader'>
+            <h1>Add New Loan</h1>
+          </div>
+
+          <form onSubmit={submitLoan}>
+            <div className='loanInputSection'>
+              <label htmlFor="booking_id">Booking ID</label>
+              <input
+                type="text"
+                id="booking_id"
+                name="booking_id"
+                placeholder='Search by Booking ID'
+                value={bookingId}
+                onChange={handleInput}   
+                autoComplete='off'
+                required
+              />
             </div>
 
-            <div className='loanInputs'>
-                <label htmlFor="name">Search by Name</label>
-                <input type="text" id="name" name="name" placeholder='Search by Name' autoComplete='off' readOnly required/>
+            {/* ERROR MESSAGES — forced visible via inline style */}
+            <div className='errorSection'>
+              {status === 'invalid' && (
+                <p className='validIDError' style={{ display: 'block' }}>Invalid Booking ID</p>
+              )}
+              {status === 'notfound' && (
+                <p className='validIDError' style={{ display: 'block' }}>No booking details found.</p>
+              )}
+              {status === 'error' && (
+                <p className='validIDError' style={{ display: 'block' }}>Something went wrong. Please try again.</p>
+              )}
             </div>
 
-            <div className='loanBtns'> 
-                <button onClick={e => close(e)}>Close</button>
-                <button className='submitBtn' onClick={e => submitLoan(e)}>Submit</button>
+            <div id='displaySection'>
+              {status === 'loading' && <p>Loading…</p>}
+
+              {status === 'success' && booking && (
+                <div>
+                  <p>Name: {booking.name ?? '-'}</p>
+                  <p>Contact: {booking.contact ?? '-'}</p>
+                  <p>Customer ID: {booking.customer_id ?? '-'}</p>
+                  <p>Booking ID: {booking.booking_id ?? '-'}</p>
+                </div>
+              )}
             </div>
+
+            <div className='loanBtns'>
+              <button type="button" onClick={close}>Close</button>
+              <button className='submitBtn' type="submit">Submit</button>
+            </div>
+          </form>
         </div>
-    </section>
+      </section>
     </>
-    )
+  );
 }
 
 export default Loans;

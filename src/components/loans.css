@@ -119,3 +119,36 @@
     transition: none !important;
   }
 }
+
+.loanModalHeader h1{
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.loanInputSection{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.loanInputSection input{
+  width: 97.5%;
+  padding: 0.5rem;
+  border: 1px solid #cccccc3f;
+  border-radius: 4px;
+}
+
+.loanInputSection input:hover, .loanInputSection input:focus{
+  border: 1px solid #cccccc;
+}
+
+.errorSection p{
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 300;
+  height: 1.2rem;
+  display: none;
+}
