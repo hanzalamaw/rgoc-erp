@@ -198,7 +198,7 @@ function LoginForm() {
         </div>
 
         <div className='inputButtonSection'>
-          <button type="button" className="guestBtn" onClick={() => guestLogin()}>GUEST</button>
+          <button type="button" className="guestBtn" onClick={() => guestLogin()} disabled>GUEST</button>
           <button type="submit" className="loginBtn">LOGIN</button>
         </div>
       </form>

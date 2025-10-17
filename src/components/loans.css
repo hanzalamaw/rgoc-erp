@@ -145,6 +145,17 @@
   border: 1px solid #cccccc;
 }
 
+.loanInputSection select{
+  width: 97.5%;
+  padding: 0.5rem;
+  border: 1px solid #cccccc3f;
+  border-radius: 4px;
+}
+
+.loanInputSection select:hover, .loanInputSection select:focus{
+  border: 1px solid #cccccc;
+}
+
 .errorSection p{
   margin-bottom: 1rem;
   font-size: 0.9rem;
@@ -160,4 +171,13 @@
   text-align: left;
   justify-content: left;
   align-items: center;
+}
+
+.loanDetailsSection{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 3rem;
+  margin-top: 1rem;
+  border-top: 1px solid #cccccc3f;
+  padding-top: 1rem;
 }

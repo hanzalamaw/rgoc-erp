@@ -385,6 +385,126 @@ app.get('/api/loans/fetchBookings', async (req, res) => {
   }
 });
 
+/****** ADD LOAN ROUTE ******/ 
+
+// Check if booking exists
+app.get('/api/check-booking/:bookingId', async (req, res) => {
+  const { bookingId } = req.params;
+  const decodedBookingId = decodeURIComponent(bookingId); // Decode the booking ID
+
+  try {
+    const booking = await db.query('SELECT * FROM bookings WHERE booking_id = ?', [decodedBookingId]);
+
+    if (booking.length === 0) {
+      return res.json({ status: 'notfound', message: 'Booking ID not found' });
+    }
+
+    res.json({ status: 'success', data: booking[0] });
+  } catch (error) {
+    console.error('Error fetching booking:', error);
+    res.json({ status: 'error', message: 'Internal Server Error' });
+  }
+});
+
+// Update bookings table with loan info
+app.put('/api/update-booking', async (req, res) => {
+  const { booking_id, loan, total_loan } = req.body;
+  const decodedBookingId = decodeURIComponent(booking_id);
+
+  console.log('Updating booking with ID:', decodedBookingId);
+  console.log('New Loan Info:', { loan, total_loan });
+
+  try {
+    // Perform the update query
+    const result = await db.query(
+      'UPDATE bookings SET loan = ?, total_loan = ? WHERE booking_id = ?',
+      [loan, total_loan, decodedBookingId]
+    );
+
+    // Log the result to check how many rows were affected
+    console.log('Update result:', result);
+
+    // If the query was executed successfully, always return success
+    return res.json({
+      status: 'success',
+      message: 'Booking update successful (query executed)',
+    });
+
+  } catch (error) {
+    console.error('Error updating booking:', error);
+    return res.json({ status: 'error', message: 'Internal Server Error' });
+  }
+});
+
+
+
+// Get updated booking info
+app.get('/api/get-booking-details/:bookingId', async (req, res) => {
+  const { bookingId } = req.params;
+  const decodedBookingId = decodeURIComponent(bookingId); // Decode the booking ID
+
+  try {
+    const booking = await db.query('SELECT * FROM bookings WHERE booking_id = ?', [decodedBookingId]);
+
+    if (booking.length === 0) {
+      return res.json({ status: 'notfound', message: 'Booking ID not found' });
+    }
+
+    res.json({ status: 'success', data: booking[0] });
+  } catch (error) {
+    console.error('Error fetching updated booking:', error);
+    res.json({ status: 'error', message: 'Internal Server Error' });
+  }
+});
+
+// Add Loan in loans table
+app.post('/api/add-loan', async (req, res) => {
+  const {
+    booking_id,
+    customer_id,
+    name,
+    contact,
+    booking_date,
+    trip_type,
+    no_of_persons,
+    price_per_person,
+    no_of_infants,
+    price_per_infant,
+    total_price,
+    pending_amount,
+    loan_amount,
+    received_amount,
+    loan_status,
+  } = req.body;
+
+  const decodedBookingId = decodeURIComponent(booking_id);
+  console.log('Decoded booking_id in add-loan:', decodedBookingId);  // Log the decoded booking_id
+
+  try {
+    const result = await db.query(
+      'INSERT INTO loans (booking_id, customer_id, name, contact, booking_date, trip_type, no_of_persons, price_per_person, no_of_infants, price_per_infant, total_price, pending_amount, loan_amount, received_amount, loan_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [decodedBookingId, customer_id, name, contact, booking_date, trip_type, no_of_persons, price_per_person, no_of_infants, price_per_infant, total_price, pending_amount, loan_amount, received_amount, loan_status]
+    );
+
+    console.log('Loan insertion result:', result);  // Log the query result
+
+    if (result.affectedRows > 0) {
+      return res.json({ status: 'success', message: 'Loan added successfully' });
+    }
+
+    res.json({ status: 'error', message: 'Loan addition failed' });
+  } catch (error) {
+    console.error('Error during loan insertion:', error);  // Log the full error
+    res.json({ status: 'error', message: error.message || 'Internal Server Error' });
+  }
+});
+
+
+
+
+/****** END OF ADD LOAN ROUTE ******/
+
+
 
 const PORT = process.env.PORT || 5000;
 
