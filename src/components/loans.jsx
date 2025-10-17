@@ -104,11 +104,19 @@ function Loans(){
               {status === 'loading' && <p>Loading…</p>}
 
               {status === 'success' && booking && (
-                <div>
-                  <p>Name: {booking.name ?? '-'}</p>
-                  <p>Contact: {booking.contact ?? '-'}</p>
+                <div className='displaySectionContent'>
                   <p>Customer ID: {booking.customer_id ?? '-'}</p>
                   <p>Booking ID: {booking.booking_id ?? '-'}</p>
+                  <p>Name: {booking.name ?? '-'}</p>
+                  <p>Contact: {booking.contact ?? '-'}</p>
+                  <p>Booking Date: {booking.booking_date ?? '-'}</p>
+                  <p>Trip Type: {booking.type ?? '-'}</p>
+                  <p>No. of Persons: {booking.persons ?? '-'}</p>
+                  <p>Price Per Person: {booking.package_price ?? '-'}</p>
+                  <p>No. of Infants: {booking.infants ?? '-'}</p>
+                  <p>Price Per Infant: {booking.infant_price ?? '-'}</p>
+                  <p>Total Price: {booking.total_price ?? '-'}</p>
+                  <p>Pending Amount: {booking.pending ?? '-'}</p>
                 </div>
               )}
             </div>
