@@ -355,11 +355,6 @@ app.get("/api/profile", async (req, res) => {
   }
 });
 
-// ADD NEW LOAN ROUTE
-app.post('/api/loans/addLoan', async (req, res) => {
-  
-});
-
 // FETCH BOOKINGS BASED ON booking_id 
 app.get('/api/loans/fetchBookings', async (req, res) => {
   try {
@@ -424,15 +419,23 @@ app.put('/api/update-booking', async (req, res) => {
     // Log the result to check how many rows were affected
     console.log('Update result:', result);
 
-    // If the query was executed successfully, always return success
-    return res.json({
-      status: 'success',
-      message: 'Booking update successful (query executed)',
-    });
+    // Even if no rows were changed, consider the update a success
+    if (result.affectedRows >= 0) {
+      return res.json({
+        status: 'success',
+        message: 'Booking update successful (query executed)',
+      });
+    }
 
+    // In case of no rows affected, return success anyway
+    res.json({
+      status: 'success',
+      message: 'Booking already up to date (no changes were made)',
+    });
+    
   } catch (error) {
     console.error('Error updating booking:', error);
-    return res.json({ status: 'error', message: 'Internal Server Error' });
+    res.json({ status: 'error', message: 'Internal Server Error' });
   }
 });
 
@@ -458,6 +461,7 @@ app.get('/api/get-booking-details/:bookingId', async (req, res) => {
 });
 
 // Add Loan in loans table
+/* working version
 app.post('/api/add-loan', async (req, res) => {
   const {
     booking_id,
@@ -465,15 +469,15 @@ app.post('/api/add-loan', async (req, res) => {
     name,
     contact,
     booking_date,
-    trip_type,
-    no_of_persons,
-    price_per_person,
-    no_of_infants,
-    price_per_infant,
+    type,
+    persons,
+    package_price,
+    infants,
+    infant_price,
     total_price,
-    pending_amount,
-    loan_amount,
-    received_amount,
+    pending,
+    total_loan,
+    received_loan,
     loan_status,
   } = req.body;
 
@@ -482,8 +486,8 @@ app.post('/api/add-loan', async (req, res) => {
 
   try {
     const result = await db.query(
-      'INSERT INTO loans (booking_id, customer_id, name, contact, booking_date, trip_type, no_of_persons, price_per_person, no_of_infants, price_per_infant, total_price, pending_amount, loan_amount, received_amount, loan_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [decodedBookingId, customer_id, name, contact, booking_date, trip_type, no_of_persons, price_per_person, no_of_infants, price_per_infant, total_price, pending_amount, loan_amount, received_amount, loan_status]
+      'INSERT INTO loans (booking_id, customer_id, name, contact, booking_date, type, persons, package_price, infants, infant_price, total_price, pending, total_loan, received_loan, loan_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [decodedBookingId, customer_id, name, contact, booking_date, type, persons, package_price, infants, infant_price, total_price, pending, total_loan, received_loan, loan_status]
     );
 
     console.log('Loan insertion result:', result);  // Log the query result
@@ -497,14 +501,142 @@ app.post('/api/add-loan', async (req, res) => {
     console.error('Error during loan insertion:', error);  // Log the full error
     res.json({ status: 'error', message: error.message || 'Internal Server Error' });
   }
+}); */
+
+
+app.post('/api/add-loan', async (req, res) => {
+  const {
+    booking_id,
+    customer_id,
+    name,
+    contact,
+    booking_date,
+    type,
+    persons,
+    package_price,
+    infants,
+    infant_price,
+    total_price,
+    pending,
+    total_loan,
+    received_loan,
+    loan_status,
+    group,
+    bank,
+    cash,
+    received,
+    requirement,
+    refrence,   // ✅ Correct column name
+    source,
+    status,
+    banned,
+    loan
+  } = req.body;
+
+  const decodedBookingId = decodeURIComponent(booking_id);
+  console.log('Decoded booking_id in add-loan:', decodedBookingId);
+
+  // Log values to double check before inserting
+  console.log('Values to insert:', [
+    decodedBookingId,
+    customer_id,
+    name,
+    contact,
+    booking_date,
+    type,
+    persons,
+    package_price,
+    infants,
+    infant_price,
+    total_price,
+    pending,
+    total_loan,
+    received_loan,
+    loan_status,
+    group,
+    bank,
+    cash,
+    received,
+    requirement,
+    refrence,
+    source,
+    status,
+    banned,
+    loan
+  ]);
+
+  try {
+    const result = await db.query(
+      `INSERT INTO loans (
+        booking_id,
+        customer_id,
+        name,
+        contact,
+        booking_date,
+        type,
+        persons,
+        package_price,
+        infants,
+        infant_price,
+        total_price,
+        pending,
+        total_loan,
+        received_loan,
+        loan_status,
+        \`group\`,
+        bank,
+        cash,
+        received,
+        requirement,
+        refrence,
+        source,
+        status,
+        banned,
+        loan
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        decodedBookingId,
+        customer_id,
+        name,
+        contact,
+        booking_date,
+        type,
+        persons,
+        package_price,
+        infants,
+        infant_price,
+        total_price,
+        pending,
+        total_loan,
+        received_loan,
+        loan_status,
+        group,
+        bank,
+        cash,
+        received,
+        requirement,
+        refrence,
+        source,
+        status,
+        banned,
+        loan
+      ]
+    );
+
+    console.log('Loan insertion result:', result);
+
+
+    return res.json({ status: 'success', message: 'Loan added successfully' });
+
+  } catch (error) {
+    console.error('Error during loan insertion:', error);
+    res.json({ status: 'error', message: error.message || 'Internal Server Error' });
+  }
 });
 
 
 
-
 /****** END OF ADD LOAN ROUTE ******/
-
-
 
 const PORT = process.env.PORT || 5000;
 

@@ -88,20 +88,52 @@ const submitLoan = async (e) => {
 
     // Step 2: Update the booking with loan details
     const updateBookingResponse = await axios.put(`${apiURL}/update-booking`, {
-      booking_id: bookingId,
+      booking_id: encodedBookingId,
       loan: 'Yes',
       total_loan: parseFloat(totalLoan),
     });
 
     console.log('Update Booking Response:', updateBookingResponse.data);
 
-    // Check the response status and show appropriate messages
-    if (updateBookingResponse.data.status === 'success') {
+    // Always proceed with adding the loan, even if the booking is already up to date
+    const loanResponse = await axios.post(`${apiURL}/add-loan`, {
+      booking_id: encodedBookingId,
+      customer_id: bookingResponse.data.data[0].customer_id,
+      booking_date: bookingResponse.data.data[0].booking_date,
+      name: bookingResponse.data.data[0].name,
+      contact: bookingResponse.data.data[0].contact,
+      type: bookingResponse.data.data[0].type,
+      group: bookingResponse.data.data[0].group,
+      persons: bookingResponse.data.data[0].persons,
+      package_price: bookingResponse.data.data[0].package_price,
+      infants: bookingResponse.data.data[0].infants,
+      infant_price: bookingResponse.data.data[0].infant_price,
+      total_price: bookingResponse.data.data[0].total_price,
+      bank: bookingResponse.data.data[0].bank,
+      cash: bookingResponse.data.data[0].cash,
+      received: bookingResponse.data.data[0].received,
+      pending: bookingResponse.data.data[0].pending,
+      requirement: bookingResponse.data.data[0].requirement,
+      refrence: bookingResponse.data.data[0].refrence,
+      source: bookingResponse.data.data[0].source,
+      status: bookingResponse.data.data[0].status,
+      banned: bookingResponse.data.data[0].banned,
+      loan_status: loanStatus,  
+      total_loan: parseFloat(totalLoan),
+      received_loan: 0,
+      loan: 'Yes',
+    });
+
+    console.log('Loan Response:', loanResponse.data);
+
+    // If the loan was successfully added
+    if (loanResponse.data.status === 'success') {
       setStatus('success');
-      console.log(updateBookingResponse.data.message);  // Show success message
+      console.log('Loan added successfully!');
+      close();
     } else {
       setStatus('error');
-      console.error('Booking update failed:', updateBookingResponse.data.message);
+      console.error('Loan addition failed:', loanResponse.data.message); 
     }
 
   } catch (error) {
@@ -109,6 +141,7 @@ const submitLoan = async (e) => {
     setStatus('error');
   }
 };
+
   return (
     <>
       <div className='loanHeader'>
