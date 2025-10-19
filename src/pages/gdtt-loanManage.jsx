@@ -23,8 +23,9 @@ function LoanManage(){
                 <Loans onLoanAdded={handleLoanAdded} />
             </div>
 
+            ({})
             <div className='generalStats'>
-                <LoansTable status="completed" refreshKey={refreshKey} />
+                <LoansTable status="active" refreshKey={refreshKey} />
             </div>
 
             <div className='generalStats'>

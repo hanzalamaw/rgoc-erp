@@ -11,16 +11,15 @@ function LoansTable(props) {
     
     const [allData, setAllData] = useState([]);
 
+    async function fetchData() {
+        const res = await fetch(`${apiURL}/loans/${props.status}`);
+        let data = await res.json();
+        setAllData(data);
+        renderData(data.reverse());
+    }
+
     useEffect(() => {
-        async function fetchData() {
-            const res = await fetch(`${apiURL}/loans/${props.status}`);
-            let data = await res.json();
-            setAllData(data);
-            renderData(data.reverse());
-        }
-
         fetchData();
-
     }, [props.status, refreshKey]);
 
     function renderData(data){
@@ -235,7 +234,7 @@ function LoansTable(props) {
                 if (data.Loan && data.Loan.length > 0) {
                     data.Loan.forEach(item => {
                         const p = document.createElement("p");
-                        p.textContent = `ID: ${item.id} | Group: ${item.group} | Type: ${item.type} | Total Loan: ${item.total_loan}`;
+                        p.textContent = `${item.group} - ${item.type} | Total Loan: Rs. ${parseInt(item.total_loan).toLocaleString("en-PK")}`;
                         document.getElementById("loanSide").appendChild(p);
                     });
                 }else{

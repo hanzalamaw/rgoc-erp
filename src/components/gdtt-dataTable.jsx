@@ -273,7 +273,7 @@ function dataTable(props){
                 if (data.Loan && data.Loan.length > 0) {
                     data.Loan.forEach(item => {
                         const p = document.createElement("p");
-                        p.textContent = `${item.group} - ${item.type} | Total Loan: ${item.total_loan}`;
+                        p.textContent = `${item.group} - ${item.type} | Total Loan: Rs. ${parseInt(item.total_loan).toLocaleString("en-PK")}`;
                         document.getElementById("loanSide").appendChild(p);
                     });
                 }else{
