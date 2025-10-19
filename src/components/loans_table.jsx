@@ -4,49 +4,26 @@ import edit from '../assets/edit.png'
 import deleteImg from '../assets/delete.png'
 import invoice from '../assets/invoice.png'
 import React, { useRef } from 'react';
- 
-function dataTable(props){
-    const apiURL = import.meta.env.VITE_API_URL;
 
+function LoansTable(props) {
+    const { status, refreshKey } = props;
+    const apiURL = import.meta.env.VITE_API_URL;
+    
     const [allData, setAllData] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
-            const res = await fetch(`${apiURL}/bookings/${props.status}`);
+            const res = await fetch(`${apiURL}/loans/${props.status}`);
             let data = await res.json();
             setAllData(data);
-            renderData(data);
+            renderData(data.reverse());
         }
 
         fetchData();
 
-    }, [props.status, props.name, props.contact]);
+    }, [props.status, refreshKey]);
 
     function renderData(data){
-        const groupFilter = document.getElementById("groups");
-        const groups = [...new Set(data.map(row => row.group))]; 
-
-        groups.forEach(group => {
-            if (![...groupFilter.options].some(opt => opt.value === group)) {
-                const option = document.createElement("option");
-                option.value = group;
-                option.textContent = group;
-                groupFilter.appendChild(option);
-            }
-        });
-
-        // Filtering logic
-        if (props.name) {
-            data = data.filter(order =>
-            order.name?.toLowerCase().includes(props.name.toLowerCase())
-            );
-        }
-        if (props.contact) {
-            data = data.filter(order =>
-            order.contact?.toLowerCase().includes(props.contact.toLowerCase())
-            );
-        }
-
         const container = document.getElementById('ordersContainer');
         if (!container) return;
         container.innerHTML = '';
@@ -58,11 +35,7 @@ function dataTable(props){
             row.innerHTML = `
             <td><p onclick="showProfile('${order.customer_id}')" class="packageBtn">+</p></td>
             <td>
-                <select class="status-select">
-                <option value="no" ${order.status === 'no' ? 'selected' : ''}>Lead</option>
-                <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
-                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-                </select>
+                ${order.loan_status}
             </td>
             <td>${order.customer_id}</td>
             <td>${order.booking_id}</td>
@@ -135,17 +108,6 @@ function dataTable(props){
             row.querySelector('.arrow-btn').addEventListener('click', () => {
                 dropdownRow.style.display = dropdownRow.style.display === 'none' ? 'table-row' : 'none';
             });
-
-            // Bind status update
-            row.querySelector('.status-select').addEventListener('change', (e) => {
-                const newStatus = e.target.value;
-                fetch(`${apiURL}/bookings/update-status`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ booking_id: order.booking_id, status: newStatus }),
-                }).then(() => alert('Status updated'));
-            });
-
 
             // Bind invoice logic
             row.querySelector('.invoice-btn').addEventListener('click', () => {
@@ -273,7 +235,7 @@ function dataTable(props){
                 if (data.Loan && data.Loan.length > 0) {
                     data.Loan.forEach(item => {
                         const p = document.createElement("p");
-                        p.textContent = `${item.group} - ${item.type} | Total Loan: ${item.total_loan}`;
+                        p.textContent = `ID: ${item.id} | Group: ${item.group} | Type: ${item.type} | Total Loan: ${item.total_loan}`;
                         document.getElementById("loanSide").appendChild(p);
                     });
                 }else{
@@ -313,23 +275,12 @@ function dataTable(props){
 
     return(
         <>
-        <div className='topBar'> 
-            <h2>{props.pageName} MANAGEMENT</h2>
-
-            <div className='topFilters'>
-                <input type="text" id='search' placeholder='Search' onInput={applyFilters}/>
-
-                <select name="groups" id="groups" onChange={applyFilters}>
-                    <option value="all">All</option>
-                </select>
-            </div>
-        </div>
         <div className="table-wrapper">
             <table className="table">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Booking Status</th>
+                        <th>Loan Status</th>
                         <th>Customer ID</th>
                         <th>Booking ID</th>
                         <th>Name</th>
@@ -340,7 +291,7 @@ function dataTable(props){
                         <th>Adults</th>
                         <th>Package Price</th>
                         <th>Infants</th>
-                        <th >Infant Price</th>
+                        <th>Infant Price</th>
                         <th>Total Price</th>
                         <th className='querryHider'>Bank</th>
                         <th className='querryHider'>Cash</th>
@@ -374,7 +325,6 @@ function dataTable(props){
                         <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>
-                        
                     </tr>
                 </tbody>
             </table>
@@ -405,4 +355,4 @@ function dataTable(props){
     )
 }
 
-export default dataTable
+export default LoansTable;

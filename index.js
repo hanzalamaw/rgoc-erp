@@ -439,8 +439,6 @@ app.put('/api/update-booking', async (req, res) => {
   }
 });
 
-
-
 // Get updated booking info
 app.get('/api/get-booking-details/:bookingId', async (req, res) => {
   const { bookingId } = req.params;
@@ -526,7 +524,7 @@ app.post('/api/add-loan', async (req, res) => {
     cash,
     received,
     requirement,
-    refrence,   // ✅ Correct column name
+    refrence,   
     source,
     status,
     banned,
@@ -634,9 +632,29 @@ app.post('/api/add-loan', async (req, res) => {
   }
 });
 
-
-
 /****** END OF ADD LOAN ROUTE ******/
+
+// ROUTE TO FETCH ACTIVE LOANS ONLY
+app.get('/api/loans/active', async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM loans WHERE loan_status = 'active'");
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching active loans:', err);
+    res.status(500).json({ error: 'Failed to fetch active loans 😓' });
+  }
+});
+
+// ROUTE TO FETCH COMPLETED LOANS ONLY
+app.get('/api/loans/completed', async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM loans WHERE loan_status = 'completed'");
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching completed loans:', err);
+    res.status(500).json({ error: 'Failed to fetch completed loans 😓' });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 
