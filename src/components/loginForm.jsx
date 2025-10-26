@@ -66,7 +66,7 @@ function LoginForm() {
       })
       .then(data => {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user)); // store user
+        localStorage.setItem('user', JSON.stringify(data.user)); 
         document.getElementById("userLogin").style.display = 'none';
         if(getUser()?.access_level == 'none'){
           document.getElementById("Guidelines").style.display = 'flex';
