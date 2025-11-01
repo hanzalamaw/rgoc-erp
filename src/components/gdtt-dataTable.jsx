@@ -73,7 +73,7 @@ function dataTable(props){
             <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td> 
             <td>${order.persons}</td>
             <td>Rs. ${parseInt(order.package_price).toLocaleString("en-PK")}</td>
-            <td>${order.infants}</td>
+            <td>${order.infants}</td> 
             <td>Rs. ${parseInt(order.infant_price).toLocaleString("en-PK")}</td>
             <td>Rs. ${parseInt(order.total_price).toLocaleString("en-PK")}</td>
             <td class="querryHider">Rs. ${parseInt(order.bank).toLocaleString("en-PK")}</td>

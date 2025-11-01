@@ -154,7 +154,7 @@ function Loans({ onLoanAdded }) {
       <section className={`newLoanModal ${showModal ? 'show' : ''}`} style={{ display: showModal ? 'flex' : 'none' }}>
         <div className='content'>
           <div className='loanModalHeader'>
-            <h1>Add New Loan</h1>
+            <h1 >Add New Loan</h1>
           </div>
 
           <form onSubmit={submitLoan}>

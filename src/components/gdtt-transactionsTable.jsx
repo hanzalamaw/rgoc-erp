@@ -212,7 +212,7 @@ function transactionsTable(props){
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        }
+    }
 
     return(
         <>
@@ -255,7 +255,7 @@ function transactionsTable(props){
                         <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>
-                        <td>Loading..</td>
+                        <td>Loading..</td> 
                         <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>

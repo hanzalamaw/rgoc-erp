@@ -7,6 +7,7 @@ import GDTT_querryManage from './pages/gdtt-querryManage.jsx';
 import GDTT_transactions from './pages/gdtt-transactions.jsx';
 import GDTT_loanManage from './pages/gdtt-loanManage.jsx';
 import GDTT_quote from './pages/gdtt-quote.jsx';
+import GDTT_expenses from './pages/gdtt-expenses.jsx';
 import Test from './pages/roomTest.jsx';
 import GdtDataTable from './components/gdtt-dataTable.jsx';
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/gdtt-transactions" element={<GDTT_transactions />} />
         <Route path="/gdtt-loanManage" element={<GDTT_loanManage />} />
         <Route path="/gdtt-quote" element={<GDTT_quote />} />
+        <Route path="/gdtt-expenses" element={<GDTT_expenses />} />
         <Route path="/roomTest" element={<Test />} />
       </Routes>
 

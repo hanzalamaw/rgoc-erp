@@ -12,8 +12,7 @@
     justify-content: space-between;
     align-items: center;
     width: 84%;
-    margin-top: 0.5rem;
-    margin-bottom: -1.5rem;
+    margin-bottom: -3.5%;
 }
 
 /* Overlay + modal container */
@@ -63,7 +62,7 @@
   letter-spacing: 0.6px;
   line-height: 1.1;
   margin-bottom: 0.8rem;
-  background: #22222200;
+  background: transparent !important;
 }
 
 /* Paragraph */
@@ -72,7 +71,7 @@
   font-size: 0.85rem;
   line-height: 1.45;
   margin-bottom: 1.3rem;
-  background: #22222200;
+  background: transparent !important;
 }
 
 /* Button */

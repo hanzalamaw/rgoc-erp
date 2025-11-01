@@ -656,6 +656,69 @@ app.get('/api/loans/completed', async (req, res) => {
   }
 });
 
+// ✅ GET ALL EXPENSES
+app.get('/api/expenses', async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM expenses ORDER BY date DESC");
+    res.json(rows);
+  } catch (err) {
+    console.error("Error fetching expenses:", err);
+    res.status(500).json({ error: "Failed to fetch expenses 😓" });
+  }
+});
+
+// ✅ ADD NEW EXPENSE
+app.post('/api/expenses', async (req, res) => {
+  try {
+    const { date, from_bank, from_cash, total_amount, done_by, entered_by, description } = req.body;
+
+    await db.execute(
+      `INSERT INTO expenses (date, from_bank, from_cash, total_amount, done_by, entered_by, description)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [date, from_bank, from_cash, total_amount, done_by, entered_by, description]
+    );
+
+    res.json({ success: true, message: "Expense added ✅" });
+
+  } catch (err) {
+    console.error("Error adding expense:", err);
+    res.status(500).json({ error: "Failed to add expense 😓" });
+  }
+});
+
+// ✅ UPDATE EXPENSE
+app.put('/api/expenses/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { date, from_bank, from_cash, total_amount, done_by, entered_by, description } = req.body;
+
+    await db.execute(
+      `UPDATE expenses
+       SET date=?, from_bank=?, from_cash=?, total_amount=?, done_by=?, entered_by=?, description=?
+       WHERE id=?`,
+      [date, from_bank, from_cash, total_amount, done_by, entered_by, description, id]
+    );
+
+    res.json({ success: true, message: "Expense updated ✨" });
+
+  } catch (err) {
+    console.error("Error updating expense:", err);
+    res.status(500).json({ error: "Failed to update expense 😓" });
+  }
+});
+
+// ✅ DELETE EXPENSE
+app.delete('/api/expenses/:id', async (req, res) => {
+  try {
+    await db.execute("DELETE FROM expenses WHERE id=?", [req.params.id]);
+    res.json({ success: true, message: "Expense deleted 🗑️" });
+  } catch (err) {
+    console.error("Error deleting expense:", err);
+    res.status(500).json({ error: "Failed to delete expense 😓" });
+  }
+});
+
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
