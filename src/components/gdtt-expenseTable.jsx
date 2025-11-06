@@ -112,6 +112,9 @@ function ExpenseTable() {
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
 
@@ -128,6 +131,9 @@ function ExpenseTable() {
                 <td>
                   <button className="delete-btn" onClick={() => handleDelete(exp.id)}>🗑️</button>
                 </td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

@@ -127,8 +127,19 @@ app.get('/api/bookings/leads', async (req, res) => {
     const [rows] = await db.execute("SELECT * FROM bookings WHERE status = 'no'");
     res.json(rows);
   } catch (err) {
-    console.error('Error fetching confirmed bookings:', err);
-    res.status(500).json({ error: 'Failed to fetch confirmed bookings 😓' });
+    console.error('Error fetching leads:', err);
+    res.status(500).json({ error: 'Failed to fetch leads 😓' });
+  }
+});
+
+// ROUTE TO FETCH CANCELLED BOOKINGS ONLY
+app.get('/api/bookings/cancelled', async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM bookings WHERE status = 'cancelled'");
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching cancelled bookings:', err);
+    res.status(500).json({ error: 'Failed to fetch cancelled bookings 😓' });
   }
 });
 

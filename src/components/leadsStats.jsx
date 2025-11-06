@@ -15,17 +15,21 @@ function leadsStats(props){
         const resConfirmed = await fetch(`${apiURL}/bookings/confirmed`);
         let confirmedData = await resConfirmed.json();
 
-        const resLeads = await fetch(`${apiURL}/bookings/leads`);
+        const resLeads = await fetch(`${apiURL}/bookings/leads`); 
         let leadsData = await resLeads.json();
+
+        const resCancelled = await fetch(`${apiURL}/bookings/cancelled`); 
+        let cancelledData = await resCancelled.json();
 
         if (props.filter != "all") {
             leadsData = leadsData.filter(row => row.group === props.currentCampaign);
             confirmedData = confirmedData.filter(row => row.group === props.currentCampaign);
+            cancelledData = cancelledData.filter(row => row.group === props.currentCampaign);
         }
 
         const totalBooked = confirmedData.filter(item => item.status === "confirmed").length;
 
-        const leads = leadsData.length;
+        const leads = leadsData.length + cancelledData.length;
         const totalLeads = leads + totalBooked;
         const leadsConverted = totalBooked;
         const conversionRate = totalLeads > 0 ? ((leadsConverted * 100) / totalLeads).toFixed(2) : 0;

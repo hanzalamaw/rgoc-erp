@@ -25,27 +25,35 @@ function teamPerformance(props){
 
     useEffect(() => {
         async function getTeamPerformanceData() {
-            const [bookedRes, leadsRes] = await Promise.all([
+            const [bookedRes, leadsRes, cancelledRes] = await Promise.all([
                 fetch(`${apiURL}/bookings/confirmed`),
-                fetch(`${apiURL}/bookings/leads`)
+                fetch(`${apiURL}/bookings/leads`),
+                fetch(`${apiURL}/bookings/cancelled`)
             ]);
 
             let bookedData = await bookedRes.json();
             let leadsData = await leadsRes.json();
+            let cancelledData = await cancelledRes.json();
 
             // 🔄 Filter by campaign if needed
             if (props.filter != "all") {
                 bookedData = bookedData.filter(row => row.group === props.currentCampaign);
                 leadsData = leadsData.filter(row => row.group === props.currentCampaign);
+                cancelledData = cancelledData.filter(row => row.group === props.currentCampaign);
             }
 
-            const members = ["Ashhal", "Omer", "Fayez", "Other"];
+            const members = ["Ashhal", "Omer", "Huzaifa", "Hanzala", "Abuzar", "Abdullah", "Arsalan", "Other"];
+
+            const getReferenceName = (ref) => {
+            return members.includes(ref) && ref !== "Other" ? ref : "Other";
+            };
 
             members.forEach(member => {
-                const memberLeads = leadsData.filter(lead => lead.refrence === member);
-                const memberBookings = bookedData.filter(booking => booking.refrence === member);
+                const memberLeads = leadsData.filter(lead => getReferenceName(lead.refrence) === member);
+                const memberCancelled = cancelledData.filter(lead => getReferenceName(lead.refrence) === member);
+                const memberBookings = bookedData.filter(booking => getReferenceName(booking.refrence) === member);
 
-                const totalLeads = memberLeads.length + memberBookings.length;
+                const totalLeads = memberLeads.length + memberBookings.length + memberCancelled.length;
                 const bookingCount = memberBookings.length;
 
                 const revenue = memberBookings.reduce((sum, booking) => {
@@ -53,7 +61,7 @@ function teamPerformance(props){
                 }, 0);
 
                 const persons = memberBookings.reduce((sum, booking) => {
-                    return sum + parseInt(booking.persons) + parseInt(booking.infants);
+                    return sum + (parseInt(booking.persons) || 0) + (parseInt(booking.infants) || 0);
                 }, 0);
 
                 const rate = totalLeads > 0 ? Math.round((bookingCount * 100) / totalLeads) : 0;
@@ -64,7 +72,7 @@ function teamPerformance(props){
 
         getTeamPerformanceData();
     }, [props.filter]);
-
+ 
     return(
         <>
         <Splitter name ="TEAM PERFORMANCE"/>
@@ -98,12 +106,44 @@ function teamPerformance(props){
                         <td id='OmerRevenue'>Loading...</td>
                     </tr>
                     <tr>
-                        <td>Fayez</td>
-                        <td id='FayezLeads'>Loading...</td>
-                        <td id='FayezBookings'>Loading...</td>
-                        <td id='FayezRate'>Loading...</td>
-                        <td id='FayezPersons'>Loading...</td>
-                        <td id='FayezRevenue'>Loading...</td>
+                        <td>Huzaifa</td>
+                        <td id='HuzaifaLeads'>Loading...</td>
+                        <td id='HuzaifaBookings'>Loading...</td>
+                        <td id='HuzaifaRate'>Loading...</td>
+                        <td id='HuzaifaPersons'>Loading...</td>
+                        <td id='HuzaifaRevenue'>Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Abdullah</td>
+                        <td id='AbdullahLeads'>Loading...</td>
+                        <td id='AbdullahBookings'>Loading...</td>
+                        <td id='AbdullahRate'>Loading...</td>
+                        <td id='AbdullahPersons'>Loading...</td>
+                        <td id='AbdullahRevenue'>Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Abuzar</td>
+                        <td id='AbuzarLeads'>Loading...</td>
+                        <td id='AbuzarBookings'>Loading...</td>
+                        <td id='AbuzarRate'>Loading...</td>
+                        <td id='AbuzarPersons'>Loading...</td>
+                        <td id='AbuzarRevenue'>Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Hanzala</td>
+                        <td id='HanzalaLeads'>Loading...</td>
+                        <td id='HanzalaBookings'>Loading...</td>
+                        <td id='HanzalaRate'>Loading...</td>
+                        <td id='HanzalaPersons'>Loading...</td>
+                        <td id='HanzalaRevenue'>Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Arsalan</td>
+                        <td id='ArsalanLeads'>Loading...</td>
+                        <td id='ArsalanBookings'>Loading...</td>
+                        <td id='ArsalanRate'>Loading...</td>
+                        <td id='ArsalanPersons'>Loading...</td>
+                        <td id='ArsalanRevenue'>Loading...</td>
                     </tr>
                     <tr>
                         <td>Other</td>

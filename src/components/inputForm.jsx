@@ -298,7 +298,11 @@ function inputForm(){
                     <option value="">Select</option>
                     <option value="Ashhal">Ashhal</option>
                     <option value="Omer">Omer</option>
-                    <option value="Fayez">Fayez</option>
+                    <option value="Huzaifa">Huzaifa</option>
+                    <option value="Abdullah">Abdullah</option>
+                    <option value="Abuzar">Abuzar</option>
+                    <option value="Hanzala">Hanzala</option>
+                    <option value="Arsalan">Arsalan</option>
                     <option value="Other">Other</option>
                 </select>
             </div>

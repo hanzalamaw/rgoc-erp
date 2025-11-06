@@ -88,3 +88,8 @@ span{
         flex: 1 1 250px;
     }
 }
+
+#totalPeople{
+    font-size: 0.9rem;
+    font-weight: 400;
+}

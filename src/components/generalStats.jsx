@@ -31,6 +31,7 @@ function generalStats(props){
             let amountReceived = 0;
             let paymentsPending = 0;
             let amountPending = 0;
+            let totalPeople = 0;
 
             // Filter logic based on props
             if(props.filter != "all"){
@@ -43,6 +44,7 @@ function generalStats(props){
             totalSales += parseInt(booking.total_price || 0);
             amountReceived += parseInt(booking.received || 0);
             amountPending += parseInt(booking.pending || 0);
+            totalPeople += (parseInt(booking.persons) || 0) + (parseInt(booking.infants) || 0);
 
             if (parseInt(booking.pending) === 0) {
                 paymentsReceived++;
@@ -58,6 +60,9 @@ function generalStats(props){
             document.getElementById("sales").textContent = `Rs. ${totalSales.toLocaleString("en-PK")}`;
             document.getElementById("receivedAmount").textContent = `Rs. ${amountReceived.toLocaleString("en-PK")}`;
             document.getElementById("pendingAmount").textContent = `Rs. ${amountPending.toLocaleString("en-PK")}`;
+            document.getElementById("totalPeople").textContent = ` (${totalPeople} Persons)`;
+
+            // Handle hiding logic
 
             if(props.hidden == "yes"){
                 document.getElementById("bookings").classList.add("blur");
@@ -66,6 +71,7 @@ function generalStats(props){
                 document.getElementById("sales").classList.add("blur");
                 document.getElementById("receivedAmount").classList.add("blur");
                 document.getElementById("pendingAmount").classList.add("blur");
+                document.getElementById("totalPeople").classList.add("blur");
             } else{
                 document.getElementById("bookings").classList.remove("blur");
                 document.getElementById("received").classList.remove("blur");
@@ -73,6 +79,7 @@ function generalStats(props){
                 document.getElementById("sales").classList.remove("blur");
                 document.getElementById("receivedAmount").classList.remove("blur");
                 document.getElementById("pendingAmount").classList.remove("blur");
+                document.getElementById("totalPeople").classList.remove("blur");
             }
         }
 
@@ -90,7 +97,7 @@ function generalStats(props){
                     <div className='upper-content'>
                         <div className='card-text'>
                             <p>Total Bookings</p>
-                            <h3><span id='bookings'>Loading...</span></h3>
+                            <h3><span id='bookings'>Loading...</span><span id='totalPeople'>Loading...</span></h3>
                         </div>
                         <img src={BlueUp} />
                     </div>
