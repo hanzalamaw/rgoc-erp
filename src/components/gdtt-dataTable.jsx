@@ -233,7 +233,7 @@ function dataTable(props){
         popup.style.display = "flex";
 
         // Clear old history first
-        document.getElementById("querrySide").innerHTML = "<b>Querry History</b>";
+        document.getElementById("querrySide").innerHTML = "<b>Query History</b>";
         document.getElementById("travelSide").innerHTML = "<b>Travel History</b>";
         document.getElementById("loanSide").innerHTML = "<b>Loan History</b>";
 
@@ -259,7 +259,14 @@ function dataTable(props){
                 if (data.Booking && data.Booking.length > 0) {
                     data.Booking.forEach(item => {
                         const p = document.createElement("p");
-                        let content = `${item.group} - ${item.type} (${item.date})`
+                        let nameStart = item.group.substring(0,2);
+                        let content = "";
+                        if(nameStart == "IRQ" || nameStart == "IRN"){
+                            nameStart = item.group.substring(5);
+                            content = `${nameStart} - ${item.type} (${item.date})`
+                        } else{
+                            content = `${item.group} - ${item.type} (${item.date})`
+                        }
                         p.textContent = content;
                         document.getElementById("travelSide").appendChild(p);
                     });
@@ -292,18 +299,30 @@ function dataTable(props){
         document.querySelector('.blockedUser').classList.remove('.show');
     }
 
-    function applyFilters(){
-        let filtered = [...allData];
+    function applyFilters() {
+    let filtered = [...allData];
 
-        const group = document.getElementById("groups").value;
-        const search = document.getElementById("search").value;
+    const group = document.getElementById("groups").value.trim().toLowerCase();
+    const search = document.getElementById("search").value.trim().toLowerCase();
 
-        if (group !== "all") {
-            filtered = filtered.filter(row => row.group === group);
-        }
-
-        renderData(filtered);
+    // Filter by group if not "all"
+    if (group && group !== "all") {
+        filtered = filtered.filter(row => 
+            row.group?.toLowerCase() === group
+        );
     }
+
+    // Filter by name (search box)
+    if (search) {
+        filtered = filtered.filter(row => 
+            row.name?.toLowerCase().includes(search)
+        );
+    }
+
+    // Finally render filtered data
+    renderData(filtered);
+}
+
 
     if(props.status === "leads") {
         document.querySelectorAll(".querryHider").forEach(el => {
@@ -386,7 +405,7 @@ function dataTable(props){
 
                 <div className='history'> 
                     <div id='querrySide'>
-                        <b>Querry History</b>
+                        <b>Query History</b>
                     </div>
 
                     <div id='travelSide'>

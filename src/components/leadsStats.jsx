@@ -3,7 +3,7 @@ import './hider.css'
 import Splitter from '../components/splitter.jsx'
 import BlueUp from '../assets/blueUp.png'
 import GreenUp from '../assets/greenUp.png'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react' 
 
 function leadsStats(props){
 

@@ -181,3 +181,7 @@
   border-top: 1px solid #cccccc3f;
   padding-top: 1rem;
 }
+
+tr{
+   cursor: pointer;
+}

@@ -27,7 +27,7 @@ function querrymanage(){
                 </div>
                 <div className='statsSide'>
                     <div className='generalStats'>
-                        <DataTable status="leads" pageName="QUERRY"/>
+                        <DataTable status="leads" pageName="QUERY"/>
                     </div>
 
                     <div className='generalStats'>

@@ -119,7 +119,7 @@ function Loans({ onLoanAdded }) {
         refrence: bookingResponse.data.data[0].refrence,
         source: bookingResponse.data.data[0].source,
         status: bookingResponse.data.data[0].status,
-        banned: bookingResponse.data.data[0].banned,
+        banned: bookingResponse.data.data[0].banned, 
         loan_status: loanStatus,  
         total_loan: parseFloat(totalLoan),
         received_loan: 0,
