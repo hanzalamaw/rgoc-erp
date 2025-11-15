@@ -257,26 +257,33 @@ app.post('/api/bookings/edit', async (req, res) => {
   }
 });
 
-//EDIT TRANSACTIONS
+// EDIT TRANSACTIONS
 app.post('/api/bookings/editTransactions', async (req, res) => {
   try {
     const {
       booking_id,
-      total_price,
       bank,
       cash,
       received,
       pending
     } = req.body;
 
+    if (!booking_id) {
+      return res.status(400).json({ error: 'booking_id is required' });
+    }
+
     const query = `
       UPDATE bookings SET
-        total_price = ?, bank = ?, cash = ?, received = ?, pending = ?
+        bank = ?, cash = ?, received = ?, pending = ?
       WHERE booking_id = ?
     `;
 
     const values = [
-      total_price, bank, cash, received, pending
+      bank,
+      cash,
+      received,
+      pending,
+      booking_id
     ];
 
     await db.execute(query, values);
@@ -286,6 +293,7 @@ app.post('/api/bookings/editTransactions', async (req, res) => {
     res.status(500).json({ error: 'Failed to update booking 😓' });
   }
 });
+
 
 // DELETE BOOKINGS ROUTE
 app.post('/api/bookings/delete', async (req, res) => {

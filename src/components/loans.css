@@ -172,6 +172,11 @@
   justify-content: left;
   align-items: center;
 }
+.displaySectionContents{
+  text-align: left;
+  justify-content: left;
+  align-items: center;
+}
 
 .loanDetailsSection{
   display: grid;

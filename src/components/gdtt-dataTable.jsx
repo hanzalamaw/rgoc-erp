@@ -9,6 +9,7 @@ function dataTable(props){
     const apiURL = import.meta.env.VITE_API_URL;
 
     const [allData, setAllData] = useState([]);
+    const [displayedData, setDisplayedData] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -46,6 +47,8 @@ function dataTable(props){
             order.contact?.toLowerCase().includes(props.contact.toLowerCase())
             );
         }
+
+        setDisplayedData(data);
 
         const container = document.getElementById('ordersContainer');
         if (!container) return;
@@ -300,28 +303,28 @@ function dataTable(props){
     }
 
     function applyFilters() {
-    let filtered = [...allData];
+        let filtered = [...allData];
 
-    const group = document.getElementById("groups").value.trim().toLowerCase();
-    const search = document.getElementById("search").value.trim().toLowerCase();
+        const group = document.getElementById("groups").value.trim().toLowerCase();
+        const search = document.getElementById("search").value.trim().toLowerCase();
 
-    // Filter by group if not "all"
-    if (group && group !== "all") {
-        filtered = filtered.filter(row => 
-            row.group?.toLowerCase() === group
-        );
+        // Filter by group if not "all"
+        if (group && group !== "all") {
+            filtered = filtered.filter(row => 
+                row.group?.toLowerCase() === group
+            );
+        }
+
+        // Filter by name (search box)
+        if (search) {
+            filtered = filtered.filter(row => 
+                row.name?.toLowerCase().includes(search)
+            );
+        }
+
+        // Finally render filtered data
+        renderData(filtered);
     }
-
-    // Filter by name (search box)
-    if (search) {
-        filtered = filtered.filter(row => 
-            row.name?.toLowerCase().includes(search)
-        );
-    }
-
-    // Finally render filtered data
-    renderData(filtered);
-}
 
 
     if(props.status === "leads") {
@@ -329,6 +332,70 @@ function dataTable(props){
             el.style.display = "none";
         });
     } 
+
+    function exportToCSV() {
+
+        if (!displayedData || displayedData.length === 0) {
+            alert("No data to export.");
+            return;
+        }       
+
+        const headers = [
+            "Customer ID", "Booking ID", "Name", "Contact", "Type", "Group", "Booking Date", "No Of Persons", "Package Price",
+            "No of Infants", "Infant Price", "Total Price", "Bank", "Cash", "Received", "Pending", "Reference",
+            "Source", "Requirement", "Payment Status"
+        ];
+
+        const rows = displayedData.map(order => [
+            order.customer_id ?? '',
+            order.booking_id ?? '',
+            order.name ?? '',
+            order.contact ?? '',
+            order.type ?? '',
+            order.group ?? '', 
+            new Date(order.booking_date).toISOString().split('T')[0] ?? '',
+            order.persons ?? '',
+            order.package_price ?? '',
+            order.infants ?? '',
+            order.infant_price ?? '',
+            order.total_price ?? '',
+            order.bank ?? '',
+            order.cash ?? '',
+            order.received ?? '',
+            order.pending ?? '',
+            order.refrence ?? '',
+            order.source ?? '',
+            order.requirement ?? '',
+            (order.pending > 0 ? "Pending" : "Received")
+        ]);
+
+        const csv = [headers, ...rows]
+            .map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))
+            .join('\n');
+
+        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        const newDate = new Date();
+
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        const day = String(newDate.getDate()).padStart(2, '0');
+        const month = months[newDate.getMonth()];
+        const year = newDate.getFullYear();
+
+        const hours = String(newDate.getHours()).padStart(2, '0');
+        const minutes = String(newDate.getMinutes()).padStart(2, '0');
+        const seconds = String(newDate.getSeconds()).padStart(2, '0');
+
+        const formatted = `${day}_${month}_${year}_(${hours}:${minutes}:${seconds})`;
+
+        link.download = `GDTT_Bookings_Export_${formatted}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
 
     return(
         <>
@@ -341,6 +408,8 @@ function dataTable(props){
                 <select name="groups" id="groups" onChange={applyFilters}>
                     <option value="all">All</option>
                 </select>
+
+                <button id='hiderr' onClick={exportToCSV}>Export to CSV</button>
             </div>
         </div>
         <div className="table-wrapper">
