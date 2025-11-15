@@ -12,7 +12,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
-
 // console.log("🧪 TEST_KEY:", process.env.TEST_KEY);
 // console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
 const app = express();
