@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pdf from 'html-pdf';
+import nodemailer from "nodemailer";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1585,6 +1586,32 @@ app.post('/api/generate-pdf', (req, res) => {
         console.error('Unexpected error in /api/generate-pdf:', err);
         res.status(500).send('Internal Server Error');
     }
+});
+
+app.post('/api/send-email', async (req, res) => {
+  const { to, subject, message } = req.body;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to,
+      subject,
+      text: message,
+    });
+
+    res.json({ success: true, msg: "Email sent ✅" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, msg: "Failed to send email 😓" });
+  }
 });
 
 const PORT = process.env.PORT || 5000;

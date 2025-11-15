@@ -58,39 +58,39 @@ function leadsStats(props){
     return(
         <>
         <Splitter name="LEADS STATS"/>
-        <div className='leads'>
-            <div className='lead-cards'>
-                <div className='lead-card'>
-                    <div className='lupper-content'>
-                        <div className='card-text'>
-                            <p>Total leads</p>
-                            <h3><span id='leads'>Loading...</span></h3>
+            <div className='leads'>
+                <div className='lead-cards'>
+                    <div className='lead-card'>
+                        <div className='lupper-content'>
+                            <div className='card-text'>
+                                <p>Total leads</p>
+                                <h3><span id='leads'>Loading...</span></h3>
+                            </div>
+                            <img src={BlueUp} />
                         </div>
-                        <img src={BlueUp} />
                     </div>
-                </div>
 
-                <div className='lead-card'>
-                    <div className='lupper-content'>
-                        <div className='card-text'>
-                            <p>Leads Converted</p>
-                            <h3><span id='converted'>Loading...</span></h3>
+                    <div className='lead-card'>
+                        <div className='lupper-content'>
+                            <div className='card-text'>
+                                <p>Leads Converted</p>
+                                <h3><span id='converted'>Loading...</span></h3>
+                            </div>
+                            <img src={GreenUp} />
                         </div>
-                        <img src={GreenUp} />
                     </div>
-                </div>
 
-                <div className='lead-card'>
-                    <div className='lupper-content'>
-                        <div className='card-text'>
-                            <p>Conversion Rate</p>
-                            <h3><span id='conversion'>Loading...</span></h3>
+                    <div className='lead-card'>
+                        <div className='lupper-content'>
+                            <div className='card-text'>
+                                <p>Conversion Rate</p>
+                                <h3><span id='conversion'>Loading...</span></h3>
+                            </div>
+                            <img src={GreenUp} />
                         </div>
-                        <img src={GreenUp} />
                     </div>
                 </div>
             </div>
-        </div>
         </>
     )
 }

@@ -5,7 +5,7 @@ import twf from '../assets/twf-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUser } from '../utils/auth';
-import { getToken} from '../utils/auth'
+import { getToken} from '../utils/auth';
 
 function LoginForm() {
   
