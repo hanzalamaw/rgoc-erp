@@ -39,7 +39,7 @@ function leadsStats(props){
         document.getElementById("leads").textContent = `${totalLeads}`;
         document.getElementById("converted").textContent = `${leadsConverted}`;
         document.getElementById("conversion").textContent = `${conversionRate}%`;
-
+        
         if(props.hidden == "yes"){
             document.getElementById("leads").classList.add("blur");
             document.getElementById("converted").classList.add("blur");
