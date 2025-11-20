@@ -950,7 +950,7 @@ function buildQuoteHtml(data) {
 <head>
     <meta charset="UTF-8" />
     <title>Quotation - ${group || 'Group'}</title>
-<style>
+    <style>
         /* =============== GLOBAL =============== */
         * {
             box-sizing: border-box;
@@ -960,6 +960,7 @@ function buildQuoteHtml(data) {
             margin: 0;
             padding: 0;
             font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
         }
 
         .quote-wrapper {
@@ -971,7 +972,7 @@ function buildQuoteHtml(data) {
         }
 
         .quote-inner {
-            background: #f9fafb;
+            background: #ffffff; /* white card */
             border-radius: 18px;
             padding: 24px 28px 18px 28px;
             position: relative;
@@ -990,7 +991,7 @@ function buildQuoteHtml(data) {
         .quote-inner::before {
             width: 180px;
             height: 180px;
-            background: #38bdf8;
+            background: #C89439; /* gold accent */
             top: -80px;
             right: -40px;
         }
@@ -998,7 +999,7 @@ function buildQuoteHtml(data) {
         .quote-inner::after {
             width: 160px;
             height: 160px;
-            background: #22c55e;
+            background: #0C4D27; /* green accent */
             bottom: -90px;
             left: -30px;
         }
@@ -1022,14 +1023,14 @@ function buildQuoteHtml(data) {
             font-weight: 800;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: #0f172a;
+            color: #0C4D27; /* logo green */
         }
 
         .brand-subtitle {
             font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #6b7280;
+            color: #C89439; /* gold */
             margin-top: 2px;
         }
 
@@ -1054,7 +1055,7 @@ function buildQuoteHtml(data) {
         .quote-main-title {
             font-size: 28px;
             font-weight: 800;
-            color: #111827;
+            color: #0C4D27; /* green heading */
             margin: 4px 0 4px 0;
         }
 
@@ -1069,7 +1070,7 @@ function buildQuoteHtml(data) {
             border-radius: 999px;
             font-size: 13px;
             color: #0f172a;
-            background: linear-gradient(90deg, #e0f2fe, #dcfce7);
+            background: linear-gradient(90deg, #FFF7E6, #F4E3B0); /* soft gold gradient */
             display: inline-block;
         }
 
@@ -1077,7 +1078,7 @@ function buildQuoteHtml(data) {
         .divider {
             height: 1px;
             width: 100%;
-            background: linear-gradient(to right, transparent, #cbd5f5, transparent);
+            background: linear-gradient(to right, transparent, #F4E3B0, transparent); /* gold line */
             margin: 12px 0 14px 0;
         }
 
@@ -1108,7 +1109,7 @@ function buildQuoteHtml(data) {
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #6b7280;
+            color: #0C4D27; /* green section title */
             margin-bottom: 4px;
         }
 
@@ -1131,13 +1132,13 @@ function buildQuoteHtml(data) {
         .highlight-strip {
             margin-bottom: 16px;
             border-radius: 12px;
-            background: linear-gradient(90deg, #0ea5e9, #22c55e, #facc15);
+            background: linear-gradient(90deg, #0C4D27, #C89439, #F4E3B0); /* green to gold */
             padding: 1px;
         }
 
         .highlight-inner {
             border-radius: 11px;
-            background: #f9fafb;
+            background: #ffffff;
             padding: 8px 10px;
             display: flex;
             justify-content: space-between;
@@ -1153,6 +1154,7 @@ function buildQuoteHtml(data) {
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.12em;
+            color: #0C4D27;
         }
 
         .highlight-sub {
@@ -1168,8 +1170,8 @@ function buildQuoteHtml(data) {
         .highlight-pill {
             padding: 4px 8px;
             border-radius: 999px;
-            background: #0ea5e9;
-            color: #f9fafb;
+            background: #0C4D27; /* green pill */
+            color: #ffffff;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.14em;
@@ -1189,7 +1191,7 @@ function buildQuoteHtml(data) {
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.14em;
-            color: #6b7280;
+            color: #0C4D27;
             margin-bottom: 6px;
         }
 
@@ -1215,8 +1217,8 @@ function buildQuoteHtml(data) {
             border-radius: 14px;
             padding: 10px 12px;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, #eff6ff 0%, #f9fafb 40%, #ecfeff 100%);
-            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: linear-gradient(135deg, #FFF7E6 0%, #ffffff 40%, #FDF3D7 100%); /* warm gold-ish card */
+            border: 1px solid rgba(200, 148, 57, 0.4); /* gold border */
             box-shadow:
                 0 8px 16px rgba(15, 23, 42, 0.08),
                 inset 0 0 0 0.5px rgba(248, 250, 252, 0.8);
@@ -1241,15 +1243,15 @@ function buildQuoteHtml(data) {
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.14em;
-            color: #0f172a;
-            background: #bfdbfe;
+            color: #0C4D27;
+            background: #F4E3B0; /* light gold */
         }
 
         .package-days {
             display: inline-block;
             margin-left: 6px;
             font-size: 13px;
-            color: #1d4ed8;
+            color: #0C4D27;
             font-weight: 600;
         }
 
@@ -1309,7 +1311,7 @@ function buildQuoteHtml(data) {
         }
 
         .detail-value.total {
-            color: #16a34a;
+            color: #0C4D27; /* green highlight for totals */
         }
 
         .package-footer {
@@ -1330,7 +1332,7 @@ function buildQuoteHtml(data) {
             font-size: 12px;
             color: #4b5563;
             margin-bottom: 10px;
-            background: #f9fafb;
+            background: #ffffff;
         }
 
         .terms-title {
@@ -1338,7 +1340,7 @@ function buildQuoteHtml(data) {
             text-transform: uppercase;
             letter-spacing: 0.14em;
             font-size: 13px;
-            color: #6b7280;
+            color: #0C4D27;
             margin-bottom: 4px;
         }
 
@@ -1371,11 +1373,12 @@ function buildQuoteHtml(data) {
 
         .footer-brand {
             font-weight: 600;
-            color: #6b7280;
+            color: #0C4D27; /* green brand line */
         }
 
         .footer-contact-line {
             margin-top: 2px;
+            color: #6b7280;
         }
     </style>
 </head>
@@ -1390,7 +1393,7 @@ function buildQuoteHtml(data) {
                         <div class="brand-subtitle">UMRAH • HAJJ • ZIYARAT • TOURS</div>
                         <div class="brand-meta">
                             Karachi, Pakistan<br />
-                            info@greendometravels.com | +92 331 7259177
+                            info@greendometravel.com | +92-XXX-XXXXXXX
                         </div>
                     </div>
 
@@ -1399,7 +1402,7 @@ function buildQuoteHtml(data) {
                         <div class="quote-main-title">UMRAH QUOTE</div>
                         <div class="quote-tagline">Tailored for your group: <strong>${group || '-'}</strong></div>
                         <div class="quote-meta">
-                            Booking ID: <strong>${booking_id || '-'}</strong> &nbsp;•&nbsp;
+                            REF: <strong>${booking_id || '-'}</strong> &nbsp;•&nbsp;
                             DATE: <strong>${booking_date || '-'}</strong>
                         </div>
                     </div>
@@ -1410,7 +1413,7 @@ function buildQuoteHtml(data) {
                 <!-- INFO GRID -->
                 <div class="info-grid">
                     <div class="info-column">
-                        <div class="info-heading">Booking Details</div>
+                        <div class="info-heading">Lead Pilgrim</div>
                         <div class="info-item">
                             <span class="info-label">Name:</span>
                             <span class="info-value">${fullName || '-'}</span>
@@ -1480,7 +1483,6 @@ function buildQuoteHtml(data) {
                         <li>Airline fares, taxes and surcharges vary daily; exact amount will be confirmed on issuance.</li>
                         <li>Any additional nights, room upgrades or change of airlines will impact the total cost.</li>
                         <li>All payments are to be made in advance as per the agreed schedule shared at booking time.</li>
-                        <li><strong>Above Packages Include:</strong> ${inclusions.length > 0 ? inclusions.join(", ") : "None"}</li>
                     </ul>
                 </div>
 
