@@ -83,6 +83,7 @@ function dataTable(props){
             <td class="querryHider">Rs. ${parseInt(order.cash).toLocaleString("en-PK")}</td>
             <td class="querryHider">Rs. ${parseInt(order.received).toLocaleString("en-PK")}</td> 
             <td class="querryHider">Rs. ${parseInt(order.pending).toLocaleString("en-PK")}</td> 
+            <td class="querryHider">${order.total_loan==0 ? 'none' : "Rs. " + parseInt(order.total_loan).toLocaleString("en-PK")}</td> 
             <td>${order.refrence}</td>
             <td>${order.source}</td>
             <td>${order.requirement}</td>
@@ -434,6 +435,7 @@ function dataTable(props){
                         <th className='querryHider'>Cash</th>
                         <th className='querryHider'>Received</th>
                         <th className='querryHider'>Pending</th>
+                        <th className='querryHider'>Total Loan</th>
                         <th>Refrence</th>
                         <th>Source</th>
                         <th>Description</th>
@@ -445,6 +447,8 @@ function dataTable(props){
                 </thead>
                 <tbody id="ordersContainer">
                     <tr>
+                        <td>Loading..</td>
+                        <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>
                         <td>Loading..</td>

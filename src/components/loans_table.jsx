@@ -103,19 +103,12 @@ function LoansTable(props) {
         <td>${order.contact}</td>
         <td>${order.type}</td>
         <td>${order.group}</td>
-        <td>${new Date(order.booking_date).toISOString().split('T')[0]}</td>
-        <td>${order.persons}</td>
-        <td>Rs. ${parseInt(order.package_price).toLocaleString('en-PK')}</td>
-        <td>${order.infants}</td>
-        <td>Rs. ${parseInt(order.infant_price).toLocaleString('en-PK')}</td>
         <td>Rs. ${parseInt(order.total_price).toLocaleString('en-PK')}</td>
+        <td class="querryHider">${order.total_loan==0 ? 'none' : "Rs. " + parseInt(order.total_loan).toLocaleString("en-PK")}</td>
         <td class="querryHider">Rs. ${parseInt(order.bank || 0).toLocaleString('en-PK')}</td>
         <td class="querryHider">Rs. ${parseInt(order.cash || 0).toLocaleString('en-PK')}</td>
         <td class="querryHider">Rs. ${parseInt(order.received || 0).toLocaleString('en-PK')}</td>
         <td class="querryHider">Rs. ${parseInt(order.pending || 0).toLocaleString('en-PK')}</td>
-        <td>${order.refrence ?? ''}</td>
-        <td>${order.source ?? ''}</td>
-        <td>${order.requirement ?? ''}</td>
         <td class="status-cell querryHider">
           <span class="badge ${isPending ? 'pending' : 'received'}">
             ${isPending ? 'Pending' : 'Received'}
@@ -398,22 +391,15 @@ function LoansTable(props) {
               <th>Contact</th>
               <th>Type</th>
               <th>Group</th>
-              <th>Booking Date</th>
-              <th>Adults</th>
-              <th>Package Price</th>
-              <th>Infants</th>
-              <th>Infant Price</th>
               <th>Total Price</th>
+              <th>Total Loan</th>
               <th className="querryHider">Bank</th>
               <th className="querryHider">Cash</th>
               <th className="querryHider">Received</th>
               <th className="querryHider">Pending</th>
-              <th>Refrence</th>
-              <th>Source</th>
-              <th>Description</th>
-              <th className="querryHider">Payment Status</th>
-              <th></th>
-              <th className="querryHider"></th>
+                <th className="querryHider">Payment Status</th>
+                <th></th>
+                <th className="querryHider"></th>
               <th></th>
             </tr>
           </thead>

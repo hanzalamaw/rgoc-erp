@@ -15,7 +15,7 @@ dotenv.config();
 // console.log("🧪 TEST_KEY:", process.env.TEST_KEY);
 // console.log("🔑 JWT_SECRET:", process.env.JWT_SECRET);
 const app = express();
-app.use(express.urlencoded({ extended: true })); // ✅ required for form data
+app.use(express.urlencoded({ extended: true })); 
 app.use(cors());
 app.use(cors({
   origin: '*',
