@@ -2,61 +2,19 @@ import './navigation_bar.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useRef, useState } from "react";
 import { getToken, getUser } from '../utils/auth'
+import { useLocation } from "react-router-dom";
 
-function navigation_bar(props) {
-  const [users, setUsers] = useState([]);
+function NavigationBar(props) {
   const navigate = useNavigate();
-  let hasRun = useRef(false);
-
-useEffect(() => {
+  const location = useLocation();
 
   const token = getToken();
   if (!token) {
     navigate('/');
-    return;
+    return null;
   }
-
-  const dash = document.getElementById("dashboard");
-  const expenses = document.getElementById("expenses");
-  const transactions = document.getElementById("transactions");
-  const newBooking = document.getElementById("gdtt-newBooking");
-  const newQuerry = document.getElementById("gdtt-newQuerry");
 
   const role = getUser()?.gdtt;
-
-  switch (role) {
-    case "staff+":
-      if (dash) dash.style.display = "none";
-      if(!(hasRun)){
-        navigate('/gdtt-newBooking');
-      }
-      break;
-
-    case "staff":
-      if (dash) dash.style.display = "none";
-      if (expenses) expenses.style.display = "none";
-      if (transactions) transactions.style.display = "none";
-      navigate('/gdtt-newBooking');
-      break;
-
-    case "guest":
-      if (dash) dash.style.display = "none";
-      if (expenses) expenses.style.display = "none";
-      if (transactions) transactions.style.display = "none";
-      if (newBooking) newBooking.style.display = "none";
-      navigate('/gdtt-bookingManage');
-      break;
-  }
-}, []);
-
-  const logout = () => {
-    localStorage.clear();
-    window.location.reload();
-  }
-
-  const changeCompany = () => {
-    navigate('/');
-  }
 
   const navItems = [
     { id: 'dashboard', path: '/gdtt-home', label: 'Dashboard' },
@@ -69,12 +27,37 @@ useEffect(() => {
     { id: 'gdtt-quote', path: '/gdtt-quote', label: 'Generate Quote' }
   ];
 
+  const filteredNavItems = navItems.filter(item => {
+    if (role === "sales") {
+      return item.id === "gdtt-newBooking" || item.id === "gdtt-querryManage";
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    if (role === "sales") {
+      const allowedPages = ["/gdtt-newBooking", "/gdtt-querryManage"];
+
+      // Redirect ONLY if the current page is NOT allowed
+      if (!allowedPages.includes(location.pathname)) {
+        navigate("/gdtt-newBooking");
+      }
+    }
+  }, [role, location.pathname, navigate]);
+
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload();
+  }
+
+  const changeCompany = () => {
+    navigate('/');
+  }
+
   return (
-    <>
     <div className='navBar'>
-      {/* <p>{props.companyName}</p> */}
       <div className='navContent'>
-        {navItems.map(item => (
+        {filteredNavItems.map(item => (
           <div
             className={`navSection ${props.active === item.id ? 'active' : ''}`}
             id={item.id}
@@ -92,14 +75,12 @@ useEffect(() => {
           <h3>{getUser()?.name}</h3>
         </div>
         <div className='buttonsSection'>
-          <button className='changeBtn' onClick={() => changeCompany()}>Change Company</button> 
-          <button className='logoutBtn' onClick={() => logout()}>Logout</button> 
+          <button className='changeBtn' onClick={changeCompany}>Change Company</button>
+          <button className='logoutBtn' onClick={logout}>Logout</button>
         </div>
-        
       </div>
     </div>
-    </>
   );
 }
 
-export default navigation_bar;
+export default NavigationBar;
