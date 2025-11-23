@@ -4,12 +4,79 @@ import edit from '../assets/edit.png'
 import deleteImg from '../assets/delete.png'
 import invoice from '../assets/invoice.png'
 import React, { useRef } from 'react';
+import { getUser } from '../utils/auth';
+import { getToken} from '../utils/auth';
  
 function dataTable(props){
     const apiURL = import.meta.env.VITE_API_URL;
 
     const [allData, setAllData] = useState([]);
     const [displayedData, setDisplayedData] = useState([]);
+
+    const exportAlertEmail = async (fileName = "Unknown File") => {
+        const adminEmail = "hanzalamawahab@gmail.com";
+        const name = getUser()?.name || "Unknown User";
+        const token = getToken();
+
+        const htmlTemplate = `
+            <div style="max-width: 600px; margin: auto; font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; border-radius: 10px;">
+        
+            <!-- Header -->
+            <div style="background: #c51e2a; padding: 20px; border-radius: 10px 10px 0 0; text-align: center;">
+                <h2 style="color: white; margin: 0;">RGOC ERP</h2>
+                <p style="color: #ffeaea; margin: 5px 0 0 0; font-size: 14px;">⚠️ File Export Alert</p>
+            </div>
+
+            <!-- Body -->
+            <div style="background: white; padding: 25px; border-radius: 0 0 10px 10px;">
+            
+                <h3 style="color: #333; margin-top: 0;">File Export Notification</h3>
+
+                <p style="color: #555; font-size: 15px; line-height: 1.6;">
+                    A user has just exported a file from <strong>RGOC ERP</strong>.
+                </p>
+
+                <div style="margin: 20px 0; padding: 15px; background: #f4f4f4; border-left: 5px solid #c51e2a;">
+                    <p style="margin: 0; font-size: 14px; color: #444; line-height: 1.6;">
+                        <strong>Export Details:</strong><br>
+                        • <strong>User Name:</strong> ${name} <br>
+                        • <strong>File Exported:</strong> ${fileName} <br>
+                        • <strong>Time:</strong> ${new Date().toLocaleString()} <br>
+                    </p>
+                </div>
+
+                <p style="color: #555; font-size: 15px; line-height: 1.6;">
+                    If this export seems suspicious, please review the activity and take appropriate action.
+                </p>
+
+                <p style="color: #777; font-size: 13px; margin-top: 30px;">
+                    — Automated security email from RGOC ERP
+                </p>
+            </div>
+
+            </div>
+        `;
+
+        try {
+            const res = await fetch(`${apiURL}/send-email`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token ?? ""}`,
+                },
+                body: JSON.stringify({
+                    to: adminEmail,          // ALWAYS send to you
+                    subject: "⚠️ File Export Alert – RGOC ERP",
+                    html: htmlTemplate,
+                }),
+            });
+
+            await res.json();
+        } catch (error) {
+            console.error("Export email error:", error);
+        }
+    };
+
 
     useEffect(() => {
         async function fetchData() {
@@ -374,29 +441,31 @@ function dataTable(props){
             .map(row => row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))
             .join('\n');
 
-        const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        const newDate = new Date();
+            const blob = new Blob([`\uFEFF${csv}`], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            const newDate = new Date();
 
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-        const day = String(newDate.getDate()).padStart(2, '0');
-        const month = months[newDate.getMonth()];
-        const year = newDate.getFullYear();
+            const day = String(newDate.getDate()).padStart(2, '0');
+            const month = months[newDate.getMonth()];
+            const year = newDate.getFullYear();
 
-        const hours = String(newDate.getHours()).padStart(2, '0');
-        const minutes = String(newDate.getMinutes()).padStart(2, '0');
-        const seconds = String(newDate.getSeconds()).padStart(2, '0');
+            const hours = String(newDate.getHours()).padStart(2, '0');
+            const minutes = String(newDate.getMinutes()).padStart(2, '0');
+            const seconds = String(newDate.getSeconds()).padStart(2, '0');
 
-        const formatted = `${day}_${month}_${year}_(${hours}:${minutes}:${seconds})`;
+            const formatted = `${day}_${month}_${year}_(${hours}:${minutes}:${seconds})`;
 
-        link.download = `GDTT_Bookings_Export_${formatted}.csv`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+            link.download = `GDTT_Bookings_Export_${formatted}.csv`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            exportAlertEmail(link.download);
+        }
 
     return(
         <>

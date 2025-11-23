@@ -1590,7 +1590,7 @@ app.post('/api/generate-pdf', (req, res) => {
 });
 
 app.post('/api/send-email', async (req, res) => {
-  const { to, subject, message } = req.body;
+  const { to, subject, message, html } = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -1605,7 +1605,8 @@ app.post('/api/send-email', async (req, res) => {
       from: process.env.EMAIL_USER,
       to,
       subject,
-      text: message,
+      text: message || "",   // optional
+      html: html || "",      // <-- use HTML template here
     });
 
     res.json({ success: true, msg: "Email sent ✅" });
