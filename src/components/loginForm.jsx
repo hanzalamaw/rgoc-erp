@@ -71,7 +71,7 @@ function LoginForm() {
         },
         body: JSON.stringify({
           to: senderEmail,
-          subject: "⚠️ New Login Detected ⚠️",
+          subject: "⚠️ New Login Detected",
           html: htmlTemplate, 
         }),
       });
@@ -101,7 +101,7 @@ function LoginForm() {
           document.getElementById("companySelect").style.display = 'flex';
         }
       }
-    // Fade-in logic
+      
     const sections = document.querySelectorAll(".fade-in-section");
 
     const observer = new IntersectionObserver(

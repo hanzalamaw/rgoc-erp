@@ -1605,14 +1605,14 @@ app.post('/api/send-email', async (req, res) => {
       from: process.env.EMAIL_USER,
       to,
       subject,
-      text: message || "",   // optional
-      html: html || "",      // <-- use HTML template here
+      text: message || "", 
+      html: html || "",     
     });
 
-    res.json({ success: true, msg: "Email sent ✅" });
+    res.json({ success: true, msg: "Email sent" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, msg: "Failed to send email 😓" });
+    res.status(500).json({ success: false, msg: "Failed to send email" });
   }
 });
 
