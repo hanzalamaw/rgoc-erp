@@ -21,7 +21,7 @@ function generateQuote(props){
         const booking_date   = formData.get('booking_date');
         const trip_type      = formData.get('trip_type');
 
-        // ✅ 2. Read checkbox values (will be "on" if checked, null if not)
+        // 2. Read checkbox values (will be "on" if checked, null if not)
         const food         = formData.get('food');
         const medical      = formData.get('medical');
         const hotel        = formData.get('hotel');

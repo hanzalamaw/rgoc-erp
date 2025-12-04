@@ -1,7 +1,8 @@
 /* @vite-ignore */
 .loginSection img{
   width: 193px;
-  height: 124.882px;  
+  height: auto;
+  max-width: 80%;
 }
 
 .loginSection{
@@ -10,7 +11,9 @@
   align-items: center;
   gap: 1rem;
   flex-direction: column;
-  height: 85vh;
+  min-height: 85vh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
 }
 
 *{
@@ -20,24 +23,40 @@
   color: white;
   font-family: 'Poppins', sans-serif;
 }
-/*
-button{
-  padding: 0.6875rem 7.125rem;
-  border-radius: 0.5625rem;
-  width: 18.4375rem;
-  font-size: 1rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .loginSection {
+    padding: 1.5rem;
+  }
+  
+  .loginSection img {
+    width: 170px;
+  }
 }
 
-input{
-  padding: 0.6875rem 1.1875rem;
-  border-radius: 0.5625rem;
-  outline: none;
-  border: none;
+/* Mobile styles */
+@media (max-width: 768px) {
+  .loginSection {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    justify-content: flex-start;
+    padding-top: 3rem;
+  }
+  
+  .loginSection img {
+    width: 150px;
+  }
 }
 
-input:focus{
-  border: 0.1rem solid rgba(255, 255, 255, 0.486);
-}*.
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .loginSection {
+    padding: 1.5rem 0.5rem;
+    padding-top: 2rem;
+  }
+  
+  .loginSection img {
+    width: 130px;
+  }
+}

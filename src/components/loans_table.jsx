@@ -294,65 +294,85 @@ function LoansTable(props) {
     }
   }
 
-  // --------- Profile popup (kept as-is) ----------
+  // --------- Profile popup ----------
   window.showProfile = function (id) {
-    const popup = document.querySelector('.blockedUser');
+    const popup = document.querySelector('.customer-history-modal');
     popup.classList.add('show');
     popup.style.display = 'flex';
 
-    document.getElementById('querrySide').innerHTML = '<b>Querry History</b>';
-    document.getElementById('travelSide').innerHTML = '<b>Travel History</b>';
-    document.getElementById('loanSide').innerHTML = '<b>Loan History</b>';
+    // Reset card contents (keep headers intact)
+    const querryContent = document.querySelector("#querrySide .history-card-content");
+    const travelContent = document.querySelector("#travelSide .history-card-content");
+    const loanContent = document.querySelector("#loanSide .history-card-content");
+    
+    querryContent.innerHTML = '<p class="history-loading">Loading...</p>';
+    travelContent.innerHTML = '<p class="history-loading">Loading...</p>';
+    loanContent.innerHTML = '<p class="history-loading">Loading...</p>';
 
     fetch(`${apiURL}/profile?customer_id=${encodeURIComponent(id)}`)
       .then((res) => res.json())
       .then((data) => {
+        // Queries
+        querryContent.innerHTML = '';
         if (data.Query && data.Query.length > 0) {
           data.Query.forEach((item) => {
             const p = document.createElement('p');
+            p.className = 'history-item';
             p.textContent = `${item.group} - ${item.type} (${item.date})`;
-            document.getElementById('querrySide').appendChild(p);
+            querryContent.appendChild(p);
           });
         } else {
           const p = document.createElement('p');
-          p.textContent = 'none';
-          document.getElementById('querrySide').appendChild(p);
+          p.className = 'history-empty';
+          p.textContent = 'No query history';
+          querryContent.appendChild(p);
         }
 
+        // Bookings
+        travelContent.innerHTML = '';
         if (data.Booking && data.Booking.length > 0) {
           data.Booking.forEach((item) => {
             const p = document.createElement('p');
+            p.className = 'history-item';
             p.textContent = `${item.group} - ${item.type} (${item.date})`;
-            document.getElementById('travelSide').appendChild(p);
+            travelContent.appendChild(p);
           });
         } else {
           const p = document.createElement('p');
-          p.textContent = 'none';
-          document.getElementById('travelSide').appendChild(p);
+          p.className = 'history-empty';
+          p.textContent = 'No travel history';
+          travelContent.appendChild(p);
         }
 
+        // Loans
+        loanContent.innerHTML = '';
         if (data.Loan && data.Loan.length > 0) {
           data.Loan.forEach((item) => {
             const p = document.createElement('p');
+            p.className = 'history-item';
             p.textContent = `${item.group} - ${item.type} | Total Loan: Rs. ${parseInt(
               item.total_loan
             ).toLocaleString('en-PK')}`;
-            document.getElementById('loanSide').appendChild(p);
+            loanContent.appendChild(p);
           });
         } else {
           const p = document.createElement('p');
-          p.textContent = 'none';
-          document.getElementById('loanSide').appendChild(p);
+          p.className = 'history-empty';
+          p.textContent = 'No loan history';
+          loanContent.appendChild(p);
         }
       })
       .catch((err) => {
         console.error('Error fetching customer history:', err);
+        querryContent.innerHTML = '<p class="history-error">Error loading data</p>';
+        travelContent.innerHTML = '<p class="history-error">Error loading data</p>';
+        loanContent.innerHTML = '<p class="history-error">Error loading data</p>';
       });
   };
 
   const close = () => {
-    document.querySelector('.blockedUser').style.display = 'none';
-    document.querySelector('.blockedUser').classList.remove('.show');
+    document.querySelector('.customer-history-modal').style.display = 'none';
+    document.querySelector('.customer-history-modal').classList.remove('show');
   };
 
   // Basic filtering (kept hook for future UI)
@@ -428,25 +448,37 @@ function LoansTable(props) {
       </div>
 
       {/* EXISTING PROFILE MODAL */}
-      <section className="blockedUser">
+      <section className="blockedUser customer-history-modal">
         <div className="content">
-          <h2>CUSTOMER HISTORY!</h2>
+          <h2>Customer History</h2>
 
-          <div className="history">
-            <div id="querrySide">
-              <b>Querry History</b>
+          <div className="history-grid">
+            <div className="history-card" id="querrySide">
+              <div className="history-card-header">
+                <span className="history-icon">📋</span>
+                <b>Query History</b>
+              </div>
+              <div className="history-card-content"></div>
             </div>
 
-            <div id="travelSide">
-              <b>Travel History</b>
+            <div className="history-card" id="travelSide">
+              <div className="history-card-header">
+                <span className="history-icon">✈️</span>
+                <b>Travel History</b>
+              </div>
+              <div className="history-card-content"></div>
             </div>
 
-            <div id="loanSide">
-              <b>Loan History</b>
+            <div className="history-card" id="loanSide">
+              <div className="history-card-header">
+                <span className="history-icon">💰</span>
+                <b>Loan History</b>
+              </div>
+              <div className="history-card-content"></div>
             </div>
           </div>
 
-          <button onClick={(e) => close(e)}>Close</button>
+          <button className="history-close-btn" onClick={(e) => close(e)}>Close</button>
         </div>
       </section>
 

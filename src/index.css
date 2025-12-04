@@ -3,7 +3,58 @@
   padding: 0;
   color: white;
   font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
 }
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Anti-aliased fonts */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global selection style */
+::selection {
+  background: rgba(22, 107, 168, 0.5);
+  color: white;
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /*
 button{
   padding: 0.6875rem 7.125rem;
@@ -21,7 +72,6 @@ input{
   outline: none;
   border: none;
 }
-
 input:focus{
   border: 0.1rem solid rgba(255, 255, 255, 0.486);
 }*/

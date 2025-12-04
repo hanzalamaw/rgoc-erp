@@ -1,10 +1,41 @@
 /* @vite-ignore */
 .footer-text a{
     text-decoration: underline;
+    transition: opacity 0.2s ease;
+}
+
+.footer-text a:hover {
+    opacity: 0.8;
 }
 
 .footer-text{
     padding: 1rem 0rem;
     font-size: 0.9rem;
     font-weight: 300;
+    text-align: center;
+    width: 100%;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .footer-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .footer-text {
+        font-size: 0.8rem;
+        padding: 1rem 0.5rem;
+        line-height: 1.5;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .footer-text {
+        font-size: 0.75rem;
+        padding: 0.8rem 0.5rem;
+    }
 }

@@ -1,8 +1,15 @@
 .wholePage{
     color: white !important;
     display: grid; 
-    grid-template-columns: 17% 85%;
+    grid-template-columns: 17% 83%;
     overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.statsSide {
+    width: 100%;
+    padding-right: 1rem;
+    box-sizing: border-box;
 }
 
 .filtersSection{
@@ -20,6 +27,11 @@
     border-radius: 6px;      /* Optional: make it look like a button/tab */
     color: white;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.filtersSection p:hover {
+    background-color: #383838;
 }
 
 .selected{
@@ -50,6 +62,12 @@
     align-items: center;
     width: 84%;
     margin-top: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filterStats h1 {
+    font-size: 1.5rem;
 }
 
 .filters{
@@ -57,6 +75,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 #hiderr{
@@ -66,23 +85,134 @@
     background-color: #0d9affad;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#hiderr:hover {
+    background-color: #0D99FF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 154, 255, 0.3);
+}
+
+#hiderr:active {
+    transform: translateY(0);
 }
 
 #byGroup{
     width: 10rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: #1f1f1f;
+    color: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+#byGroup:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+}
 
+#byGroup:focus {
+    border-color: #166ba8;
+    box-shadow: 0 0 8px 2px rgba(22, 107, 168, 0.3);
+    outline: none;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .wholePage {
+        grid-template-columns: 22% 78%;
+    }
+    
+    .filterStats {
+        width: 90%;
+    }
+    
+    .filterStats h1 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px){
     .wholePage {
-        display: block;               /* ✅ Use block on smaller screens */
-        width: 100vw;                 /* ✅ Full viewport width */
+        display: block;
+        width: 100vw;
         padding: 0;
         margin: 0;
         overflow-x: hidden;
     }
     
+    .statsSide {
+        padding: 0 1rem;
+        padding-top: 4rem;
+    }
+    
     .filtersSection{
         display: none;
+    }
+    
+    .filter-wrapper {
+        width: 100%;
+        padding: 0;
+    }
+    
+    .filterStats {
+        width: 100%;
+        margin-top: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .filterStats h1 {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+    
+    .filters {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    #byGroup {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    #hiderr {
+        flex: 1;
+        min-width: 100px;
+    }
+    
+    .generalStats {
+        margin-top: 1.5rem;
+        padding: 0;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .statsSide {
+        padding: 0 0.5rem;
+        padding-top: 3.5rem;
+    }
+    
+    .filterStats {
+        padding: 0 0.5rem;
+    }
+    
+    .filterStats h1 {
+        font-size: 1.1rem;
+    }
+    
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    #byGroup, #hiderr {
+        width: 100%;
+        max-width: none;
     }
 }

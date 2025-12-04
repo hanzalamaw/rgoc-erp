@@ -181,6 +181,10 @@ function transactionsTable(props) {
       'Payment Status',
     ];
 
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+    ];
+
     const rows = displayedData.map((order) => [
       order.customer_id ?? '',
       order.booking_id ?? '',
@@ -214,21 +218,6 @@ function transactionsTable(props) {
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     const newDate = new Date();
-
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
 
     const day = String(newDate.getDate()).padStart(2, '0');
     const month = months[newDate.getMonth()];

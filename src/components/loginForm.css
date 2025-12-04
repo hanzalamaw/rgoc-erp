@@ -5,6 +5,10 @@
     align-items: flex-start;
     color: white;
     gap: 1.5rem;
+    width: 100%;
+    max-width: 38rem;
+    padding: 0 1rem;
+    box-sizing: border-box;
 }
 
 .inputSection{
@@ -14,11 +18,13 @@
     text-align: left;
     align-items: flex-start;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .inputSection input{
     background-color: #444;
-    width: 35.49375rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .loginBtn{
@@ -33,6 +39,8 @@
 .inputButtonSection{
     display: flex;
     gap: 1rem;
+    width: 100%;
+    flex-wrap: wrap;
 }
 
 *{
@@ -44,13 +52,25 @@
 }
 
 .loginBtn, .guestBtn{
-  padding: 0.6875rem 7.125rem;
+  padding: 0.6875rem 2rem;
   border-radius: 0.5625rem;
-  width: 18.4375rem;
+  flex: 1;
+  min-width: 140px;
   font-size: 1rem;
   font-weight: 500;
   border: none;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.loginBtn:hover {
+  background: #4830cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(89, 50, 234, 0.35);
+}
+
+.loginBtn:active, .guestBtn:active {
+  transform: translateY(0);
 }
 
 input{
@@ -58,10 +78,17 @@ input{
   border-radius: 0.5625rem;
   outline: none;
   border: none;
+  font-size: 16px; /* Prevents iOS zoom on focus */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:hover {
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 input:focus{
   border: 0.1rem solid rgba(255, 255, 255, 0.486);
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.1);
 }
 
 #companySelect {
@@ -70,23 +97,39 @@ input:focus{
   flex-direction: column;
   align-items: center; 
   gap: 1rem;
+  width: 100%;
+  max-width: 44rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
 .upperLogo {
   display: flex;
   gap: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .lowerLogo {
   display: flex;
   justify-content: center;
 }
+
 .upperLogo img,
 .lowerLogo img {
   width: 21rem;
-  height: 5.25rem;
+  max-width: calc(50% - 0.5rem);
+  height: auto;
+  min-width: 150px;
   object-fit: contain;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.upperLogo img:hover,
+.lowerLogo img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  opacity: 0.95;
 }
 
 .fade-in-section {
@@ -114,19 +157,33 @@ input:focus{
 }
 
 #Guidelines{
-  width: 60%;
+  width: 90%;
+  max-width: 600px;
   display: none;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 0.9rem;
   margin-top: 1rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+#Guidelines h2 {
+  font-size: 1.3rem;
+  text-align: center;
 }
 
 ul{
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+ul li {
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 #Guidelines button{
@@ -138,9 +195,107 @@ ul{
   margin-top: 2rem;
   width: 100%;
   cursor: pointer;
-  font-size: 01rem;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+#Guidelines button:hover {
+  background-color: #4830cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(89, 50, 234, 0.35);
+}
+
+#Guidelines button:active {
+  transform: translateY(0);
 }
 
 #webhouse, #gdtt, #twf{
   cursor: pointer;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .upperLogo img,
+    .lowerLogo img {
+        width: 18rem;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    #userLogin {
+        max-width: 100%;
+        padding: 0 1.5rem;
+    }
+    
+    .inputButtonSection {
+        flex-direction: column;
+    }
+    
+    .loginBtn, .guestBtn {
+        width: 100%;
+        padding: 0.8rem 2rem;
+    }
+    
+    #companySelect {
+        padding: 0 1rem;
+    }
+    
+    .upperLogo {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .upperLogo img,
+    .lowerLogo img {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    #Guidelines {
+        width: 100%;
+        padding: 0 1.5rem;
+    }
+    
+    #Guidelines h2 {
+        font-size: 1.1rem;
+    }
+    
+    ul li {
+        font-size: 0.85rem;
+    }
+    
+    .statusMsg p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    #userLogin {
+        padding: 0 1rem;
+        gap: 1.2rem;
+    }
+    
+    .inputSection input {
+        padding: 0.8rem 1rem;
+    }
+    
+    .loginBtn, .guestBtn {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .upperLogo img,
+    .lowerLogo img {
+        max-width: 220px;
+    }
+    
+    #Guidelines h2 {
+        font-size: 1rem;
+    }
+    
+    ul li {
+        font-size: 0.8rem;
+    }
 }

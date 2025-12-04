@@ -13,6 +13,7 @@
   gap: 2rem;
   font-size: 0.8rem;
   border-right: 0.15rem solid rgba(255, 255, 255, 0.151);
+  z-index: 1000;
 }
 
 /* The full scrollbar area */
@@ -58,27 +59,40 @@ a{
   padding: 0.76863rem 1.08144rem 0.80975rem 0.80975rem;
   border-radius: 0.41594rem;
   background: #282828;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.navSection:hover {
+  background: #333333;
+  transform: translateX(3px);
 }
 
 .navSection a {
   text-decoration: none;
   color: white; 
-  background: #282828;
+  background: transparent;
+  transition: color 0.2s ease;
 }
 
 .navSection p {
   margin: 0;
-  background: #282828;
+  background: transparent;
 }
 
 .active{
   padding: 0.76863rem 1.08144rem 0.80975rem 0.80975rem;
   border-radius: 0.41594rem;
   background: #1A3C54;
+  box-shadow: 0 0 12px rgba(22, 107, 168, 0.2);
+}
+
+.active:hover {
+  background: #1A3C54;
+  transform: none;
 }
 
 .active a, .active p{
-  background-color: #1A3C54; 
+  background-color: transparent; 
 }
 
 .profile{
@@ -98,7 +112,7 @@ a{
 .buttonsSection{
   display: flex;
   gap: 0.5rem;
-  
+  flex-wrap: wrap;
   background-color: #242424;
 }
 
@@ -112,6 +126,17 @@ a{
   font-size: 0.8rem;
   font-weight: 300;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background: rgba(195, 7, 48, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(195, 7, 48, 0.25);
+}
+
+.logoutBtn:active {
+  transform: translateY(0);
 }
 
 .changeBtn{
@@ -124,10 +149,173 @@ a{
   font-size: 0.8rem;
   font-weight: 300;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
-@media (max-width: 768px){
-  .navBar{
-    display: none;
+.changeBtn:hover {
+  background: rgba(195, 7, 48, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(195, 7, 48, 0.25);
+}
+
+.changeBtn:active {
+  transform: translateY(0);
+}
+
+/* Mobile hamburger button */
+.mobile-hamburger {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  width: 40px;
+  height: 40px;
+  background: #242424;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.hamburger-line {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .navBar {
+    width: 22%;
+    font-size: 0.75rem;
+  }
+  
+  .navSection {
+    width: 85%;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .profile-content h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .mobile-hamburger {
+    display: flex;
+  }
+  
+  .mobile-overlay {
+    display: block;
+  }
+  
+  .navBar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    padding: 4rem 1rem 2rem 1rem;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .navBar.mobile-open {
+    left: 0;
+  }
+  
+  .navContent {
+    gap: 1rem;
+  }
+  
+  .navSection {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .profile {
+    margin-bottom: 2rem;
+  }
+  
+  .profile-content {
+    padding-bottom: 0.5rem;
+  }
+  
+  .profile-content h3 {
+    font-size: 1rem;
+  }
+  
+  .buttonsSection {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .logoutBtn, .changeBtn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    text-align: center;
+  }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+  .navBar {
+    width: 85%;
+    max-width: none;
+  }
+  
+  .navSection {
+    font-size: 0.8rem;
+  }
+  
+  .mobile-hamburger {
+    top: 0.5rem;
+    left: 0.5rem;
+    width: 36px;
+    height: 36px;
   }
 }

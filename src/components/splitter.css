@@ -9,10 +9,44 @@
     border: 1px solid rgba(201, 201, 201, 0.72);
     background: rgba(68, 68, 68, 0.37);
     font-size: 1.4rem;
+    text-align: center;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.splitter-text:hover {
+    border-color: rgba(22, 107, 168, 0.5);
+    box-shadow: 0 0 10px rgba(22, 107, 168, 0.15);
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .splitter-text {
+        width: 92%;
+        font-size: 1.2rem;
+        height: 3rem;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px){
     .splitter-text{
-        max-width: 25rem;
+        width: 100%;
+        max-width: none;
+        font-size: 1rem;
+        height: 2.5rem;
+        padding: 0 0.5rem;
+        margin: 0 0.5rem;
+        box-sizing: border-box;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .splitter-text {
+        font-size: 0.9rem;
+        height: 2.2rem;
+        margin: 0 0.25rem;
     }
 }

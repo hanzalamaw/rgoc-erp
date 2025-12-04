@@ -5,6 +5,18 @@
     background-color: #0d9affad;
     border-radius: 5px;
     cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.addNewLoanBtn:hover {
+    background-color: #0D99FF;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(13, 154, 255, 0.3);
+}
+
+.addNewLoanBtn:active {
+    transform: translateY(0);
 }
 
 .loanHeader{
@@ -13,6 +25,12 @@
     align-items: center;
     width: 84%;
     margin-bottom: -3.5%;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.loanHeader h1 {
+    font-size: 1.5rem;
 }
 
 /* Overlay + modal container */
@@ -28,6 +46,8 @@
   opacity: 0;    
   pointer-events: none;   /* hidden by default */
   transition: opacity 220ms ease;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 /* show the popup by toggling .show on .newLoanModal */
@@ -38,9 +58,11 @@
 
 /* Modal card */
 .newLoanModal .content {
-  width: clamp(320px, 86%, 520px);
+  width: clamp(280px, 90%, 520px);
+  max-height: 90vh;
+  overflow-y: auto;
   border-radius: 12px;
-  padding: 3rem 3rem 2rem 3rem;
+  padding: 2rem;
   box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
   transform: translateY(18px) scale(.995);
   transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 200ms;
@@ -84,6 +106,13 @@
     border-radius: 5px;
     font-size: 0.95rem;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.newLoanModal .content button:hover {
+    background: rgba(195, 7, 48, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(195, 7, 48, 0.25);
 }
 
 .newLoanModal .content button:active {
@@ -104,11 +133,17 @@
     border: 0.1rem solid #0b7e19 !important;
 }
 
+.submitBtn:hover {
+    background: rgba(10, 195, 7, 0.4) !important;
+    box-shadow: 0 4px 12px rgba(10, 195, 7, 0.25) !important;
+}
+
 .loanBtns{
     display: flex;
     justify-content: right;
     align-items: center;
     gap: 1rem !important;
+    flex-wrap: wrap;
 }
 
 /* Respect prefers-reduced-motion */
@@ -135,25 +170,40 @@
 }
 
 .loanInputSection input{
-  width: 97.5%;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #cccccc3f;
   border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px; /* Prevents iOS zoom on focus */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.loanInputSection input:hover, .loanInputSection input:focus{
+.loanInputSection input:hover {
   border: 1px solid #cccccc;
+}
+
+.loanInputSection input:focus{
+  border: 1px solid #cccccc;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.1);
 }
 
 .loanInputSection select{
-  width: 97.5%;
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid #cccccc3f;
   border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.loanInputSection select:hover, .loanInputSection select:focus{
+.loanInputSection select:hover {
   border: 1px solid #cccccc;
+}
+
+.loanInputSection select:focus{
+  border: 1px solid #cccccc;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.1);
 }
 
 .errorSection p{
@@ -172,6 +222,7 @@
   justify-content: left;
   align-items: center;
 }
+
 .displaySectionContents{
   text-align: left;
   justify-content: left;
@@ -189,4 +240,101 @@
 
 tr{
    cursor: pointer;
+   transition: background-color 0.15s ease;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .loanHeader {
+        width: 92%;
+    }
+    
+    .loanHeader h1 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .loanHeader {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0;
+    }
+    
+    .loanHeader h1 {
+        font-size: 1.2rem;
+    }
+    
+    .addNewLoanBtn {
+        width: 100%;
+        padding: 0.6rem 1rem;
+    }
+    
+    /* Modal mobile styles */
+    .newLoanModal .content {
+        padding: 1.5rem;
+        width: calc(100% - 2rem);
+        max-width: 400px;
+    }
+    
+    .loanModalHeader h1 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .displaySectionContent {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+    
+    .displaySectionContent p {
+        margin-bottom: 0.5rem !important;
+        font-size: 0.8rem;
+    }
+    
+    .loanDetailsSection {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .loanInputSection {
+        margin-bottom: 1rem;
+    }
+    
+    .loanInputSection label {
+        font-size: 0.9rem;
+    }
+    
+    .loanBtns {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .loanBtns button {
+        flex: 1;
+        min-width: 100px;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .loanHeader {
+        padding: 0 0.25rem;
+    }
+    
+    .newLoanModal .content {
+        padding: 1rem;
+    }
+    
+    .loanModalHeader h1 {
+        font-size: 1.1rem;
+    }
+    
+    .displaySectionContent p {
+        font-size: 0.75rem;
+    }
 }

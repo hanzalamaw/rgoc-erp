@@ -1,6 +1,6 @@
 .table { 
     width: 100%;
-    background-color: white;
+    background-color: #1f1f1f;
     border-radius: 15px !important;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     padding: 1rem;
@@ -14,15 +14,26 @@
 
 .table th{
     background: #1f1f1f;
+    transition: background-color 0.2s ease;
 }
 
 .table td{
     background: #252525;
+    transition: background-color 0.2s ease;
 }
 
 .table th, .table td {
     padding: 12px 16px;
     font-size: 13px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover td {
+    background: #2d2d2d;
 }
 
 .table tr {
@@ -35,6 +46,12 @@
     font-weight: bold;
     font-size: 12px;
     display: inline-block;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.badge:hover {
+    transform: scale(1.02);
 }
 
 .badge.received {
@@ -54,6 +71,12 @@
 td button{
     background-color: transparent;
     border: none;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+td button:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
 }
 
 .status-cell {
@@ -63,6 +86,12 @@ td button{
 
 .status-cell img {
     cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.status-cell img:hover {
+    transform: scale(1.15);
+    opacity: 0.85;
 }
 
 .table-wrapper {
@@ -71,10 +100,16 @@ td button{
     max-height: 90vh;
     width: 85%;
     border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background: #1f1f1f;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     margin-bottom: 1rem !important;
-    border: 0.1rem solid #9e9e9e !important;
+    border: 0.1rem solid rgba(255,255,255,0.15) !important;
+    -webkit-overflow-scrolling: touch;
+    transition: box-shadow 0.2s ease;
+}
+
+.table-wrapper:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 }
 
 /* The full scrollbar area */
@@ -99,6 +134,7 @@ td button{
 .table {
     width: max-content;
     border-collapse: collapse;
+    min-width: 100%;
 }
 
 .table th, .table td {
@@ -113,11 +149,17 @@ td button{
     border-radius: 6px;
     font-size: 12px;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .export-btn:hover {
     background-color: #4830cc;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(90, 60, 247, 0.3);
+}
+
+.export-btn:active {
+    transform: translateY(0);
 }
 
 .arrow-btn {
@@ -169,6 +211,7 @@ td button{
     justify-content: center;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
 }
 
 .next label {
@@ -183,6 +226,11 @@ td button{
     border-radius: 5px;
     border: 0.1rem solid rgba(255, 255, 255, 0.137);
     font-size: 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.next input:hover {
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .next button {
@@ -195,6 +243,17 @@ td button{
     cursor: pointer;
     font-weight: bold;
     font-size: 12px;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.next button:hover {
+    background: #1a7fc4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22, 107, 168, 0.3);
+}
+
+.next button:active {
+    transform: translateY(0);
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -229,6 +288,11 @@ select {
     padding: 0.3rem 0.5rem;
     border-radius: 5px;
     border: 0.1rem solid rgba(255, 255, 255, 0.356);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:hover {
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 select:focus {
@@ -242,6 +306,12 @@ select:focus {
     justify-content: space-between;
     align-items: center;
     width: 85%;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.topBar h2 {
+    font-size: 1.3rem;
 }
 
 .topFilters{
@@ -249,6 +319,7 @@ select:focus {
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .topFilters input{
@@ -259,6 +330,11 @@ select:focus {
     color: white;
     width: 7rem;
     border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topFilters input:hover {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .topFilters select{
@@ -269,6 +345,11 @@ select:focus {
     color: white;
     width: 9rem;
     border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topFilters select:hover {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .topFilters select:focus{
@@ -290,6 +371,12 @@ select:focus {
     line-height: 1;
     cursor: pointer;
     margin-left: 0.2rem;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.packageBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
 }
 
 /* Overlay + modal container */
@@ -305,6 +392,8 @@ select:focus {
   opacity: 0;    
   pointer-events: none;   /* hidden by default */
   transition: opacity 220ms ease;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 /* show the popup by toggling .show on .blockedUser */
@@ -315,9 +404,11 @@ select:focus {
 
 /* Modal card */
 .blockedUser .content {
-  width: clamp(320px, 86%, 520px);
+  width: clamp(280px, 90%, 520px);
+  max-height: 90vh;
+  overflow-y: auto;
   border-radius: 12px;
-  padding: 3rem 3rem 2rem 3rem;
+  padding: 2rem;
   box-shadow: 0 18px 40px rgba(2, 6, 23, 0.35);
   transform: translateY(18px) scale(.995);
   transition: transform 240ms cubic-bezier(.2,.9,.3,1), box-shadow 200ms;
@@ -366,6 +457,13 @@ select:focus {
     border-radius: 5px;
     font-size: 0.95rem;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.blockedUser .content button:hover {
+    background: rgba(195, 7, 48, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(195, 7, 48, 0.25);
 }
 
 .blockedUser .content button:active {
@@ -378,6 +476,243 @@ select:focus {
   outline: 3px solid rgba(255, 255, 255, 0.466);
   outline-offset: 3px;
   border-radius: 9px;
+}
+
+/* History section in modal */
+.history {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: left;
+    margin-bottom: 1rem;
+    background: transparent;
+}
+
+.history div {
+    background: transparent;
+}
+
+.history b {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.history p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem !important;
+}
+
+/* =====================================================
+   CUSTOMER HISTORY MODAL - SPECIFIC STYLES
+   These styles ONLY affect the customer history modal
+   ===================================================== */
+
+/* Wider modal for customer history */
+.customer-history-modal .content {
+    width: clamp(380px, 92%, 850px) !important;
+    max-height: 85vh;
+    padding: 1.5rem 2rem 2rem;
+    background: linear-gradient(145deg, #1a1a1a 0%, #1f1f1f 50%, #181818 100%);
+    border: 1px solid rgba(22, 107, 168, 0.25);
+}
+
+/* Title styling for customer history modal */
+.customer-history-modal .content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #e0f0ff;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid rgba(22, 107, 168, 0.4);
+    background: transparent;
+}
+
+/* Grid layout for history cards */
+.customer-history-modal .history-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    background: transparent;
+}
+
+/* Individual history cards */
+.customer-history-modal .history-card {
+    background: rgba(26, 60, 84, 0.25);
+    border-radius: 10px;
+    border: 1px solid rgba(22, 107, 168, 0.2);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.customer-history-modal .history-card:hover {
+    border-color: rgba(22, 107, 168, 0.45);
+    box-shadow: 0 4px 20px rgba(22, 107, 168, 0.15);
+}
+
+/* Card headers */
+.customer-history-modal .history-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(22, 107, 168, 0.15);
+    border-bottom: 1px solid rgba(22, 107, 168, 0.2);
+}
+
+.customer-history-modal .history-icon {
+    font-size: 1.1rem;
+    background: transparent;
+}
+
+.customer-history-modal .history-card-header b {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #a8d4f0;
+    background: transparent;
+    margin: 0;
+}
+
+/* Card content area */
+.customer-history-modal .history-card-content {
+    padding: 0.75rem 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    background: transparent;
+}
+
+/* Scrollbar styling for card content */
+.customer-history-modal .history-card-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.customer-history-modal .history-card-content::-webkit-scrollbar-track {
+    background: rgba(26, 60, 84, 0.3);
+}
+
+.customer-history-modal .history-card-content::-webkit-scrollbar-thumb {
+    background: rgba(22, 107, 168, 0.4);
+    border-radius: 10px;
+}
+
+.customer-history-modal .history-card-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(22, 107, 168, 0.6);
+}
+
+/* History items */
+.customer-history-modal .history-item {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #b8d4e8;
+    padding: 0.5rem 0.6rem;
+    margin: 0.35rem 0;
+    background: rgba(26, 60, 84, 0.35);
+    border-radius: 6px;
+    border-left: 3px solid rgba(22, 107, 168, 0.5);
+    transition: background-color 0.15s ease;
+}
+
+.customer-history-modal .history-item:hover {
+    background: rgba(26, 60, 84, 0.5);
+}
+
+/* Loading state */
+.customer-history-modal .history-loading {
+    font-size: 0.85rem;
+    color: #166ba8;
+    text-align: center;
+    padding: 1rem;
+    background: transparent;
+    animation: historyPulse 1.5s infinite;
+}
+
+@keyframes historyPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* Empty state */
+.customer-history-modal .history-empty {
+    font-size: 0.82rem;
+    color: #6b7280;
+    text-align: center;
+    padding: 1rem;
+    background: transparent;
+    font-style: italic;
+}
+
+/* Error state */
+.customer-history-modal .history-error {
+    font-size: 0.82rem;
+    color: #f87171;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(248, 113, 113, 0.1);
+    border-radius: 6px;
+}
+
+/* Close button styling */
+.customer-history-modal .history-close-btn {
+    background: rgba(22, 107, 168, 0.2) !important;
+    color: #a8d4f0 !important;
+    border: 1px solid rgba(22, 107, 168, 0.4) !important;
+    padding: 0.5rem 1.5rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500;
+    border-radius: 8px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.customer-history-modal .history-close-btn:hover {
+    background: rgba(22, 107, 168, 0.35) !important;
+    border-color: rgba(22, 107, 168, 0.6) !important;
+    box-shadow: 0 0 8px 2px #1a3c548f;
+}
+
+/* Responsive styles for customer history modal */
+@media (max-width: 768px) {
+    .customer-history-modal .content {
+        width: calc(100% - 1.5rem) !important;
+        padding: 1.25rem 1rem 1.5rem;
+    }
+
+    .customer-history-modal .content h2 {
+        font-size: 1.25rem;
+    }
+
+    .customer-history-modal .history-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .customer-history-modal .history-card-content {
+        max-height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .customer-history-modal .content {
+        padding: 1rem 0.75rem 1.25rem;
+    }
+
+    .customer-history-modal .content h2 {
+        font-size: 1.1rem;
+    }
+
+    .customer-history-modal .history-card-header {
+        padding: 0.6rem 0.75rem;
+    }
+
+    .customer-history-modal .history-card-header b {
+        font-size: 0.85rem;
+    }
+
+    .customer-history-modal .history-item {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.5rem;
+    }
 }
 
 /* Respect prefers-reduced-motion */
@@ -405,7 +740,13 @@ select:focus {
     border: 0.1rem solid rgba(255, 255, 255, 0.452);
     color: white;
     width: 20%;
+    min-width: 120px;
     border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addNewExpense input:hover {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .addNewExpense button{
@@ -415,8 +756,10 @@ select:focus {
     border: 0.1rem solid rgba(255, 255, 255, 0.452);
     color: white;
     width: 23%;
+    min-width: 140px;
     border-radius: 10px;
     cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, transform 0.15s ease;
 }
 
 .addNewExpense button:hover{
@@ -452,6 +795,11 @@ select:focus {
     color: white;
     width: 9rem;
     border-radius: 10px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addNewExpense select:hover {
+    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .addNewExpense select:focus{
@@ -468,4 +816,182 @@ select:focus {
 
 .delete-btn{
     cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.delete-btn:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .topBar {
+        width: 92%;
+    }
+    
+    .table-wrapper {
+        width: 92%;
+    }
+    
+    .addNewExpense {
+        width: 92%;
+    }
+    
+    .topBar h2 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .topBar {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .topBar h2 {
+        font-size: 1.1rem;
+        width: 100%;
+    }
+    
+    .topFilters {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .topFilters input {
+        flex: 1;
+        min-width: 100px;
+        width: auto;
+    }
+    
+    .topFilters select {
+        width: auto;
+        min-width: 100px;
+    }
+    
+    #hiderr {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+    
+    .table-wrapper {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        max-height: 70vh;
+        border-radius: 8px;
+    }
+    
+    .table {
+        min-width: 800px;
+    }
+    
+    .table th, .table td {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+    
+    .badge {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+    
+    .next {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .next input {
+        width: 100px;
+        font-size: 11px;
+    }
+    
+    .next button {
+        width: 100px;
+        font-size: 11px;
+    }
+    
+    .dropdown-row td {
+        padding: 10px;
+    }
+    
+    .addNewExpense {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+    }
+    
+    .addNewExpense input {
+        width: 100%;
+        min-width: 0;
+    }
+    
+    .addNewExpense button {
+        width: 100%;
+        min-width: 0;
+    }
+    
+    /* Modal mobile styles */
+    .blockedUser .content {
+        padding: 1.5rem;
+        width: calc(100% - 2rem);
+        max-width: 400px;
+    }
+    
+    .blockedUser .content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .blockedUser .content p {
+        font-size: 0.8rem;
+    }
+    
+    .history {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* Small mobile styles */
+@media (max-width: 480px) {
+    .topBar {
+        padding: 0 0.25rem;
+    }
+    
+    .topFilters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .topFilters input,
+    .topFilters select,
+    #hiderr {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .table-wrapper {
+        padding: 0 0.25rem;
+    }
+    
+    .table th, .table td {
+        padding: 6px 8px;
+        font-size: 10px;
+    }
+    
+    .blockedUser .content {
+        padding: 1rem;
+    }
+    
+    .addNewExpense {
+        padding: 0 0.25rem;
+        gap: 0.5rem;
+    }
 }

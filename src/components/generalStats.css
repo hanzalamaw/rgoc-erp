@@ -16,7 +16,7 @@
 
 .gen-card{
     flex: 1;
-    width: 100%;
+    min-width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,6 +26,13 @@
     border: 0.794px solid #444 !important;
     background: #242424;
     margin-bottom: 1%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gen-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    border-color: rgba(22, 107, 168, 0.4) !important;
 }
 
 .upper-content{
@@ -66,14 +73,39 @@ span{
     overflow: hidden;
 }
 
+#totalPeople{
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .generals {
+        width: 92%;
+    }
+    
+    .gen-card {
+        min-width: 180px;
+        height: auto;
+        min-height: 5.5rem;
+    }
+    
+    .upper-content h3 {
+        font-size: 1.3rem;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px){
     .generals{
         width: 100%;
-        display: grid;
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 1rem;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
     }
 
     .gen-cards{
@@ -82,14 +114,56 @@ span{
         justify-content: center;
         align-items: center;
         width: 100%;
+        gap: 0.8rem;
     }
 
     .gen-card{
-        flex: 1 1 250px;
+        flex: 1 1 100%;
+        min-width: 0;
+        width: 100%;
+        height: auto;
+        min-height: 5rem;
+    }
+    
+    .upper-content {
+        padding: 0.8rem;
+    }
+    
+    .upper-content h3 {
+        font-size: 1.4rem;
+    }
+    
+    .upper-content p {
+        font-size: 0.7rem;
+    }
+    
+    #totalPeople {
+        font-size: 0.8rem;
     }
 }
 
-#totalPeople{
-    font-size: 0.9rem;
-    font-weight: 400;
+/* Small mobile - Two column grid for cards */
+@media (min-width: 400px) and (max-width: 768px) {
+    .gen-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gen-card {
+        min-height: 5.5rem;
+    }
+    
+    .upper-content h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Very small mobile */
+@media (max-width: 399px) {
+    .gen-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .upper-content h3 {
+        font-size: 1.3rem;
+    }
 }

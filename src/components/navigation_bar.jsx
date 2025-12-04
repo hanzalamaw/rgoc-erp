@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 function NavigationBar(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const token = getToken();
   if (!token) {
@@ -45,6 +46,22 @@ function NavigationBar(props) {
     }
   }, [role, location.pathname, navigate]);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isMobileMenuOpen && !e.target.closest('.navBar') && !e.target.closest('.mobile-hamburger')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
   const logout = () => {
     localStorage.clear();
     window.location.reload();
@@ -54,32 +71,50 @@ function NavigationBar(props) {
     navigate('/');
   }
 
-  return (
-    <div className='navBar'>
-      <div className='navContent'>
-        {filteredNavItems.map(item => (
-          <div
-            className={`navSection ${props.active === item.id ? 'active' : ''}`}
-            id={item.id}
-            key={item.id}
-          >
-            <Link to={item.path}>{item.label}</Link>
-            <p>›</p>
-          </div>
-        ))}
-      </div>
+  const toggleMobileMenu = (e) => {
+    e.stopPropagation();
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  }
 
-      <div className='profile'>
-        <div className='profile-content'>
-          <p>Logged in as</p>
-          <h3>{getUser()?.name}</h3>
+  return (
+    <>
+      {/* Mobile Hamburger Button */}
+      <button className="mobile-hamburger" onClick={toggleMobileMenu} aria-label="Toggle menu">
+        <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+      </button>
+
+      {/* Overlay for mobile */}
+      <div className={`mobile-overlay ${isMobileMenuOpen ? 'show' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+
+      <div className={`navBar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+        <div className='navContent'>
+          {filteredNavItems.map(item => (
+            <div
+              className={`navSection ${props.active === item.id ? 'active' : ''}`}
+              id={item.id}
+              key={item.id}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Link to={item.path}>{item.label}</Link>
+              <p>›</p>
+            </div>
+          ))}
         </div>
-        <div className='buttonsSection'>
-          <button className='changeBtn' onClick={changeCompany}>Change Company</button>
-          <button className='logoutBtn' onClick={logout}>Logout</button>
+
+        <div className='profile'>
+          <div className='profile-content'>
+            <p>Logged in as</p>
+            <h3>{getUser()?.name}</h3>
+          </div>
+          <div className='buttonsSection'>
+            <button className='changeBtn' onClick={changeCompany}>Change Company</button>
+            <button className='logoutBtn' onClick={logout}>Logout</button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

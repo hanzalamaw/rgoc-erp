@@ -2,6 +2,16 @@
     width: 85%;
     display: flex;
     flex-direction: column;
+    overflow-x: auto;
+}
+
+#performanceTable {
+    width: 100%;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    padding: 1rem;
+    border-collapse: collapse;
+    min-width: 600px;
 }
 
 #performanceTable tr{
@@ -32,6 +42,11 @@ table{
 #performanceTable tbody tr, #performanceTable tbody tr td{
     background: #454545;
     text-align: left;
+    transition: background-color 0.15s ease;
+}
+
+#performanceTable tbody tr:hover, #performanceTable tbody tr:hover td {
+    background: #505050;
 }
 
 #performanceTable th,
@@ -40,8 +55,67 @@ table{
     padding: 12px 16px;
     font-size: 14px;
     text-align: left;
+    white-space: nowrap;
 }
 
 #performanceTable tr {
     border-bottom: 1px solid #eeeeeeaf;
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .teamPerformance {
+        width: 92%;
+    }
+    
+    #performanceTable th,
+    #performanceTable td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .teamPerformance {
+        width: 100%;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    #performanceTable {
+        min-width: 550px;
+        padding: 0.5rem;
+    }
+    
+    #performanceTable th,
+    #performanceTable td {
+        padding: 8px 10px;
+        font-size: 12px;
+        min-width: 70px;
+    }
+    
+    #performanceTable tr {
+        gap: 0.5rem;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    .teamPerformance {
+        padding: 0 0.25rem;
+    }
+    
+    #performanceTable {
+        min-width: 500px;
+    }
+    
+    #performanceTable th,
+    #performanceTable td {
+        padding: 6px 8px;
+        font-size: 11px;
+        min-width: 60px;
+    }
 }
