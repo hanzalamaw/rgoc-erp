@@ -97,11 +97,17 @@ function Loans({ onLoanAdded }) {
 
       console.log('Update Booking Response:', updateBookingResponse.data);
 
+      const rawDate = bookingResponse.data.data[0].booking_date;
+
+      // Convert ISO → MySQL format (YYYY-MM-DD)
+      const formattedBookingDate = new Date(rawDate).toISOString().split("T")[0];
+
+
       // Always proceed with adding the loan, even if the booking is already up to date
       const loanResponse = await axios.post(`${apiURL}/add-loan`, {
         booking_id: encodedBookingId,
         customer_id: bookingResponse.data.data[0].customer_id,
-        booking_date: bookingResponse.data.data[0].booking_date,
+        booking_date: formattedBookingDate,
         name: bookingResponse.data.data[0].name,
         contact: bookingResponse.data.data[0].contact,
         type: bookingResponse.data.data[0].type,
