@@ -1,8 +1,10 @@
 import './inputForm.css'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function inputForm(){
     const apiURL = import.meta.env.VITE_API_URL;
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         id: "",
@@ -146,7 +148,7 @@ function inputForm(){
 
         if (res.ok) {
             alert("Booking added successfully ✅");
-            window.location.reload();
+            navigate('/gdtt-newBooking');
             if(!(document.getElementById("keepInfo").checked)){
                 e.target.reset();
             }

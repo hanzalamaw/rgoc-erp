@@ -64,7 +64,7 @@ function NavigationBar(props) {
 
   const logout = () => {
     localStorage.clear();
-    window.location.reload();
+    navigate('/');
   }
 
   const changeCompany = () => {
