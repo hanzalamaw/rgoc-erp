@@ -65,7 +65,7 @@ function home(){
                 <div className='filter-wrapper'>
                     <div className='filterStats'>
 
-                        <h1>DASHBOARD</h1>
+                        <h1>DAAAAASHBOARD</h1>
                     
                         <div className='filters'>
                             <select name="byGroup" id="byGroup" onChange={setCampaign}>
