@@ -158,7 +158,11 @@ function LoginForm() {
         
         document.querySelector(".statusMsg").style.display = "flex";
         document.getElementById("message").style.color = "#e20636";
-        document.getElementById("message").textContent=`Invalid Credentials!`;
+        const fallbackMessage = err?.message || "Login request failed";
+        document.getElementById("message").textContent =
+          fallbackMessage === "Invalid credentials"
+            ? "Invalid Credentials!"
+            : `Login failed: ${fallbackMessage}`;
       });
   }
 
